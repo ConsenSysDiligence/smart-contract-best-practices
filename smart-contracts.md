@@ -135,13 +135,43 @@ if(!someAddress.send(55)) {
 ```
 
 
-### DoS with (Unexpected) Throw
+### Ensure loops don't fail or stall
 
-Let’s assume one wants to iterate through an array to pay users accordingly. In some circumstances, one wants to make sure that a contract call succeeding (like having paid the address). If not, one should throw. The issue in this scenario is that if one call fails, you are reverting the whole payout system, essentially forcing a deadlock. No one gets paid, because one address is forcing an error.
+Loops may sometimes never complete - meaning that the containing function may always fail.
 
-((code snippet)) ((insert from https://blog.ethereum.org/2016/06/19/thinking-smart-contract-security/))
+For example, blocks of code have an explicit gas limit, and so you should never allow loops that can have arbitrary lengths based on usage. These loops may never conclude, leading to broken contracts - or may allow an attacker to force you to use an excessive amount of gas for computation.
 
-The recommended pattern is that each user should withdraw their payout themselves.
+Further, when loops call other contracts (like a `.send`), they can fail leading to the failure of the entire loop - if failure is not handled correctly.
+
+```
+address[] private refundAddresses;
+mapping (address => uint) public refunds;
+
+// bad
+function refundAll() public {
+    for(uint x; x < refundAddresses.length; x++) { // arbitrary length iteration based on how many addresses participated
+        if(refundAddresses[x].send(refunds[refundAddresses[x]])) {
+            throw; // doubly bad, now a single failure on send will hold up all funds
+        }
+    }
+}
+
+// good
+mapping (address => uint) private refunds;
+
+function getRefund() public {
+    if(refunds[msg.sender] > 0) {
+        uint amountToSend = refunds[msg.sender];
+        refunds[msg.sender] = 0;
+
+        if(!msg.sender.send(refunds[msg.sender])) {
+            refunds[msg.sender] = amountToSend;
+        }
+    }
+}
+```
+
+Source: [Smart Contract Security](https://blog.ethereum.org/2016/06/10/smart-contract-security/)
 
 ### Favor *pull* payments over *push* payments
 
