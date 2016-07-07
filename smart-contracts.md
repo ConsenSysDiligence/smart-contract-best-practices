@@ -112,14 +112,6 @@ if(!someAddress.call.value(100000)()) { // forwards fixed amount of gas
 
 Source: [Smart Contract Security](https://blog.ethereum.org/2016/06/10/smart-contract-security/)
 
-### DoS with (Unexpected) Throw
-
-Let’s assume one wants to iterate through an array to pay users accordingly. In some circumstances, one wants to make sure that a contract call succeeding (like having paid the address). If not, one should throw. The issue in this scenario is that if one call fails, you are reverting the whole payout system, essentially forcing a deadlock. No one gets paid, because one address is forcing an error.
-
-((code snippet)) ((insert from https://blog.ethereum.org/2016/06/19/thinking-smart-contract-security/))
-
-The recommended pattern is that each user should withdraw their payout themselves.
-
 ### Design Patterns to avoid external calls: Push vs Pull & Asynchrony
 
 The more ideal scenario is to try and avoid external calls where possible. This is particularly apparent when ether needs to be sent around, across contracts. It’s a potential cascade of calls.
@@ -354,6 +346,24 @@ To summarise the protection against external call attacks:
 - Always make sure to check the result of the call, even when using send(), or even Contract calls. Under no assumption should it be expected that everything went exactly as planned.
 - Move external calls to the end of functions.
 If this can’t be done, make extremely sure that state manipulation across functions won’t be possible.
+
+<a name="iterator-abort"></a>
+
+#### Iterator Abort
+
+Loops that depend on external calls succeeding can fail due to a single malicious party.
+
+```
+address[] refunds; // assume this array is populated
+
+for (uint x = 0; x < refunds.length; x++) {
+  if (refundAddresses[x].send(100)) { // any single address that overrides send to return a failure can now prevent payments for the entire group
+    throw;
+  }
+}
+```
+
+The recommended pattern is that each user should withdraw their refund themselves.
 
 ### DoS with Block Gas Limit
 
