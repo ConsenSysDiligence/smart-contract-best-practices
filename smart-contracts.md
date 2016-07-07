@@ -409,15 +409,13 @@ To summarise the protection against external call attacks:
 - Move external calls to the end of functions.
 If this can’t be done, make extremely sure that state manipulation across functions won’t be possible.
 
-### DoS with Block Gas Limit
+<a name="iteration-maximum"></a>
 
-All Ethereum transactions must consume an amount of gas lower than the block gas limit (BGL).  An attacker can cause a denial-of-service against the contract, if the attacker can manipulate the gas used by the contract to provide the service.
+#### Iteration Maximum
 
-Example: Manipulating the amount of elements in an array can increase gas costs substantially, forcing a DoS with the BGL. Taking the previous example, of wanting to pay out some stakeholders iteratively, it might seem fine, assuming that the amount of stakeholders won’t increase too much. The attacker would buy up, say 10000 tokens, and then split all 10000 tokens amongst 10000 addresses, causing the amount of iterations to increase, potentially exceeding the BGL.  Note that a contract cannot rely on gas refunds to protect against this DoS, because gas refunds are only provided at the end.
+Manipulating the amount of elements in an array can increase gas costs substantially - or prevent the code from running if the block maximum is hit. For example, a malicious party can create a large number of entities to break iterative payout code.
 
-To mitigate around this, a pull vs push model comes in handy. For example:
-
-((code snippet))
+The preferred way to mitigate this is to transform push models to an individual pull model.
 
 An alternative approach is to have a payout loop that can be split across multiple transactions, like so:
 
@@ -426,14 +424,15 @@ struct Payee {
     address addr;
     uint256 value;
 }
+
 Payee payees[];
-uint256 nextPayeeIndex;
+uint256 nextPayeeIndex = 0;
 
 function payOut() {
     uint256 i = nextPayeeIndex;
     while (i < payees.length && msg.gas > 200000) {
-	payees[i].addr.send(payees[i].value);
-	i++;
+        payees[i].addr.send(payees[i].value);
+        i++;
     }
     nextPayeeIndex = i;
 }
