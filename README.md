@@ -179,7 +179,7 @@ contract auction {
         uint refund = refunds[msg.sender];
         refunds[msg.sender] = 0;
         if (!msg.sender.send(refund)) {
-            refunds[msg.sender] = refund;
+            refunds[msg.sender] = refund; // reverting state changes because send failed
         }
     }
 }
