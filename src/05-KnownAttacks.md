@@ -71,7 +71,7 @@ As you can see, the call depth attack can be a malicious attack on a contract fo
 
 ### Reentrant Attacks
 
-A key benefit of Ethereum is the ability for one contract to call another - but this also can introduce risks, especially when you don't know exactly what the external call will do. Reentrant attacks, which allow a function to be called in a contract while a function in that contract is running, are one example of ths. This can occur when the same function is called again (a recursive reentrant attack), or when another function that shares state with the previously called function is called.
+A key benefit of Ethereum is the ability for one contract to call another - but this also can introduce risks, especially when you don't know exactly what the external call will do. Reentrant attacks, which allow a function to be called in a contract while a function in that contract is running, are one example of this. This can occur when the same function is called again (a recursive reentrant attack), or when another function that shares state with the previously called function is called.
 
 (The DAO hack combined both these attacks)
 
