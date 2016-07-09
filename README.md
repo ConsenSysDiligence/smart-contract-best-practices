@@ -297,18 +297,19 @@ contract auction {
     mapping(address => uint) refunds;
 
     function bid() {
-	if (msg.value < highestBid) throw;
-	if (highestBidder != 0)
-	    refunds[highestBidder] += highestBid;
-	highestBidder = msg.sender;
-	highestBid = msg.value;
+        if (msg.value < highestBid) throw;
+        if (highestBidder != 0) {
+            refunds[highestBidder] += highestBid;
+        }
+        highestBidder = msg.sender;
+        highestBid = msg.value;
     }
 
     function withdrawRefund() {
-	uint refund = refunds[msg.sender];
-	refunds[msg.sender] = 0;
-	msg.sender.send(refund); // vulnerable line.
-	refunds[msg.sender] = refund;
+        uint refund = refunds[msg.sender];
+        refunds[msg.sender] = 0;
+        msg.sender.send(refund); // vulnerable line.
+        refunds[msg.sender] = refund;
     }
 }
 ```
@@ -324,19 +325,18 @@ contract auction {
     function bid() external {
         if (msg.value < highestBid) throw;
         if (highestBidder != 0) {
-	    refunds[highestBidder] += highestBid;
-	}
-
+            refunds[highestBidder] += highestBid;
+        }
         highestBidder = msg.sender;
         highestBid = msg.value;
     }
 
     function withdrawRefund() external {
-	uint refund = refunds[msg.sender];
-	refunds[msg.sender] = 0;
-	if (!msg.sender.send(refund)) {
-	   refunds[msg.sender] = refund;
-	}
+        uint refund = refunds[msg.sender];
+        refunds[msg.sender] = 0;
+        if (!msg.sender.send(refund)) {
+            refunds[msg.sender] = refund;
+        }
     }
 }
 ```
