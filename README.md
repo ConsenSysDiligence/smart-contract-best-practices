@@ -713,7 +713,20 @@ You will need to make sure that nothing bad will happen if other transactions ar
 
 As of the [EIP 150](https://github.com/ethereum/EIPs/issues/150) hardfork, call depth attacks are no longer relevant<sup><a href='http://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack'>\*</a></sup> (all gas would be consumed well before reaching the 1024 call depth limit).
 
-<a name="eng-techniques"></a>
+
+<a name="public-function-attack"></a>
+
+### Explicitly declare accessability of functions and properties
+
+You should explicitly declare a function to be either `public`, `internal`, `external` or `private`. 
+
+The default behaviour for Solidity will always default to `public`. So if you forget to decalre visibility to `pirvate`, anybody would be able to call your function. Functions should not be public or internal, unless there is a really good reason for it. Use private when in doubt. Especially be careful with functions that are called from constructors, or functions that initialize your state. Always ask yourself, "Who will be able to call this function, what happens if they do". 
+
+Likewise with proerties, always ask yourself, "Do I really need to make this property public".
+
+It's important to note that `internal` still means that it's public, i.e. anyone will be able to call it. It's comparable to `protected` in other OO languages. Likewise, `private` doesn't mean that it's hidden. Anybody will be able to read it, because the blockchain is a public ledger. 
+
+The [Parity Wallet multi-sig contract bug](https://blog.parity.io/security-alert-high-2/), reported on 19th July 2017, is a high profile example of a critical vulnerability that relates to this best-practice. An [decleration was not specified](https://github.com/paritytech/parity/commit/b640df8fbb964da7538eef268dffc125b081a82f), instead of a more specific modifier. The attacher was able to to reset the multi-sig addresses to their address by calling this initalizing function that should have not been publically callable.
 
 ## Software Engineering Techniques
 
