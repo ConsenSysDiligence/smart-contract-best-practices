@@ -267,7 +267,6 @@ contract auction {
         uint refund = refunds[msg.sender];
         refunds[msg.sender] = 0;
         require(msg.sender.send(refund)); // revert state if send fails
-        }
     }
 }
 ```
