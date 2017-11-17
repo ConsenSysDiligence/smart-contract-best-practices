@@ -309,3 +309,13 @@ These are recommendations which are no longer relevant due to changes in the pro
 ### Beware division by zero (Solidity < 0.4)
 
 Prior to version 0.4, Solidity [returns zero](https://github.com/ethereum/solidity/issues/670) and does not `throw` an exception when a number is divided by zero. Ensure you're running at least version 0.4.
+
+### Avoid using tx.origin
+
+Never use tx.origin for authorization, another contract can have a method which will call your contract (where the user has some funds for instance) and your contract will authorize that transaction as your address is in tx.origin.
+
+You can read more about it here: [Solidity docs](https://solidity.readthedocs.io/en/develop/security-considerations.html#tx-origin)
+
+Besides the issue with authorization, there is a chance that tx.origin will be removed from the Ethereum protocol in the future, so code that uses tx.origin won't be compatible with future releases [Vitalik: 'Do NOT assume that tx.origin will continue to be usable or meaningful.'](https://ethereum.stackexchange.com/questions/196/how-do-i-make-my-dapp-serenity-proof/200#200)
+
+It's also worth mentioning that tx.origin means that your contract that uses tx.origin cannot be used by another contract as a contract can't be the tx.origin.
