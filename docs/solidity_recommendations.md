@@ -27,15 +27,6 @@ function makeUntrustedWithdrawal(uint amount) {
 }
 ```
 
-
-### Don't make control flow assumptions after external calls
-
-Whether using *raw calls* (of the form `someAddress.call()`) or *contract calls* (of the form `ExternalContract.someMethod()`), assume that malicious code will execute unless the untrusted. Even if `ExternalContract` is not malicious, malicious code can be executed by any contracts *it* calls. 
-
-One particular danger is malicious code may hijack the control flow, leading to race conditions. (See [Race Conditions](https://github.com/ConsenSys/smart-contract-best-practices/#race-conditions) for a fuller discussion of this problem).
-
-If you are making a call to an untrusted external contract, *avoid state changes after the call*.
-
 ### Be aware of the tradeoffs between `send()`, `transfer()`, and `call.value()()`
 
 When sending ether be aware of the relative tradeoffs between the use of
@@ -59,78 +50,11 @@ It is worth pointing out that exclusive use of `send()` or `transfer()` for valu
 does not itself make a contract safe against reentrancy but only makes those
 specific value transfers safe against reentrancy.
 
+## Use `assert()` and `require()` properly
 
-### Handle errors in external calls
+In Solidity 0.4.10 `assert()` and `require()` were introduced. `require(condition)` is meant to be used for input validation, which should be done on any user input, and reverts if the condition is false. `assert(condition)` also reverts if the condition is false but should be used only for invariants: internal errors or to check if your contract has reached an invalid state. Following this paradigm allows formal analysis tools to verify that the invalid opcode can never be reached: meaning no invariants in the code are violated and that the code is formally verified.
 
-Solidity offers low-level call methods that work on raw addresses: `address.call()`, `address.callcode()`, `address.delegatecall()`, and `address.send()`. These low-level methods never throw an exception, but will return `false` if the call encounters an exception. On the other hand, *contract calls* (e.g., `ExternalContract.doSomething()`) will automatically propagate a throw (for example, `ExternalContract.doSomething()` will also `throw` if `doSomething()` throws).
-
-If you choose to use the low-level call methods, make sure to handle the possibility that the call will fail, by checking the return value.
-
-```sol
-// bad
-someAddress.send(55);
-someAddress.call.value(55)(); // this is doubly dangerous, as it will forward all remaining gas and doesn't check for result
-someAddress.call.value(100)(bytes4(sha3("deposit()"))); // if deposit throws an exception, the raw call() will only return false and transaction will NOT be reverted
-
-// good
-if(!someAddress.send(55)) {
-    // Some failure code
-}
-
-ExternalContract(someAddress).deposit.value(100);
-```
-
-
-### Favor *pull* over *push* for external calls
-
-External calls can fail accidentally or deliberately. To minimize the damage caused by such failures, it is often better to isolate each external call into its own transaction that can be initiated by the recipient of the call. This is especially relevant for payments, where it is better to let users withdraw funds rather than push funds to them automatically. (This also reduces the chance of [problems with the gas limit](https://github.com/ConsenSys/smart-contract-best-practices/#dos-with-block-gas-limit).)  Avoid combining multiple `send()` calls in a single transaction.
-
-```sol
-// bad
-contract auction {
-    address highestBidder;
-    uint highestBid;
-
-    function bid() payable {
-        require(msg.value >= highestBid);
-
-        if (highestBidder != 0) {
-            highestBidder.transfer(highestBid); // if this call consistently fails, no one else can bid
-        }
-
-       highestBidder = msg.sender;
-       highestBid = msg.value;
-    }
-}
-
-// good
-contract auction {
-    address highestBidder;
-    uint highestBid;
-    mapping(address => uint) refunds;
-
-    function bid() payable external {
-        require(msg.value >= highestBid);
-
-        if (highestBidder != 0) {
-            refunds[highestBidder] += highestBid; // record the refund that this user can claim
-        }
-
-        highestBidder = msg.sender;
-        highestBid = msg.value;
-    }
-
-    function withdrawRefund() external {
-        uint refund = refunds[msg.sender];
-        refunds[msg.sender] = 0;
-        msg.sender.transfer(refund);
-    }
-}
-```
-
-## Enforce invariants with `assert()`
-
-An assert guard triggers when an assertion fails - such as an invariant property changing. For example, the token to ether issuance ratio, in a token issuance contract, may be fixed. You can verify that this is the case at all times with an `assert()`. Assert guards should often be combined with other techniques, such as pausing the contract and allowing upgrades. (Otherwise, you may end up stuck, with an assertion that is always failing.)
+For example, the token to ether issuance ratio, in a token issuance contract, may be fixed. You can verify that this is the case at all times with an `assert()`. Assert guards should often be combined with other techniques, such as pausing the contract and allowing upgrades. (Otherwise, you may end up stuck, with an assertion that is always failing.)
 
 Example:
 
@@ -149,10 +73,15 @@ contract Token {
 
 Note that the assertion is *not* a strict equality of the balance because the contract can be [forcibly sent ether](#ether-forcibly-sent) without going through the `deposit()` function!
 
+## Remember that Ether can be forcibly sent to an account
 
-## Use `assert()` and `require()` properly
+Beware of coding an invariant that strictly checks the balance of a contract.
 
-In Solidity 0.4.10 `assert()` and `require()` were introduced. `require(condition)` is meant to be used for input validation, which should be done on any user input, and reverts if the condition is false. `assert(condition)` also reverts if the condition is false but should be used only for invariants: internal errors or to check if your contract has reached an invalid state. Following this paradigm allows formal analysis tools to verify that the invalid opcode can never be reached: meaning no invariants in the code are violated and that the code is formally verified.
+An attacker can forcibly send wei to any account and this cannot be prevented (not even with a fallback function that does a `revert()`).
+
+The attacker can do this by creating a contract, funding it with 1 wei, and invoking
+`selfdestruct(victimAddress)`.  No code is invoked in `victimAddress`, so it
+cannot be prevented.
 
 ## Beware rounding with integer division
 
@@ -180,38 +109,9 @@ uint numerator = 5;
 uint denominator = 2;
 ```
 
-## Remember that Ether can be forcibly sent to an account
-
-Beware of coding an invariant that strictly checks the balance of a contract.
-
-An attacker can forcibly send wei to any account and this cannot be prevented (not even with a fallback function that does a `revert()`).
-
-The attacker can do this by creating a contract, funding it with 1 wei, and invoking
-`selfdestruct(victimAddress)`.  No code is invoked in `victimAddress`, so it
-cannot be prevented.
-
-## Don't assume contracts are created with zero balance
-
-An attacker can send wei to the address of a contract before it is created.  Contracts should not assume that its initial state contains a zero balance.  See [issue 61](https://github.com/ConsenSys/smart-contract-best-practices/issues/61) for more details.
-
-## Remember that on-chain data is public
-
-Many applications require submitted data to be private up until some point in time in order to work. Games (eg. on-chain rock-paper-scissors) and auction mechanisms (eg. sealed-bid second-price auctions) are two major categories of examples. If you are building an application where privacy is an issue, take care to avoid requiring users to publish information too early.
-
-Examples:
-
-* In rock paper scissors, require both players to submit a hash of their intended move first, then require both players to submit their move; if the submitted move does not match the hash throw it out.
-* In an auction, require players to submit a hash of their bid value in an initial phase (along with a deposit greater than their bid value), and then submit their action bid value in the second phase.
-* When developing an application that depends on a random number generator, the order should always be (1) players submit moves, (2) random number generated, (3) players paid out. The method by which random numbers are generated is itself an area of active research; current best-in-class solutions include Bitcoin block headers (verified through http://btcrelay.org), hash-commit-reveal schemes (ie. one party generates a number, publishes its hash to "commit" to the value, and then reveals the value later) and [RANDAO](http://github.com/randao/randao).
-* If you are implementing a frequent batch auction, a hash-commit scheme is also desirable.
-
 ## Be aware of the tradeoffs between abstract contracts and interfaces
 
 Both interfaces and abstract contracts provide one with a customizable and re-usable approach for smart contracts. Interfaces, which were introduced in Solidity 0.4.11, are similar to abstract contracts but cannot have any functions implemented. Interfaces also have limitations such as not being able to access storage or inherit from other interfaces which generally makes abstract contracts more practical. Although, Interfaces are certainly useful for designing contracts prior to implementation. Additionally, it is important to keep in mind that if a contract inherits from an abstract contract it must implement all non-implemented functions via overriding or it will be abstract as well.
-
-## In 2-party or N-party contracts, beware of the possibility that some participants may "drop offline" and not return
-
-Do not make refund or claim processes dependent on a specific party performing a particular action with no other way of getting the funds out. For example, in a rock-paper-scissors game, one common mistake is to not make a payout until both players submit their moves; however, a malicious player can "grief" the other by simply never submitting their move - in fact, if a player sees the other player's revealed move and determines that they lost, they have no reason to submit their own move at all. This issue may also arise in the context of state channel settlement. When such situations are an issue, (1) provide a way of circumventing non-participating participants, perhaps through a time limit, and (2) consider adding an additional economic incentive for participants to submit information in all of the situations in which they are supposed to do so.
 
 ## Keep fallback functions simple
 
@@ -300,7 +200,8 @@ contract ExampleContract is PretendingToRevert {
 }
 ```
 
-Contract users (and auditors) should be aware of the full smart contract source code of any application they intend to use. 
+Contract users (and auditors) should be aware of the full smart contract source code of any application they intend to use.
+
 
 ## Avoid using `tx.origin`
 
@@ -312,16 +213,16 @@ pragma solidity 0.4.18;
 contract MyContract {
 
     address owner;
-    
+
     function MyContract() public {
         owner = msg.sender;
     }
-    
+
     function sendTo(address receiver, uint amount) public {
         require(tx.origin == owner);
         receiver.transfer(amount);
     }
-    
+
 }
 
 contract AttackingContract {
@@ -337,7 +238,7 @@ contract AttackingContract {
     function() public {
         myContract.sendTo(attacker, msg.sender.balance);
     }
-    
+
 }
 ```
 
@@ -351,7 +252,7 @@ It's also worth mentioning that by using `tx.origin` you're limiting interoperab
 
 ## Deprecated/historical recommendations
 
-These are recommendations which are no longer relevant due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
+These are recommendations which are no longer relevant due to improvements to solidity. They are recorded here for posterity and awareness.
 
 ### Beware division by zero (Solidity < 0.4)
 
