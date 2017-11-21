@@ -196,8 +196,6 @@ if ((someVariable - 100) % 2 == 0) { // someVariable can be manipulated by the m
 
 ## Integer Overflow and Underflow
 
-Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
-
 Consider a simple token transfer:
 
 ```sol
