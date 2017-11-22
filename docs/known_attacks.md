@@ -1,3 +1,5 @@
+# Protocol Attacks
+
 The following is a list of known attacks which you should be aware of, and defend against when writing smart contracts.
 
 ## Race Conditions<sup><a href='#footnote-race-condition-terminology'>\*</a></sup>
@@ -194,44 +196,41 @@ if ((someVariable - 100) % 2 == 0) { // someVariable can be manipulated by the m
 }
 ```
 
-## Integer Overflow and Underflow
+## DoS with Block Gas Limit
 
-Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
+You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. Each Ethereum block can process a certain maximum amount of computation. If you try to go over that, your transaction will fail.
 
-Consider a simple token transfer:
+This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
+
+This is another reason to [favor pull over push payments](#favor-pull-over-push-payments).
+
+If you absolutely must loop over an array of unknown size, then you should plan for it to potentially take multiple blocks, and therefore require multiple transactions. You will need to keep track of how far you've gone, and be able to resume from that point, as in the following example:
 
 ```sol
-mapping (address => uint256) public balanceOf;
-
-// INSECURE
-function transfer(address _to, uint256 _value) {
-    /* Check if sender has balance */
-    require(balanceOf[msg.sender] >= _value);
-    /* Add and subtract new balances */
-    balanceOf[msg.sender] -= _value;
-    balanceOf[_to] += _value;
+struct Payee {
+    address addr;
+    uint256 value;
 }
 
-// SECURE
-function transfer(address _to, uint256 _value) {
-    /* Check if sender has balance and for overflows */
-    require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= balanceOf[_to]);
+Payee[] payees;
+uint256 nextPayeeIndex;
 
-    /* Add and subtract new balances */
-    balanceOf[msg.sender] -= _value;
-    balanceOf[_to] += _value;
+function payOut() {
+    uint256 i = nextPayeeIndex;
+    while (i < payees.length && msg.gas > 200000) {
+      payees[i].addr.send(payees[i].value);
+      i++;
+    }
+    nextPayeeIndex = i;
 }
 ```
 
-If a balance reaches the maximum uint value (2^256) it will circle back to zero. This checks for that condition. This may or may not be relevant, depending on the implementation. Think about whether or not the uint value has an opportunity to approach such a large number. Think about how the uint variable changes state, and who has authority to make such changes. If any user can call functions which update the uint value, it's more vulnerable to attack. If only an admin has access to change the variable's state, you might be safe. If a user can increment by only 1 at a time, you are probably also safe because there is no feasible way to reach this limit.
+You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
 
-The same is true for underflow. If a uint is made to be less than zero, it will cause an underflow and get set to its maximum value.
 
-Be careful with the smaller data-types like uint8, uint16, uint24...etc: they can even more easily hit their maximum value.
+# Solidity Attacks
 
-Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
-
-<a name="dos-with-unexpected-revert"></a>
+The following are attacks specific to the Solidity Runtime
 
 ## DoS with (Unexpected) revert
 
@@ -273,36 +272,45 @@ function refundAll() public {
 
 Again, the recommended solution is to [favor pull over push payments](#favor-pull-over-push-payments).
 
-## DoS with Block Gas Limit
+## Integer Overflow and Underflow
 
-You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. Each Ethereum block can process a certain maximum amount of computation. If you try to go over that, your transaction will fail.
+Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
 
-This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
-
-This is another reason to [favor pull over push payments](#favor-pull-over-push-payments).
-
-If you absolutely must loop over an array of unknown size, then you should plan for it to potentially take multiple blocks, and therefore require multiple transactions. You will need to keep track of how far you've gone, and be able to resume from that point, as in the following example:
+Consider a simple token transfer:
 
 ```sol
-struct Payee {
-    address addr;
-    uint256 value;
+mapping (address => uint256) public balanceOf;
+
+// INSECURE
+function transfer(address _to, uint256 _value) {
+    /* Check if sender has balance */
+    require(balanceOf[msg.sender] >= _value);
+    /* Add and subtract new balances */
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
 }
 
-Payee[] payees;
-uint256 nextPayeeIndex;
+// SECURE
+function transfer(address _to, uint256 _value) {
+    /* Check if sender has balance and for overflows */
+    require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= balanceOf[_to]);
 
-function payOut() {
-    uint256 i = nextPayeeIndex;
-    while (i < payees.length && msg.gas > 200000) {
-      payees[i].addr.send(payees[i].value);
-      i++;
-    }
-    nextPayeeIndex = i;
+    /* Add and subtract new balances */
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
 }
 ```
 
-You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
+If a balance reaches the maximum uint value (2^256) it will circle back to zero. This checks for that condition. This may or may not be relevant, depending on the implementation. Think about whether or not the uint value has an opportunity to approach such a large number. Think about how the uint variable changes state, and who has authority to make such changes. If any user can call functions which update the uint value, it's more vulnerable to attack. If only an admin has access to change the variable's state, you might be safe. If a user can increment by only 1 at a time, you are probably also safe because there is no feasible way to reach this limit.
+
+The same is true for underflow. If a uint is made to be less than zero, it will cause an underflow and get set to its maximum value.
+
+Be careful with the smaller data-types like uint8, uint16, uint24...etc: they can even more easily hit their maximum value.
+
+Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
+
+<a name="dos-with-unexpected-revert"></a>
+
 
 ## Forcibly Sending Ether to a Contract
 
@@ -313,7 +321,7 @@ contract Vulnerable {
     function () payable {
         revert();
     }
-    
+
     function somethingBad() {
         require(this.balance > 0);
         // Do something bad
@@ -321,17 +329,19 @@ contract Vulnerable {
 }
 ```
 
-Contract logic seems to disallow payments to the contract and therefore disallow "something bad" from happening. However, a few methods exist for forcibly sending ether to the contract and therefore making its balance greater than zero. 
+Contract logic seems to disallow payments to the contract and therefore disallow "something bad" from happening. However, a few methods exist for forcibly sending ether to the contract and therefore making its balance greater than zero.
 
-The `selfdestruct` contract method allows a user to specify a beneficiary to send any excess ether. `selfdestruct` [does not trigger a contract's fallback function](https://solidity.readthedocs.io/en/develop/security-considerations.html#sending-and-receiving-ether). 
+The `selfdestruct` contract method allows a user to specify a beneficiary to send any excess ether. `selfdestruct` [does not trigger a contract's fallback function](https://solidity.readthedocs.io/en/develop/security-considerations.html#sending-and-receiving-ether).
 
 It is also possible to [precompute](https://github.com/Arachnid/uscc/tree/master/submissions-2017/ricmoo) a contract's address and send Ether to that address before deploying the contract.
 
-Contract developers should be aware that Ether can be forcibly sent to a contract and should design contract logic accordingly. Generally, assume that it is not possible to restrict sources of funding to your contract. 
+Contract developers should be aware that Ether can be forcibly sent to a contract and should design contract logic accordingly. Generally, assume that it is not possible to restrict sources of funding to your contract.
+
+# Deprecated Attacks
 
 ## Deprecated/historical attacks
 
-These are attacks which are no longer possible due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
+These are attacks which are no longer possible due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness.
 
 ### Call Depth Attack (deprecated)
 
