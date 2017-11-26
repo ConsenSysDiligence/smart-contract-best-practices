@@ -1,10 +1,12 @@
 The following is a list of known attacks which you should be aware of, and defend against when writing smart contracts.
 
-### Race Conditions<sup><a href='#footnote-race-condition-terminology'>\*</a></sup>
+# Protocol specific
+
+## Race Conditions<sup><a href='#footnote-race-condition-terminology'>\*</a></sup>
 
 One of the major dangers of calling external contracts is that they can take over the control flow, and make changes to your data that the calling function wasn't expecting. This class of bug can take many forms, and both of the major bugs that led to the DAO's collapse were bugs of this sort.
 
-#### Reentrancy
+### Reentrancy
 
 The first version of this bug to be noticed involved functions that could be called repeatedly, before the first invocation of the function was finished. This may cause the different invocations of the function to interact in destructive ways.
 
@@ -37,7 +39,7 @@ function withdrawBalance() public {
 
 Note that if you had another function which called `withdrawBalance()`, it would be potentially subject to the same attack, so you must treat any function which calls an untrusted contract as itself untrusted. See below for further discussion of potential solutions.
 
-#### Cross-function Race Conditions
+### Cross-function Race Conditions
 
 An attacker may also be able to do a similar attack using two different functions that share the same state.
 
@@ -63,7 +65,7 @@ In this case, the attacker calls `transfer()` when their code is executed on the
 
 The same solutions will work, with the same caveats. Also note that in this example, both functions were part of the same contract. However, the same bug can occur across multiple contracts, if those contracts share state.
 
-#### Pitfalls in Race Condition Solutions
+### Pitfalls in Race Condition Solutions
 
 Since race conditions can occur across multiple functions, and even multiple contracts, any solution aimed at preventing reentry will not be sufficient.
 
@@ -172,13 +174,13 @@ An attacker can call `getLock()`, and then never call `releaseLock()`. If they d
 
 <div style='font-size: 80%; display: inline;'>* Some may object to the use of the term <i>race condition</i> since Ethereum does not currently have true parallelism. However, there is still the fundamental feature of logically distinct processes contending for resources, and the same sorts of pitfalls and potential solutions apply.</div>
 
-### Transaction-Ordering Dependence (TOD) / Front Running
+## Transaction-Ordering Dependence (TOD) / Front Running
 
 Above were examples of race conditions involving the attacker executing malicious code *within a single transaction*. The following are a different type of race condition inherent to Blockchains: the fact that *the order of transactions themselves* (within a block) is easily subject to manipulation.
 
 Since a transaction is in the mempool for a short while, one can know what actions will occur, before it is included in a block. This can be troublesome for things like decentralized markets, where a transaction to buy some tokens can be seen, and a market order implemented before the other transaction gets included. Protecting against this is difficult, as it would come down to the specific contract itself. For example, in markets, it would be better to implement batch auctions (this also protects against high frequency trading concerns). Another way to use a pre-commit scheme (“I’m going to submit the details later”).
 
-### Timestamp Dependence
+## Timestamp Dependence
 
 Be aware that the timestamp of the block can be manipulated by the miner, and all direct and indirect uses of the timestamp should be considered. *Block numbers* and *average block time* can be used to estimate time, but this is not future proof as block times may change (such as the changes expected during Casper).
 
@@ -194,46 +196,48 @@ if ((someVariable - 100) % 2 == 0) { // someVariable can be manipulated by the m
 }
 ```
 
-### Integer Overflow and Underflow
+## DoS with Block Gas Limit
 
-Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
+You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. Each Ethereum block can process a certain maximum amount of computation. If you try to go over that, your transaction will fail.
 
-Consider a simple token transfer:
+This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
+
+This is another reason to [favor pull over push payments](#favor-pull-over-push-payments).
+
+If you absolutely must loop over an array of unknown size, then you should plan for it to potentially take multiple blocks, and therefore require multiple transactions. You will need to keep track of how far you've gone, and be able to resume from that point, as in the following example:
 
 ```sol
-mapping (address => uint256) public balanceOf;
-
-// INSECURE
-function transfer(address _to, uint256 _value) {
-    /* Check if sender has balance */
-    require(balanceOf[msg.sender] >= _value);
-    /* Add and subtract new balances */
-    balanceOf[msg.sender] -= _value;
-    balanceOf[_to] += _value;
+struct Payee {
+    address addr;
+    uint256 value;
 }
 
-// SECURE
-function transfer(address _to, uint256 _value) {
-    /* Check if sender has balance and for overflows */
-    require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= balanceOf[_to]);
+Payee[] payees;
+uint256 nextPayeeIndex;
 
-    /* Add and subtract new balances */
-    balanceOf[msg.sender] -= _value;
-    balanceOf[_to] += _value;
+function payOut() {
+    uint256 i = nextPayeeIndex;
+    while (i < payees.length && msg.gas > 200000) {
+      payees[i].addr.send(payees[i].value);
+      i++;
+    }
+    nextPayeeIndex = i;
 }
 ```
 
-If a balance reaches the maximum uint value (2^256) it will circle back to zero. This checks for that condition. This may or may not be relevant, depending on the implementation. Think about whether or not the uint value has an opportunity to approach such a large number. Think about how the uint variable changes state, and who has authority to make such changes. If any user can call functions which update the uint value, it's more vulnerable to attack. If only an admin has access to change the variable's state, you might be safe. If a user can increment by only 1 at a time, you are probably also safe because there is no feasible way to reach this limit.
+You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
 
-The same is true for underflow. If a uint is made to be less than zero, it will cause an underflow and get set to its maximum value.
+## Deprecated/historical attacks
 
-Be careful with the smaller data-types like uint8, uint16, uint24...etc: they can even more easily hit their maximum value.
+These are attacks which are no longer possible due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
 
-Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
+### Call Depth Attack (deprecated)
 
-<a name="dos-with-unexpected-revert"></a>
+As of the [EIP 150](https://github.com/ethereum/EIPs/issues/150) hardfork, call depth attacks are no longer relevant<sup><a href='http://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack'>\*</a></sup> (all gas would be consumed well before reaching the 1024 call depth limit).
 
-### DoS with (Unexpected) revert
+# Solidity specific
+
+## DoS with (Unexpected) revert
 
 Consider a simple auction contract:
 
@@ -273,38 +277,44 @@ function refundAll() public {
 
 Again, the recommended solution is to [favor pull over push payments](#favor-pull-over-push-payments).
 
-### DoS with Block Gas Limit
+## Integer Overflow and Underflow
 
-You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. Each Ethereum block can process a certain maximum amount of computation. If you try to go over that, your transaction will fail.
-
-This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
-
-This is another reason to [favor pull over push payments](#favor-pull-over-push-payments).
-
-If you absolutely must loop over an array of unknown size, then you should plan for it to potentially take multiple blocks, and therefore require multiple transactions. You will need to keep track of how far you've gone, and be able to resume from that point, as in the following example:
+Consider a simple token transfer:
 
 ```sol
-struct Payee {
-    address addr;
-    uint256 value;
+mapping (address => uint256) public balanceOf;
+
+// INSECURE
+function transfer(address _to, uint256 _value) {
+    /* Check if sender has balance */
+    require(balanceOf[msg.sender] >= _value);
+    /* Add and subtract new balances */
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
 }
 
-Payee[] payees;
-uint256 nextPayeeIndex;
+// SECURE
+function transfer(address _to, uint256 _value) {
+    /* Check if sender has balance and for overflows */
+    require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= balanceOf[_to]);
 
-function payOut() {
-    uint256 i = nextPayeeIndex;
-    while (i < payees.length && msg.gas > 200000) {
-      payees[i].addr.send(payees[i].value);
-      i++;
-    }
-    nextPayeeIndex = i;
+    /* Add and subtract new balances */
+    balanceOf[msg.sender] -= _value;
+    balanceOf[_to] += _value;
 }
 ```
 
-You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
+If a balance reaches the maximum uint value (2^256) it will circle back to zero. This checks for that condition. This may or may not be relevant, depending on the implementation. Think about whether or not the uint value has an opportunity to approach such a large number. Think about how the uint variable changes state, and who has authority to make such changes. If any user can call functions which update the uint value, it's more vulnerable to attack. If only an admin has access to change the variable's state, you might be safe. If a user can increment by only 1 at a time, you are probably also safe because there is no feasible way to reach this limit.
 
-### Forcibly Sending Ether to a Contract
+The same is true for underflow. If a uint is made to be less than zero, it will cause an underflow and get set to its maximum value.
+
+Be careful with the smaller data-types like uint8, uint16, uint24...etc: they can even more easily hit their maximum value.
+
+Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
+
+<a name="dos-with-unexpected-revert"></a>
+
+## Forcibly Sending Ether to a Contract
 
 It is possible to forcibly send Ether to a contract without triggering its fallback function. This is an important consideration when placing important logic in the fallback function or making calculations based on a contract's balance. Take the following example:
 
@@ -329,10 +339,3 @@ It is also possible to [precompute](https://github.com/Arachnid/uscc/tree/master
 
 Contract developers should be aware that Ether can be forcibly sent to a contract and should design contract logic accordingly. Generally, assume that it is not possible to restrict sources of funding to your contract. 
 
-### Deprecated/historical attacks
-
-These are attacks which are no longer possible due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
-
-#### Call Depth Attack (deprecated)
-
-As of the [EIP 150](https://github.com/ethereum/EIPs/issues/150) hardfork, call depth attacks are no longer relevant<sup><a href='http://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack'>\*</a></sup> (all gas would be consumed well before reaching the 1024 call depth limit).
