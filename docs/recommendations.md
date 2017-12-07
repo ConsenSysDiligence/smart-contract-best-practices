@@ -245,7 +245,7 @@ Explicitly label the visibility of functions and state variables. Functions can 
 
 ```sol
 // bad
-uint x; // the default is private for state variables, but it should be made explicit
+uint x; // the default is internal for state variables, but it should be made explicit
 function buy() { // the default is public
     // public code
 }
