@@ -21,7 +21,8 @@ If you've written an article or blog post, please add it to the [bibliography](.
 
 ```
 $ git clone git@github.com:ConsenSys/smart-contract-best-practices.git
-$ pip install -r requirements
+$ cd smart-contract-best-practices
+$ pip install -r requirements.txt
 $ mkdocs build 
 ```
 
