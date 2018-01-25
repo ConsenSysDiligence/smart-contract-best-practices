@@ -385,11 +385,11 @@ function random(uint Max) constant private returns (uint256 result){
         return uint256((h / x)) % Max + 1; //random number between 1 and Max
     }
 ```
-When the contract uses the timestamp to seed a random number, the miner can actually post a timestamp within 12 minutes of the block being validating, effectively allowing the miner to precompute an option more favorable to their chances in the lottery. Timestamps are not random and should not be used in that context.
+When the contract uses the timestamp to seed a random number, the miner can actually post a timestamp within 30 seconds of the block being validating, effectively allowing the miner to precompute an option more favorable to their chances in the lottery. Timestamps are not random and should not be used in that context.
 
-### *12-minute Rule*
+### *30-second Rule*
 A general rule of thumb in evaluating timestamp usage is:
-#### If the contract function can tolerate a 12-minute drift in time, it use safe to use `block.timestamp`
+#### If the contract function can tolerate a [30-second]((https://ethereum.stackexchange.com/questions/5924/how-do-ethereum-mining-nodes-maintain-a-time-consistent-with-the-network/5931#5931)) drift in time, it use safe to use `block.timestamp`
 If the scale of your time-dependent event can vary by 12-minutes and maintain integrity, it is safe to use a timestamp. This includes things like ending of auctions, registration periods, etc. 
 
 ### *Caution using `block.number` as a timestamp*
@@ -401,7 +401,7 @@ modifier auction_complete {
           currentAuctionState == AuctionState.cancel)
         _;}
 ```
-`block.number` and *[average block time](https://etherscan.io/chart/blocktime)* can be used to estimate time as well, but this is not future proof as block times may change (such as [fork reorganisations]https://blog.ethereum.org/2015/08/08/chain-reorganisation-depth-expectations/ and the[difficulty bomb](https://github.com/ethereum/EIPs/issues/649)). In a sale spanning days, the 12-minute rule allows one to construct a more reliable estimate of time. 
+`block.number` and *[average block time](https://etherscan.io/chart/blocktime)* can be used to estimate time as well, but this is not future proof as block times may change (such as [fork reorganisations](https://blog.ethereum.org/2015/08/08/chain-reorganisation-depth-expectations/) and the [difficulty bomb](https://github.com/ethereum/EIPs/issues/649)). In a sale spanning days, the 12-minute rule allows one to construct a more reliable estimate of time. 
 
 ## Deprecated/historical recommendations
 
