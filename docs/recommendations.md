@@ -403,6 +403,47 @@ modifier auction_complete {
 ```
 `block.number` and *[average block time](https://etherscan.io/chart/blocktime)* can be used to estimate time as well, but this is not future proof as block times may change (such as [fork reorganisations](https://blog.ethereum.org/2015/08/08/chain-reorganisation-depth-expectations/) and the [difficulty bomb](https://github.com/ethereum/EIPs/issues/649)). In a sale spanning days, the 12-minute rule allows one to construct a more reliable estimate of time. 
 
+
+## C3 Linearization in [Polymorphic Contracts](https://pdaian.com/blog/solidity-anti-patterns-fun-with-inheritance-dag-abuse/)
+
+Solidity is a language that supports polymorphic inheritance, and specifically uses [C3 Linearization](https://en.wikipedia.org/wiki/C3_linearization) to obtain the order of inheritance. 
+
+Consider this [example](https://github.com/Arachnid/uscc/blob/master/submissions-2017/philipdaian/MDTCrowdsale.sol):
+
+Consider a construction of a crowdsale. `MDTCrowdsale` is a polymorphic smart contract that inherits the properties of a `CappedCrowdsale`, which sets the cap on the number of tokens available for purchase, and `WhitelistedCrowdsale`, which assures only accredited investors will be able to purchase tokens.
+ To find out whether a user is allowed to participate in a crowdsale, `validPurchase` expresses whether or not conditions have been met, and is an internal function from the base `Crowdsale` contract.
+```sol
+pragma solidity ^0.4.13;
+
+import "./crowdsale/CappedCrowdsale.sol";
+import "./crowdsale/WhitelistedCrowdsale.sol";
+
+contract MDTCrowdsale is CappedCrowdsale, WhitelistedCrowdsale {
+    
+    function MDTCrowdsale() 
+        CappedCrowdsale(50000000000000000000000)
+        Crowdsale(block.number, block.number + 100000, 1, msg.sender) { 
+            //Wallet is the contract creator, to whom funds will be sent
+            addToWhitelist(msg.sender);
+            addToWhitelist(0x0d5bda9db5dd36278c6a40683960ba58cac0149b);
+            addToWhitelist(0x1b6ddc637c24305b354d7c337f9126f68aad4886);
+    }
+    
+}
+```
+At first glance, one would assume that this contract would work as intended. `MDTCrowdsale` will derive two independent functionalities (capping the sale and creating a whitelist of buyers), of which both derive from `Crowdsale`. 
+
+> `CappedCrowdsale` :arrow_left: `MDTCrowdsale` :arrow_right: `WhitelistedCrowdsale`
+
+But, through C3 Linearization, the inheritance graph looks like
+
+>`Crowdsale` :arrow_left: `CappedCrowdsale` :arrow_left: `WhitelistedCrowdsale` :arrow_left: `MDTCrowdsale`
+
+This will cause unintended consequences When `validPurchase` is invoked. Solidity's [dynamic dispatch](https://en.wikipedia.org/wiki/Dynamic_dispatch), will check from the most derived class, `MDTCrowdsale`. It will then move to invoke `WhiteListedCrowdsale`'s validPurchase. When it invokes its `super.validPurchase()`, Solidity derives from `CappedCrowdsale`, not `Crowdsale` leading to a boolean expression that allows whitelist-ers to bypass the token cap. To mitigate this risk, swapping the order of the derived contracts closes this loophole, but shows the hidden dangers of inheritance. While it brings about abstraction and modular libraries, inheritance also can shadow functions, reorder boolean expressions, and confuse programmers into creating exploitable contracts.
+
+Solidity [does not currently support](https://github.com/ethereum/solidity/issues/2116) warnings for functions overwritten through multiple inheritance, so a use of a static analyzer and dependency graph is critical when dealing with polymorphic contracts and their unintended consequences.
+
+
 ## Deprecated/historical recommendations
 
 These are recommendations which are no longer relevant due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
