@@ -21,7 +21,7 @@ function withdrawBalance() public {
 
 Since the user's balance is not set to 0 until the very end of the function, the second (and later) invocations will still succeed, and will withdraw the balance over and over again. A very similar bug was one of the vulnerabilities in the DAO attack.
 
-In the example given, the best way to avoid the problem is to [use `send()` instead of `call.value()()`](https://github.com/ConsenSys/smart-contract-best-practices#send-vs-call-value). This will prevent any external code from being executed.
+In the example given, the best way to avoid the problem is to [use `send()` instead of `call.value()()`](./recommendations#send-vs-call-value). This will prevent any external code from being executed.
 
 However, if you can't remove the external call, the next simplest way to prevent this attack is to make sure you don't call an external function until you've done all the internal work you need to do:
 
@@ -112,7 +112,7 @@ function untrustedGetFirstWithdrawalBonus(address recipient) public {
 }
 ```
 
-In addition to the fix making reentry impossible, [untrusted functions have been marked.](https://github.com/ConsenSys/smart-contract-best-practices#mark-untrusted-contracts) This same pattern repeats at every level: since `untrustedGetFirstWithdrawalBonus()` calls `untrustedWithdraw()`, which calls an external contract, you must also treat `untrustedGetFirstWithdrawalBonus()` as insecure.
+In addition to the fix making reentry impossible, [untrusted functions have been marked](./recommendations#mark-untrusted-contracts). This same pattern repeats at every level: since `untrustedGetFirstWithdrawalBonus()` calls `untrustedWithdraw()`, which calls an external contract, you must also treat `untrustedGetFirstWithdrawalBonus()` as insecure.
 
 Another solution often suggested is a [mutex](https://en.wikipedia.org/wiki/Mutual_exclusion). This allows you to "lock" some state so it can only be changed by the owner of the lock. A simple example might look like this:
 
@@ -182,6 +182,8 @@ Since a transaction is in the mempool for a short while, one can know what actio
 ## Timestamp Dependence
 Be aware that the timestamp of the block can be manipulated by the miner, and all direct and indirect uses of the timestamp should be considered.
 
+See the [Recommendations](./recommendations/#timestamp-dependence) section for design considerations related to Timestamp Dependence.
+
 ## Integer Overflow and Underflow
 
 Consider a simple token transfer:
@@ -240,7 +242,7 @@ contract Auction {
 }
 ```
 
-When it tries to refund the old leader, it reverts if the refund fails. This means that a malicious bidder can become the leader while making sure that any refunds to their address will *always* fail. In this way, they can prevent anyone else from calling the `bid()` function, and stay the leader forever. A recommendation is to set up a [pull payment system](https://github.com/ConsenSys/smart-contract-best-practices/#favor-pull-over-push-payments) instead, as described earlier.
+When it tries to refund the old leader, it reverts if the refund fails. This means that a malicious bidder can become the leader while making sure that any refunds to their address will *always* fail. In this way, they can prevent anyone else from calling the `bid()` function, and stay the leader forever. A recommendation is to set up a [pull payment system](./recommendations#favor-pull-over-push-for-external-calls) instead, as described earlier.
 
 Another example is when a contract may iterate through an array to pay users (e.g., supporters in a crowdfunding contract). It's common to want to make sure that each payment succeeds. If not, one should revert. The issue is that if one call fails, you are reverting the whole payout system, meaning the loop will never complete. No one gets paid because one address is forcing an error.
 
@@ -257,7 +259,7 @@ function refundAll() public {
 }
 ```
 
-Again, the recommended solution is to [favor pull over push payments](#favor-pull-over-push-payments).
+Again, the recommended solution is to [favor pull over push payments](./recommendations#favor-pull-over-push-for-external-calls).
 
 ## DoS with Block Gas Limit
 
@@ -265,7 +267,7 @@ You may have noticed another problem with the previous example: by paying out to
 
 This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
 
-This is another reason to [favor pull over push payments](#favor-pull-over-push-payments).
+This is another reason to [favor pull over push payments](./recommendations#favor-pull-over-push-for-external-calls).
 
 If you absolutely must loop over an array of unknown size, then you should plan for it to potentially take multiple blocks, and therefore require multiple transactions. You will need to keep track of how far you've gone, and be able to resume from that point, as in the following example:
 
