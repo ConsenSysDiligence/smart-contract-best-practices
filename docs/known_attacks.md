@@ -251,8 +251,6 @@ function modifyBonusCode(uint index, uint update) onlyOwner {
     }
 
 ```
-
-
 In this design, a trusted third party is allowed to arbiter and set the `withdrawLimit`, and an ability for the owner to add items to an array.
 
 In general, a user cannot dictate storage location without going through the `keccak256`, which is infeasible to influence. However, dynamic arrays are sequentially stored at their hashed offset, so if the index is under attacker control, they also control the address location. 
