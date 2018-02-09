@@ -220,7 +220,7 @@ Be careful with the smaller data-types like uint8, uint16, uint24...etc: they ca
 Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925).
 
 
-### Underflow in Depth: MerdeToken
+### Underflow in Depth: Storage Manipulation
 Consider [MerdeToken](https://github.com/Arachnid/uscc/tree/master/submissions-2017/doughoyte), by Doug Hoyte, an honorable mention from the [USCC](http://u.solidity.cc/). This token implements the standard features of the ERC20 Token, with a couple extra mechanisms
 ```sol
 pragma solidity ^0.4.13;
