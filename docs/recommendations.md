@@ -48,7 +48,7 @@ If you are making a call to an untrusted external contract, *avoid state changes
 When sending ether be aware of the relative tradeoffs between the use of
 `someAddress.send()`, `someAddress.transfer()`, and `someAddress.call.value()()`.
 
-- `someAddress.send()`and `someAddress.transfer()` are considered *safe* against [reentrancy](#reentrancy).
+- `someAddress.send()`and `someAddress.transfer()` are considered *safe* against [reentrancy](./known_attacks#reentrancy).
     While these methods still trigger code execution, the called contract is
     only given a stipend of 2,300 gas which is currently only enough to log an
     event.
