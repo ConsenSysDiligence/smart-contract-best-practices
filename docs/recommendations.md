@@ -393,7 +393,7 @@ When the contract uses the timestamp to seed a random number, the miner can actu
 
 ### *30-second Rule*
 A general rule of thumb in evaluating timestamp usage is:
-#### If the contract function can tolerate a [30-second]((https://ethereum.stackexchange.com/questions/5924/how-do-ethereum-mining-nodes-maintain-a-time-consistent-with-the-network/5931#5931)) drift in time, it use safe to use `block.timestamp`
+#### If the contract function can tolerate a [30-second]((https://ethereum.stackexchange.com/questions/5924/how-do-ethereum-mining-nodes-maintain-a-time-consistent-with-the-network/5931#5931)) drift in time, it is safe to use `block.timestamp`
 If the scale of your time-dependent event can vary by 30-seconds and maintain integrity, it is safe to use a timestamp. This includes things like ending of auctions, registration periods, etc. 
 
 ### Caution using `block.number` as a timestamp
