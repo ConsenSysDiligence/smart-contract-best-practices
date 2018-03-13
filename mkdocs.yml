@@ -11,6 +11,7 @@ pages:
   - Recommendations for Smart Contract Security in Solidity: recommendations.md
   - Known Attacks: known_attacks.md
   - Software Engineering Techniques: software_engineering.md
+  - Token specific recommendations: tokens.md
   - Documentation and Procedures: documentation_procedures.md
   - Security Tools: security_tools.md
   - Security Notifications: security_notifications.md
