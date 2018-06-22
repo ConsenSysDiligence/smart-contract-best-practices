@@ -239,6 +239,7 @@ function deposit() payable external { balances[msg.sender] += msg.value; }
 
 function() payable { LogDepositReceived(msg.sender); }
 ```
+Note - At the time of creation of smart contract, if fallback fucntion is having gas limit more than 2300 and if some wei are passed in value variable of the message, then the smart contract will be created but the changes in fallback function will be reverted back as it will hit the gas limit.
 
 ## Explicitly mark visibility in functions and state variables
 
