@@ -22,8 +22,10 @@ If you've written an article or blog post, please add it to the [bibliography](.
 ```
 $ git clone git@github.com:ConsenSys/smart-contract-best-practices.git
 $ cd smart-contract-best-practices
-$ pip install -r requirements.txt
-$ mkdocs build 
+$ virtualenv -p python2.7 venv # if you don't have virtualenv refer https://virtualenv.pypa.io/en/stable/installation/
+$ source venv/bin/activate
+(venv) $ pip install -r requirements.txt
+(venv) $ mkdocs build
 ```
 
 You can also use the `mkdocs serve` command to view the site on localhost, and live reload whenever you save changes.
