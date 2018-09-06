@@ -6,7 +6,7 @@
 - [Oyente](https://github.com/melonproject/oyente) - Analyze Ethereum code to find common vulnerabilities, based on this [paper](http://www.comp.nus.edu.sg/~loiluu/papers/oyente.pdf).
 - [Solgraph](https://github.com/raineorshine/solgraph) - Generates a DOT graph that visualizes function control flow of a Solidity contract and highlights potential security vulnerabilities.
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
-- [Securify](https://securify.ch/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns. 
+- [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns. 
 - [Sūrya](https://github.com/ConsenSys/surya) - Utility tool for smart contract systems, offering a number of visual outputs and information about the contracts' structure. Also supports querying the function call graph.
 - [EVM Lab](https://github.com/ethereum/evmlab) - Rich tool package to interact with the EVM. Includes a VM, Etherchain API, and a trace-viewer.  
 
