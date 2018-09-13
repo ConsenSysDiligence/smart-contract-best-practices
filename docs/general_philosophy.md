@@ -18,15 +18,17 @@ It is always better to catch bugs before a full production release.
   - Provide [bug bounties](#bounties) starting from alpha testnet releases
   - Rollout in phases, with increasing usage and testing in each phase
 
-## Keep contracts simple
+## Keep contracts simple and discrete
 
 Complexity increases the likelihood of errors.
 
-  - Ensure the contract logic is simple
-  - Modularize code to keep contracts and functions small
-  - Use already-written tools or code where possible (eg. don't roll your own random number generator)
-  - Prefer clarity to performance whenever possible
-  - Only use the blockchain for the parts of your system that require decentralization
+  - Make each section of code responsible for a single pre-defined outcome.
+  - Ensure the contract logic is straightforward and tends over time to reduce to a few simple outcomes rather than expand to very many.
+  - Mmodules of code don't need to be explained thoroughly in order to work.
+  - Divide contract functionality into the simplest possible pieces (modular and discrete.)
+  - Use already-written tools or code where possible (e.g. don't roll your own random number generator.)
+  - Prefer precision of contract actions, and clear perception of that action, to performance and speed.
+  - Only use the blockchain for the parts of your system that require decentralization.
 
 ## Stay up to date
 
