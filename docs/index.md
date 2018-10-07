@@ -6,7 +6,7 @@ This document provides a baseline knowledge of security considerations for inter
 
 ## Where to start?
 
-* [General Philosopy](./general_philosophy.md) describes the smart contract security mindset
+* [General Philosophy](./general_philosophy.md) describes the smart contract security mindset
 * [Solidity Recommendations](./recommendations.md) contains examples of good code patterns
 * [Known Attacks](./known_attacks.md) describes the different classes of vulnerabilities to avoid
 * [Software Engineering](./software_engineering.md) outlines some architectural and design approaches for risk mitigation
