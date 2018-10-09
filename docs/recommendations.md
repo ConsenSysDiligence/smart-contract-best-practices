@@ -135,6 +135,31 @@ contract auction {
 }
 ```
 
+### Don't delegatecall to untrusted code
+
+The `delegatecall` function is used to call functions from other contracts as if they belong to the caller contract. That means that the callee may change the caller's state. This may be insecure. An example below shows how using `delegatecall` can lead to the destruction of the contract and loss of its balance.
+
+```sol
+contract Destructor
+{
+    function doWork() external
+    {
+        selfdestruct(0);
+    }
+}
+
+contract Worker
+{
+    function doWork(address _internalWorker) public
+    {
+        // unsafe
+        _internalWorker.delegatecall(bytes4(keccak256("doWork()")));
+    }
+}
+```
+
+If someone will call `Worker.doWork()` with the address of the deployed `Destructor` contract, the `Worker` contract will self-destruct. Delegate execution only to trusted contracts.
+
 ## Don't assume contracts are created with zero balance
 
 An attacker can send wei to the address of a contract before it is created.  Contracts should not assume that its initial state contains a zero balance.  See [issue 61](https://github.com/ConsenSys/smart-contract-best-practices/issues/61) for more details.
