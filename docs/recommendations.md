@@ -469,6 +469,33 @@ For more on security and inheritance, check out this [article](https://pdaian.co
 
 To help contribute, Solidity's Github has a [project](https://github.com/ethereum/solidity/projects/9#card-8027020) with all inheritance-related issues.
 
+## Use interface type instead of the address for type safety
+
+It is better to pass contract reference as an interface or an abstract contract rather than raw `address`. 
+
+```sol
+contract Validator {
+    function validate(uint) external returns(bool);
+}
+
+contract TypeSafeAuction {
+    // good
+    function coreBet(Validator _validator, uint _value) internal {
+        bool valid = _validator.validate(_value);
+    }
+}
+
+contract TypeUnsafeAuction {
+    // bad
+    function coreBet(address _addr, uint _value) internal {
+        Validator validator = Validator(_addr);
+        bool valid = validator.validate(_value);
+    }
+}
+```
+
+In the example above, it is possible to pass `address` to the `TypeUnsafeAunction.coreBet()` function that is not a `Validator` contract address. That will result in the runtime error.
+
 ## Deprecated/historical recommendations
 
 These are recommendations which are no longer relevant due to changes in the protocol or improvements to solidity. They are recorded here for posterity and awareness. 
