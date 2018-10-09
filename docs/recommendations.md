@@ -459,7 +459,7 @@ contract A is B, C {
   }
 }
 ```
-When A is deployed, the compiler will *linearize* the inheritance from right to left (after the keyword _is_ the parents are listed from the most base-like to the most derived), as:
+When a contract is deployed, the compiler will *linearize* the inheritance from right to left (after the keyword _is_ the parents are listed from the most base-like to the most derived). Here is contract A's linearization:
 
 **Final <- B <- C <- A**
 
