@@ -401,16 +401,17 @@ function random(uint Max) constant private returns (uint256 result){
 }
 ```
 
-When the contract uses the timestamp to seed a random number, the miner can actually post a timestamp within 30 seconds of the block being validating, effectively allowing the miner to precompute an option more favorable to their chances in the lottery. Timestamps are not random and should not be used in that context.
+When the contract uses the timestamp to seed a random number, the miner can actually post a timestamp within 15 seconds of the block being validating, effectively allowing the miner to precompute an option more favorable to their chances in the lottery. Timestamps are not random and should not be used in that context.
 
-### *30-second Rule*
-A general rule of thumb in evaluating timestamp usage is:
-#### If the contract function can tolerate a [30-second](https://ethereum.stackexchange.com/questions/5924/how-do-ethereum-mining-nodes-maintain-a-time-consistent-with-the-network/5931#5931) drift in time, it is safe to use `block.timestamp`
-If the scale of your time-dependent event can vary by 30-seconds and maintain integrity, it is safe to use a timestamp. This includes things like ending of auctions, registration periods, etc. 
+### *15-second Rule*
+While Ethereum specification doesn't have a constraint on how much block can drift in time, [it specifies](https://ethereum.stackexchange.com/a/5926/46821) that each timestamp should be bigger than the timestamp of its parent. Popular Ethereum protocol implementations [Geth](https://github.com/ethereum/go-ethereum/blob/4e474c74dc2ac1d26b339c32064d0bac98775e77/consensus/ethash/consensus.go#L45) and [Parity](https://github.com/paritytech/parity-ethereum/blob/73db5dda8c0109bb6bc1392624875078f973be14/ethcore/src/verification/verification.rs#L296-L307) both reject blocks with timestamp more than 15 seconds in future. Therefore, a good rule of thumb in evaluating timestamp usage is:
+> If the contract function can tolerate a 15-second drift in time, it is safe to use `block.timestamp`
+
+If the scale of your time-dependent event can vary by 15 seconds and maintain integrity, it is safe to use a timestamp. This includes things like ending of auctions, registration periods, etc.
 
 ### Caution using `block.number` as a timestamp
 
-When a contract creates an `auction_complete` modifier to signify the end of a token sale such as [so]((https://github.com/SpankChain/old-sc_auction/blob/master/contracts/Auction.sol))
+When a contract creates an `auction_complete` modifier to signify the end of a token sale such as [so](https://github.com/SpankChain/old-sc_auction/blob/master/contracts/Auction.sol)
 ```sol
 modifier auction_complete {
     require(auctionEndBlock <= block.number     ||
@@ -418,7 +419,7 @@ modifier auction_complete {
           currentAuctionState == AuctionState.cancel)
         _;}
 ```
-`block.number` and *[average block time](https://etherscan.io/chart/blocktime)* can be used to estimate time as well, but this is not future proof as block times may change (such as [fork reorganisations](https://blog.ethereum.org/2015/08/08/chain-reorganisation-depth-expectations/) and the [difficulty bomb](https://github.com/ethereum/EIPs/issues/649)). In a sale spanning days, the 30-second rule allows one to construct a more reliable estimate of time. 
+`block.number` and *[average block time](https://etherscan.io/chart/blocktime)* can be used to estimate time as well, but this is not future proof as block times may change (such as [fork reorganisations](https://blog.ethereum.org/2015/08/08/chain-reorganisation-depth-expectations/) and the [difficulty bomb](https://github.com/ethereum/EIPs/issues/649)). In a sale spanning days, the 15-second rule allows one to construct a more reliable estimate of time.
 
 ## Multiple Inheritance Caution
 
