@@ -459,9 +459,9 @@ contract A is B, C {
   }
 }
 ```
-When A is deployed, the compiler will *linearize* the inheritance from left to right, as:
+When A is deployed, the compiler will *linearize* the inheritance from right to left (after the keyword _is_ the parents are listed from the most base-like to the most derived), as:
 
-**C -> B -> A**
+**Final <- B <- C <- A**
 
 The consequence of the linearization will yield a `fee` value of 5, since C is the most derived contract. This may seem obvious, but imagine scenarios where C is able to shadow crucial functions, reorder boolean clauses, and cause the developer to write exploitable contracts. Static analysis currently does not raise issue with overshadowed functions, so it must be manually inspected.
 
