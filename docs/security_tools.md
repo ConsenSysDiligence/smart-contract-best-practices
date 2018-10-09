@@ -1,4 +1,4 @@
-### Static Analysis
+### Analysis
 
 - [Manticore](https://github.com/trailofbits/manticore) - Dynamic binary analysis tool with [EVM support](https://asciinema.org/a/haJU2cl0R0Q3jB9wd733LVosL)
 - [Mythril Platform API](https://mythril.ai/) - SaaS platform and tools ecosystem for smart contract security.
@@ -10,6 +10,10 @@
 - [Sūrya](https://github.com/ConsenSys/surya) - Utility tool for smart contract systems, offering a number of visual outputs and information about the contracts' structure. Also supports querying the function call graph.
 - [EVM Lab](https://github.com/ethereum/evmlab) - Rich tool package to interact with the EVM. Includes a VM, Etherchain API, and a trace-viewer.
 - [Slither](https://github.com/trailofbits/slither) - Static analysis framework with detectors for many common Solidity issues. It has taint and value tracking capabilities and is written in Python.
+
+### Weakness classifcation & Test Cases
+- [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts. 
+- [SWC Pages](https://smartcontractsecurity.github.io/SWC-registry/) - The SWC-registry repo published on Github Pages
 
 ### Test Coverage
 
