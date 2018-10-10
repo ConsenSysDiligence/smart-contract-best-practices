@@ -137,7 +137,7 @@ contract auction {
 
 ### Don't delegatecall to untrusted code
 
-The `delegatecall` function is used to call functions from other contracts as if they belong to the caller contract. That means that the callee may change the caller's state. This may be insecure. An example below shows how using `delegatecall` can lead to the destruction of the contract and loss of its balance.
+The `delegatecall` function is used to call functions from other contracts as if they belong to the caller contract. Thus the callee may change the state of the calling address. This may be insecure. An example below shows how using `delegatecall` can lead to the destruction of the contract and loss of its balance.
 
 ```sol
 contract Destructor
@@ -158,7 +158,7 @@ contract Worker
 }
 ```
 
-If someone will call `Worker.doWork()` with the address of the deployed `Destructor` contract, the `Worker` contract will self-destruct. Delegate execution only to trusted contracts.
+If `Worker.doWork()` is called with the address of the deployed `Destructor` contract as an argument, the `Worker` contract will self-destruct. Delegate execution only to trusted contracts, and never to a user supplied address.
 
 ## Don't assume contracts are created with zero balance
 
