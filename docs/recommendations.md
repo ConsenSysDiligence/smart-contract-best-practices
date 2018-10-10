@@ -160,6 +160,35 @@ contract Worker
 
 If `Worker.doWork()` is called with the address of the deployed `Destructor` contract as an argument, the `Worker` contract will self-destruct. Delegate execution only to trusted contracts, and never to a user supplied address.
 
+### Don't use modifiers for external calls
+
+Function modifiers are usually executed before the function body. That means that if a modifier includes state change or external call, it will be called before other checks that might be required.
+
+```sol
+contract Registry
+{
+    address owner;
+    
+    function isVoter(address _addr) external returns(bool) {
+        // Code
+    }
+}
+
+contract Election
+{
+    modifier isEligible(address _addr) {
+        require(registry.isVoter(_addr));
+        _;
+    }
+    
+    function vote() isEligible(msg.sender) public {
+        // Code
+    }
+}
+```
+
+In this case, contract `Registry` can make a reentracy attack by calling `Election.vote()` inside `isVoter()`.
+
 ## Don't assume contracts are created with zero balance
 
 An attacker can send wei to the address of a contract before it is created.  Contracts should not assume that its initial state contains a zero balance.  See [issue 61](https://github.com/ConsenSys/smart-contract-best-practices/issues/61) for more details.
