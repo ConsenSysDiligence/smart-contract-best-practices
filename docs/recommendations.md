@@ -293,7 +293,65 @@ pragma solidity 0.4.4;
 
 ### Exception
 
-Pragma statements can be allowed to float when a contract is intended for consumption by other developers, as in the case with contracts in a library or EthPM package. Otherwise, the developer would need to manually update the pragma in order to compile locally. 
+Pragma statements can be allowed to float when a contract is intended for consumption by other developers, as in the case with contracts in a library or EthPM package. Otherwise, the developer would need to manually update the pragma in order to compile locally.
+
+## Use events for post-launch audit
+
+After the contract being deployed and started to be used, it is nice to have a way to monitor the contract's activity. One way to accomplish this is to look at all the contract transactions, but that may be insufficient, as internal transactions don't show up in the blockchain. Moreover, it's not very useful, as it only shows the input parameters, not the actual changes being made to the state.
+
+```sol
+contract Charity
+{
+    mapping(address => uint) balances;
+    
+    function donate() payable public
+    {
+        balances[msg.sender] += msg.value;
+    }
+}
+
+contract Game
+{
+    function buyCoins() payable public
+    {
+        // 5% goes to charity
+        charity.donate.value(msg.value / 20)();
+    }
+}
+```
+
+Here, `Game` contract will make an internal call to `Charity.donate()`. This transaction won't show up in the transaction list of `Charity`. Even if we will look at the `Game` transaction, we will only know the amount that the player spent to buy coins, not the amount that went to the `Charity` contract.
+
+It is possible to fix both issues using events. An event is a convenient way to log something that happened in the contract. Events that were emitted stay in the blockchain along with other contract data and they are available for future audit. Here is how to fix an example with events.
+
+```sol
+contract Charity
+{
+    // define event
+    event LogDonate(uint _amount);
+    
+    mapping(address => uint) balances;
+    
+    function donate() payable public
+    {
+        balances[msg.sender] += msg.value;
+        // emit event
+        emit LogDonate(msg.value);
+    }
+}
+
+contract Game
+{
+    function buyCoins() payable public
+    {
+        // 5% goes to charity
+        charity.donate.value(msg.value / 20)();
+    }
+}
+
+```
+
+Here, all transactions that go through the `Charity` contract, either directly or not, will show up in the event list of that contract along with the donated amount.
 
 ## Differentiate functions and events
 
