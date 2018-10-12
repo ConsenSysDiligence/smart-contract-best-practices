@@ -160,35 +160,6 @@ contract Worker
 
 If `Worker.doWork()` is called with the address of the deployed `Destructor` contract as an argument, the `Worker` contract will self-destruct. Delegate execution only to trusted contracts, and never to a user supplied address.
 
-### Don't use modifiers for external calls
-
-Function modifiers are usually executed before the function body. That means that if a modifier includes state change or external call, it will be called before other checks that might be required.
-
-```sol
-contract Registry
-{
-    address owner;
-    
-    function isVoter(address _addr) external returns(bool) {
-        // Code
-    }
-}
-
-contract Election
-{
-    modifier isEligible(address _addr) {
-        require(registry.isVoter(_addr));
-        _;
-    }
-    
-    function vote() isEligible(msg.sender) public {
-        // Code
-    }
-}
-```
-
-In this case, contract `Registry` can make a reentracy attack by calling `Election.vote()` inside `isVoter()`.
-
 ## Don't assume contracts are created with zero balance
 
 An attacker can send wei to the address of a contract before it is created.  Contracts should not assume that its initial state contains a zero balance.  See [issue 61](https://github.com/ConsenSys/smart-contract-best-practices/issues/61) for more details.
@@ -239,6 +210,35 @@ Note that the assertion is *not* a strict equality of the balance because the co
 ## Use `assert()` and `require()` properly
 
 In Solidity 0.4.10 `assert()` and `require()` were introduced. `require(condition)` is meant to be used for input validation, which should be done on any user input, and reverts if the condition is false. `assert(condition)` also reverts if the condition is false but should be used only for invariants: internal errors or to check if your contract has reached an invalid state. Following this paradigm allows formal analysis tools to verify that the invalid opcode can never be reached: meaning no invariants in the code are violated and that the code is formally verified.
+
+## Use modifiers only for assertions
+
+The code inside modifiers is usually executed before the function body, so any state changes or external calls will violate the [Checks-Effects-Interactions](https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern) pattern. Moreover, these statements may also remain unnoticed by the developer, as the code for modifier may be far from the function declaration. For example, an external call in modifier can lead to the reentrancy attack:
+
+```sol
+contract Registry {
+    address owner;
+    
+    function isVoter(address _addr) external returns(bool) {
+        // Code
+    }
+}
+
+contract Election {
+    modifier isEligible(address _addr) {
+        require(registry.isVoter(_addr));
+        _;
+    }
+    
+    function vote() isEligible(msg.sender) public {
+        // Code
+    }
+}
+```
+
+In this case, `Registry` contract can make a reentracy attack by calling `Election.vote()` inside `isVoter()`.
+
+Use modifiers only for [error handling](https://solidity.readthedocs.io/en/develop/control-structures.html#error-handling-assert-require-revert-and-exceptions).
 
 ## Beware rounding with integer division
 
