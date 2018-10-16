@@ -213,7 +213,7 @@ In Solidity 0.4.10 `assert()` and `require()` were introduced. `require(conditio
 
 ## Use modifiers only for assertions
 
-The code inside modifiers is usually executed before the function body, so any state changes or external calls will violate the [Checks-Effects-Interactions](https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern) pattern. Moreover, these statements may also remain unnoticed by the developer, as the code for modifier may be far from the function declaration. For example, an external call in modifier can lead to the reentrancy attack:
+The code inside a modifier is usually executed before the function body, so any state changes or external calls will violate the [Checks-Effects-Interactions](https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern) pattern. Moreover, these statements may also remain unnoticed by the developer, as the code for modifier may be far from the function declaration. For example, an external call in modifier can lead to the reentrancy attack:
 
 ```sol
 contract Registry {
@@ -225,6 +225,8 @@ contract Registry {
 }
 
 contract Election {
+    Registry registry;
+    
     modifier isEligible(address _addr) {
         require(registry.isVoter(_addr));
         _;
@@ -236,7 +238,7 @@ contract Election {
 }
 ```
 
-In this case, `Registry` contract can make a reentracy attack by calling `Election.vote()` inside `isVoter()`.
+In this case, the `Registry` contract can make a reentracy attack by calling `Election.vote()` inside `isVoter()`.
 
 Use modifiers only for [error handling](https://solidity.readthedocs.io/en/develop/control-structures.html#error-handling-assert-require-revert-and-exceptions).
 
