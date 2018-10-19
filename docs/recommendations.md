@@ -627,7 +627,7 @@ contract OnlyForEOA {
         _;
     }
     
-    function setFlag(uint i) public isConscious(msg.sender){
+    function setFlag(uint i) public isNotContract(msg.sender){
         flag = i;
     }
 }
