@@ -617,7 +617,7 @@ modifier isNotContract(address _a) {
 }
 ```
 
-The idea is simple: if an address has associated code to it, it's not an EOA but a contract account. However, a contract does not have source code available during construction. This means that while the constructor is running, `extcodesize` for that address returns zero. Below is a minimal example that shows how this can be exploited:
+The idea is straight forward: if an address contains code, it's not an EOA but a contract account. However, a contract does not have source code available during construction. This means that while the constructor is running, it can make calls to other contracts, but `extcodesize` for its address returns zero. Below is a minimal example that shows how this check can be circumvented:
 
 ```sol
 contract OnlyForEOA {    
