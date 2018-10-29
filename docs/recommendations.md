@@ -179,6 +179,30 @@ Examples:
 
 Do not make refund or claim processes dependent on a specific party performing a particular action with no other way of getting the funds out. For example, in a rock-paper-scissors game, one common mistake is to not make a payout until both players submit their moves; however, a malicious player can "grief" the other by simply never submitting their move - in fact, if a player sees the other player's revealed move and determines that they lost, they have no reason to submit their own move at all. This issue may also arise in the context of state channel settlement. When such situations are an issue, (1) provide a way of circumventing non-participating participants, perhaps through a time limit, and (2) consider adding an additional economic incentive for participants to submit information in all of the situations in which they are supposed to do so.
 
+## Negation of the most negative number
+
+Solidity provides several types to work with signed integers. Like in most programming languages, in Solidity a signed integer with `N` bits can represent values from `-2^(N-1)` to `2^(N-1)-1`. This means that there is no positive equivalent for the `INT_MIN`. Negation is implemented as finding the two's complement of a number, so the negation of the most negative number [will result in the same number](https://en.wikipedia.org/wiki/Two%27s_complement#Most_negative_number).
+
+This is true for all integer types in Solidity (`int8`, `int16`, ..., `int256`).
+
+```sol
+contract Negation {
+    function negate8(int8 _i) public pure returns(int8) {
+        return -_i;
+    }
+    
+    function negate16(int16 _i) public pure returns(int16) {
+        return -_i;
+    }
+    
+    int8 public a = negate8(-128); // -128
+    int16 public b = negate16(-128); // 128
+    int16 public c = negate16(-32768); // -32768
+}
+```
+
+One way to handle this is to check the value of a variable before negation and throw if it's equal to the `INT_MIN`. Another option is to make sure that the most negative number will never be achieved by using a type with a higher capacity (e.g. `int32` instead of `int16`).
+
 ## Solidity specific recommendations
 
 ### <!-- -->
