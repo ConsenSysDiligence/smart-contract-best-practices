@@ -332,6 +332,18 @@ function payOut() {
 
 You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
 
+## Block Stuffing
+
+Each block has an upper bound on how much gas can be spent — gas limit. Miners are limited on how many transactions they can include, so they include only those that maximize their profit. In other words, they include transactions with the highest gas cost. Therefore, an attacker can prevent other transactions to be included in the blockchain for several blocks by placing transactions with the high enough gas price.
+
+An attacker creates one or several blocks and sends them to the network. He needs to make sure that the gas spent on these transactions will be close to the gas limit, and that the gas price of these transactions is high enough to be included as soon as the next block will be mined. No gas price can guarantee inclusion in the block, but the higher the price is, the higher is the chance.
+
+If the attack succeeds, no other transactions will be included in the block. Sometimes, an attacker's goal is to block transactions to the specific contract. In that case, it still may be possible for some transactions to be included.
+
+This attack [was conducted](https://osolmaz.com/2018/10/18/anatomy-block-stuffing) on Fomo3D, Ethereum's gambling app. The app was designed to reward the last address that purchased a key. Each key increased a timer, and the game ended once the timer went to 0. The attacker bought a key and then stuffed 13 blocks in a row until the timer was triggered and the payout was released. Transactions sent by attacker took 7.9 million gas on each block, so the gas limit allowed to send a few "send" transactions (which take 21,000 gas each), but not the "buy key" transaction (which costs 300,000+ gas).
+
+As with any attack, the block stuffing is viable when the expected reward exceeds its cost. Cost of this attack is directly proportional to the number of blocks needs to be stuffed. That way, it's a good idea to design contracts that way so they don't provide a huge cash in a small timeframe. The attack on Fomo3D was viable because the attacker made more than 10,000 ETH by stuffing just 13 blocks.
+
 ## Forcibly Sending Ether to a Contract
 
 It is possible to forcibly send Ether to a contract without triggering its fallback function. This is an important consideration when placing important logic in the fallback function or making calculations based on a contract's balance. Take the following example:
