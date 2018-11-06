@@ -303,7 +303,11 @@ Again, the recommended solution is to [favor pull over push payments](./recommen
 
 ## DoS with Block Gas Limit
 
-You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. Each Ethereum block can process a certain maximum amount of computation. If you try to go over that, your transaction will fail.
+Each block has an upper bound on the amount of gas that can be spent, and thus the amount computation that can be done. This is the Block Gas Limit. If the gas spent exceeds this limit, the transaction will fail. This leads to a couple possible Denial of Service vectors:
+
+### Gas Limit DoS on a Contract via Unbounded Operations
+
+You may have noticed another problem with the previous example: by paying out to everyone at once, you risk running into the block gas limit. 
 
 This can lead to problems even in the absence of an intentional attack. However, it's especially bad if an attacker can manipulate the amount of gas needed. In the case of the previous example, the attacker could add a bunch of addresses, each of which needs to get a very small refund. The gas cost of refunding each of the attacker's addresses could, therefore, end up being more than the gas limit, blocking the refund transaction from happening at all.
 
@@ -332,17 +336,18 @@ function payOut() {
 
 You will need to make sure that nothing bad will happen if other transactions are processed while waiting for the next iteration of the `payOut()` function. So only use this pattern if absolutely necessary.
 
-## Block Stuffing
+### Gas Limit DoS on the Network via Block Stuffing
 
-Each block has an upper bound on how much gas can be spent — gas limit. Miners are limited on how many transactions they can include, so they include only those that maximize their profit. In other words, they include transactions with the highest gas cost. Therefore, an attacker can prevent other transactions to be included in the blockchain for several blocks by placing transactions with the high enough gas price.
+Even if your contract does not contain an unbounded loop, an attacker can prevent other transactions from being included in the blockchain for several blocks by placing computationally intensive transactions with a high enough gas price.
 
-An attacker creates one or several blocks and sends them to the network. He needs to make sure that the gas spent on these transactions will be close to the gas limit, and that the gas price of these transactions is high enough to be included as soon as the next block will be mined. No gas price can guarantee inclusion in the block, but the higher the price is, the higher is the chance.
+To do this, the attacker can issue several transactions which will consume the entire gas limit, with a high enough gas price to be included as soon as the next block is mined. No gas price can guarantee inclusion in the block, but the higher the price is, the higher is the chance.
 
-If the attack succeeds, no other transactions will be included in the block. Sometimes, an attacker's goal is to block transactions to the specific contract. In that case, it still may be possible for some transactions to be included.
+If the attack succeeds, no other transactions will be included in the block. Sometimes, an attacker's goal is to block transactions to a specific contract prior to specific time.
 
-This attack [was conducted](https://osolmaz.com/2018/10/18/anatomy-block-stuffing) on Fomo3D, Ethereum's gambling app. The app was designed to reward the last address that purchased a key. Each key increased a timer, and the game ended once the timer went to 0. The attacker bought a key and then stuffed 13 blocks in a row until the timer was triggered and the payout was released. Transactions sent by attacker took 7.9 million gas on each block, so the gas limit allowed to send a few "send" transactions (which take 21,000 gas each), but not the "buy key" transaction (which costs 300,000+ gas).
+This attack [was conducted](https://osolmaz.com/2018/10/18/anatomy-block-stuffing) on Fomo3D, a gambling app. The app was designed to reward the last address that purchased a "key". Each key purchase extended the timer, and the game ended once the timer went to 0. The attacker bought a key and then stuffed 13 blocks in a row until the timer was triggered and the payout was released. Transactions sent by attacker took 7.9 million gas on each block, so the gas limit allowed a few small "send" transactions (which take 21,000 gas each), but disallowed any calls to the `buyKey()` function (which costs 300,000+ gas).
 
-As with any attack, the block stuffing is viable when the expected reward exceeds its cost. Cost of this attack is directly proportional to the number of blocks needs to be stuffed. That way, it's a good idea to design contracts that way so they don't provide a huge cash in a small timeframe. The attack on Fomo3D was viable because the attacker made more than 10,000 ETH by stuffing just 13 blocks.
+A Block Stuffing attack can be used on any contract requiring an action within a certain time period. However, as with any attack, it is only profitable when the expected reward exceeds its cost. Cost of this attack is directly proportional to the number of blocks which need to be stuffed. If a large payout can be obtained by preventing actions from other participants, your contract will likely be targeted by such an attack. 
+
 
 ## Forcibly Sending Ether to a Contract
 
