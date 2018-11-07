@@ -1,10 +1,10 @@
 The following is a list of known attacks which you should be aware of, and defend against when writing smart contracts.
 
-## Race Conditions<sup><a href='#footnote-race-condition-terminology'>\*</a></sup>
+## Reentrancy
 
 One of the major dangers of calling external contracts is that they can take over the control flow, and make changes to your data that the calling function wasn't expecting. This class of bug can take many forms, and both of the major bugs that led to the DAO's collapse were bugs of this sort.
 
-### Reentrancy
+### Reentrancy on a Single Function
 
 The first version of this bug to be noticed involved functions that could be called repeatedly, before the first invocation of the function was finished. This may cause the different invocations of the function to interact in destructive ways.
 
@@ -37,7 +37,7 @@ function withdrawBalance() public {
 
 Note that if you had another function which called `withdrawBalance()`, it would be potentially subject to the same attack, so you must treat any function which calls an untrusted contract as itself untrusted. See below for further discussion of potential solutions.
 
-### Cross-function Race Conditions
+### Cross-function Reentrancy
 
 An attacker may also be able to do a similar attack using two different functions that share the same state.
 
@@ -63,11 +63,11 @@ In this case, the attacker calls `transfer()` when their code is executed on the
 
 The same solutions will work, with the same caveats. Also note that in this example, both functions were part of the same contract. However, the same bug can occur across multiple contracts, if those contracts share state.
 
-### Pitfalls in Race Condition Solutions
+### Pitfalls in Reentrancy Solutions
 
-Since race conditions can occur across multiple functions, and even multiple contracts, any solution aimed at preventing reentry will not be sufficient.
+Since reentrancy can occur across multiple functions, and even multiple contracts, any solution aimed at preventing reentrancy with a single function will not be sufficient.
 
-Instead, we have recommended finishing all internal work first, and only then calling the external function. This rule, if followed carefully, will allow you to avoid race conditions. However, you need to not only avoid calling external functions too soon, but also avoid calling functions which call external functions. For example, the following is insecure:
+Instead, we have recommended finishing all internal work (ie. state changes) first, and only then calling the external function. This rule, if followed carefully, will allow you to avoid vulnerabilities due toreentrancy. However, you need to not only avoid calling external functions too soon, but also avoid calling functions which call external functions. For example, the following is insecure:
 
 ```sol
 // INSECURE
@@ -90,7 +90,7 @@ function getFirstWithdrawalBonus(address recipient) public {
 }
 ```
 
-Even though `getFirstWithdrawalBonus()` doesn't directly call an external contract, the call in `withdrawReward()` is enough to make it vulnerable to a race condition. You therefore need to treat `withdrawReward()` as if it were also untrusted.
+Even though `getFirstWithdrawalBonus()` doesn't directly call an external contract, the call in `withdrawReward()` is enough to make it vulnerable to a reentrancy. You therefore need to treat `withdrawReward()` as if it were also untrusted.
 
 ```sol
 mapping (address => uint) private userBalances;
@@ -167,15 +167,11 @@ contract StateHolder {
 }
 ```
 
-An attacker can call `getLock()`, and then never call `releaseLock()`. If they do this, then the contract will be locked forever, and no further changes will be able to be made. If you use mutexes to protect against race conditions, you will need to carefully ensure that there are no ways for a lock to be claimed and never released. (There are other potential dangers when programming with mutexes, such as deadlocks and livelocks. You should consult the large amount of literature already written on mutexes, if you decide to go this route.)
+An attacker can call `getLock()`, and then never call `releaseLock()`. If they do this, then the contract will be locked forever, and no further changes will be able to be made. If you use mutexes to protect against reentrancy, you will need to carefully ensure that there are no ways for a lock to be claimed and never released. (There are other potential dangers when programming with mutexes, such as deadlocks and livelocks. You should consult the large amount of literature already written on mutexes, if you decide to go this route.)
 
-<a name='footnote-race-condition-terminology'></a>
+##  Front Running (AKA Transaction-Ordering Dependence)
 
-<div style='font-size: 80%; display: inline;'>* Some may object to the use of the term <i>race condition</i> since Ethereum does not currently have true parallelism. However, there is still the fundamental feature of logically distinct processes contending for resources, and the same sorts of pitfalls and potential solutions apply.</div>
-
-## Transaction-Ordering Dependence (TOD) / Front Running
-
-Above were examples of race conditions involving the attacker executing malicious code *within a single transaction*. The following are a different type of race condition inherent to Blockchains: the fact that *the order of transactions themselves* (within a block) is easily subject to manipulation.
+Above were examples of reentrancy involving the attacker executing malicious code *within a single transaction*. The following are a different type of attack inherent to Blockchains: the fact that *the order of transactions themselves* (within a block) is easily subject to manipulation.
 
 Since a transaction is in the mempool for a short while, one can know what actions will occur, before it is included in a block. This can be troublesome for things like decentralized markets, where a transaction to buy some tokens can be seen, and a market order implemented before the other transaction gets included. Protecting against this is difficult, as it would come down to the specific contract itself. For example, in markets, it would be better to implement batch auctions (this also protects against high frequency trading concerns). Another way to use a pre-commit scheme (“I’m going to submit the details later”).
 
