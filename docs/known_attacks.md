@@ -67,7 +67,7 @@ The same solutions will work, with the same caveats. Also note that in this exam
 
 Since reentrancy can occur across multiple functions, and even multiple contracts, any solution aimed at preventing reentrancy with a single function will not be sufficient.
 
-Instead, we have recommended finishing all internal work (ie. state changes) first, and only then calling the external function. This rule, if followed carefully, will allow you to avoid vulnerabilities due toreentrancy. However, you need to not only avoid calling external functions too soon, but also avoid calling functions which call external functions. For example, the following is insecure:
+Instead, we have recommended finishing all internal work (ie. state changes) first, and only then calling the external function. This rule, if followed carefully, will allow you to avoid vulnerabilities due to reentrancy. However, you need to not only avoid calling external functions too soon, but also avoid calling functions which call external functions. For example, the following is insecure:
 
 ```sol
 // INSECURE
