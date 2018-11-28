@@ -39,13 +39,13 @@
 | [831](https://eips.ethereum.org/EIPS/eip-831) | URI Format for Ethereum | ligi | Draft | Transactions |
 | [858](https://eips.ethereum.org/EIPS/eip-858) | Reduce block reward and delay difficulty bomb | Carl  Larson | Draft | Transactions, Mining |
 | [867](https://eips.ethereum.org/EIPS/eip-867) | Standardized Ethereum Recovery Proposals | Dan Phifer, James Levy, Reuben Youngblom | Draft | Transactions |
-| [868](https://eips.ethereum.org/EIPS/eip-868) | Node Discovery v4 ENR Extension | Felix Lange | Draft | |
-| [875](https://eips.ethereum.org/EIPS/eip-875) | A better NFT standard | Weiwu Zhang, James Sangalli | Draft | |
-| [884](https://eips.ethereum.org/EIPS/eip-884) | DGCL Token | Dave Sag | Draft | |
-| [897](https://eips.ethereum.org/EIPS/eip-897) | ERC DelegateProxy | Jorge Izquierdo, Manuel Araoz | Draft | |
-| [900](https://eips.ethereum.org/EIPS/eip-900) | Simple Staking Interface | Dean Eigenmann, Jorge Izquierdo | Draft | |
-| [902](https://eips.ethereum.org/EIPS/eip-902) | Token Validation | Brooklyn Zelenka, Tom Carchrae, Gleb Naumenko | Draft | |
-| [908](https://eips.ethereum.org/EIPS/eip-908) | Reward clients for a sustainable network | James Ray, Micah Zoltu | Draft | |
+| [868](https://eips.ethereum.org/EIPS/eip-868) | Node Discovery v4 ENR Extension | Felix Lange | Draft | Networking |
+| [875](https://eips.ethereum.org/EIPS/eip-875) | A better NFT standard | Weiwu Zhang, James Sangalli | Draft | Token Standards, Smart Contract Development |
+| [884](https://eips.ethereum.org/EIPS/eip-884) | DGCL Token | Dave Sag | Draft | Token Standards, Smart Contract Development |
+| [897](https://eips.ethereum.org/EIPS/eip-897) | ERC DelegateProxy | Jorge Izquierdo, Manuel Araoz | Draft | Smart Contract Development|
+| [900](https://eips.ethereum.org/EIPS/eip-900) | Simple Staking Interface | Dean Eigenmann, Jorge Izquierdo | Draft | Smart Contract Development |
+| [902](https://eips.ethereum.org/EIPS/eip-902) | Token Validation | Brooklyn Zelenka, Tom Carchrae, Gleb Naumenko | Draft | Auth, Token Standards, Smart Contract Development |
+| [908](https://eips.ethereum.org/EIPS/eip-908) | Reward clients for a sustainable network | James Ray, Micah Zoltu | Draft | Networking, Mining, Consensus |
 | [918](https://eips.ethereum.org/EIPS/eip-918) | Mineable Token Standard | Jay Logelin, Infernal_toast, Michael Seiler, Brandon Grill | Draft | |
 | [926](https://eips.ethereum.org/EIPS/eip-926) | Address metadata registry | Nick Johnson | Draft | |
 | [927](https://eips.ethereum.org/EIPS/eip-927) | Generalised authorisations | Nick Johnson | Draft | |
