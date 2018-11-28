@@ -12,33 +12,33 @@
 
 | Number | Title | Author | Status | Subject/Keywords |
 | --- | --- | --- | --- | --- |
-| [4](https://eips.ethereum.org/EIPS/eip-4) | EIP Classification | Joseph Chow |Draft | |
-| [86](https://eips.ethereum.org/EIPS/eip-86) | Abstraction of transaction origin and signature | Vitalik Buterin |Draft | |
-| [101](https://eips.ethereum.org/EIPS/eip-101) | Serenity Currency and Crypto Abstraction | Vitalik Buterin | Draft | |
-| [107](https://eips.ethereum.org/EIPS/eip-107) | safe "eth_sendTransaction" authorization via html popup | Ronan Sandford | Draft | |
-| [173](https://eips.ethereum.org/EIPS/eip-173) | ERC-173 Contract Ownership Standard | Nick Mudge, Dan Finlay | Draft | |
-| [191](https://eips.ethereum.org/EIPS/eip-191) | Signed Data Standard | Martin Holst Swende, Nick Johnson | Draft | |
-| [205](https://eips.ethereum.org/EIPS/eip-205) | ENS support for contract ABIs | Nick Johnson | Draft | |
-| [210](https://eips.ethereum.org/EIPS/eip-210) | Blockhash refactoring | Vitalik Buterin | Draft | |
-| [233](https://eips.ethereum.org/EIPS/eip-233) | Formal process of hard forks | Alex Beregszaszi | Draft | |
-| [234](https://eips.ethereum.org/EIPS/eip-234) | Add `blockHash` to JSON-RPC filter options. | Micah Zoltu | Draft | |
-| [615](https://eips.ethereum.org/EIPS/eip-615) | Subroutines and Static Jumps for the EVM | Greg Colvin, Paweł Bylica, Christian Reitwiessner | Draft | |
-| [627](https://eips.ethereum.org/EIPS/eip-627) | Whisper Specification | Vlad Gluhovsky | Draft | |
-| [634](https://eips.ethereum.org/EIPS/eip-634) | Storage of text records in ENS | Richard Moore | Draft | |
-| [665](https://eips.ethereum.org/EIPS/eip-665) | Add precompiled contract for Ed25519 signature verification | Tobias Oberstein | Draft | |
-| [681](https://eips.ethereum.org/EIPS/eip-681) | URL Format for Transaction Requests | Daniel A. Nagy | Draft | |
-| [689](https://eips.ethereum.org/EIPS/eip-689) | Address Collision of Contract Address Causes Exceptional Halt | Yoichi Hirai | Draft | |
-| [695](https://eips.ethereum.org/EIPS/eip-695) | Create `eth_chainId` method for JSON-RPC | Isaac Ardis, Wei Tang, Fan Torchz | Draft | |
-| [712](https://eips.ethereum.org/EIPS/eip-712) | Ethereum typed structured data hashing and signing | Remco Bloemen, Leonid Logvinov, Jacob Evans | Draft | |
-| [725](https://eips.ethereum.org/EIPS/eip-725) | Proxy Identity | Fabian Vogelsteller | Draft | |
-| [758](https://eips.ethereum.org/EIPS/eip-758) | Subscriptions and filters for completed transactions | Jack Peterson | Draft | |
-| [777](https://eips.ethereum.org/EIPS/eip-777) | A New Advanced Token Standard | Jacques Dafflon, Jordi Baylina, Thomas Shababi | Draft | |
-| [778](https://eips.ethereum.org/EIPS/eip-778) | Ethereum Node Records (ENR) | Felix Lange | Draft | |
-| [801](https://eips.ethereum.org/EIPS/eip-801) | ERC-801 Canary Standard | ligi | Draft | |
-| [823](https://eips.ethereum.org/EIPS/eip-823) | Token Exchange Standard | Kashish Khullar | Draft | |
-| [831](https://eips.ethereum.org/EIPS/eip-831) | URI Format for Ethereum | ligi | Draft | |
-| [858](https://eips.ethereum.org/EIPS/eip-858) | Reduce block reward and delay difficulty bomb | Carl Larson | Draft | |
-| [867](https://eips.ethereum.org/EIPS/eip-867) | Standardized Ethereum Recovery Proposals | Dan Phifer, James Levy, Reuben Youngblom | Draft | |
+| [4](https://eips.ethereum.org/EIPS/eip-4) | EIP Classification | Joseph Chow |Draft | Documentation |
+| [86](https://eips.ethereum.org/EIPS/eip-86) | Abstraction of transaction origin and signature | Vitalik Buterin |Draft | Cryptography, Auth, Transactions |
+| [101](https://eips.ethereum.org/EIPS/eip-101) | Serenity Currency and Crypto Abstraction | Vitalik Buterin | Draft | EVM, Opcodes |
+| [107](https://eips.ethereum.org/EIPS/eip-107) | safe "eth_sendTransaction" authorization via html popup | Ronan Sandford | Draft | RPC, API, Auth |
+| [173](https://eips.ethereum.org/EIPS/eip-173) | ERC-173 Contract Ownership Standard | Nick Mudge, Dan Finlay | Draft | Auth, smart contracts development |
+| [191](https://eips.ethereum.org/EIPS/eip-191) | Signed Data Standard | Martin Holst Swende, Nick Johnson | Draft | Auth, Smart Contract Development |
+| [205](https://eips.ethereum.org/EIPS/eip-205) | ENS support for contract ABIs | Nick Johnson | Draft | ABI, ENS |
+| [210](https://eips.ethereum.org/EIPS/eip-210) | Blockhash refactoring | Vitalik Buterin | Draft | EVM, Block Structure, Protocol |
+| [233](https://eips.ethereum.org/EIPS/eip-233) | Formal process of hard forks | Alex Beregszaszi | Draft | Governance |
+| [234](https://eips.ethereum.org/EIPS/eip-234) | Add `blockHash` to JSON-RPC filter options. | Micah Zoltu | Draft | RPC |
+| [615](https://eips.ethereum.org/EIPS/eip-615) | Subroutines and Static Jumps for the EVM | Greg Colvin, Paweł Bylica, Christian Reitwiessner | Draft | EVM, Opcodes |
+| [627](https://eips.ethereum.org/EIPS/eip-627) | Whisper Specification | Vlad Gluhovsky | Draft | Whisper |
+| [634](https://eips.ethereum.org/EIPS/eip-634) | Storage of text records in ENS | Richard Moore | Draft | ENS |
+| [665](https://eips.ethereum.org/EIPS/eip-665) | Add precompiled contract for Ed25519 signature verification | Tobias Oberstein | Draft | EVM, Auth, ENS, Cryptography |
+| [681](https://eips.ethereum.org/EIPS/eip-681) | URL Format for Transaction Requests | Daniel A. Nagy | Draft | Transactions |
+| [689](https://eips.ethereum.org/EIPS/eip-689) | Address Collision of Contract Address Causes Exceptional Halt | Yoichi Hirai | Draft | Transactions |
+| [695](https://eips.ethereum.org/EIPS/eip-695) | Create `eth_chainId` method for JSON-RPC | Isaac Ardis, Wei Tang, Fan Torchz | Draft | RPC |
+| [712](https://eips.ethereum.org/EIPS/eip-712) | Ethereum typed structured data hashing and signing | Remco Bloemen, Leonid Logvinov, Jacob Evans | Draft | Cryptography, Smart Contract Development, Auth |
+| [725](https://eips.ethereum.org/EIPS/eip-725) | Proxy Identity | Fabian Vogelsteller | Draft | Auth, Smart Contract Development, Cryptography |
+| [758](https://eips.ethereum.org/EIPS/eip-758) | Subscriptions and filters for completed transactions | Jack Peterson | Draft | RPC |
+| [777](https://eips.ethereum.org/EIPS/eip-777) | A New Advanced Token Standard | Jacques Dafflon, Jordi Baylina, Thomas Shababi | Draft | Token Standards, Smart Contract Development |
+| [778](https://eips.ethereum.org/EIPS/eip-778) | Ethereum Node Records (ENR) | Felix Lange | Draft | Auth, Cryptography, Networking |
+| [801](https://eips.ethereum.org/EIPS/eip-801) | ERC-801 Canary Standard | ligi | Draft | Smart Contract Development |
+| [823](https://eips.ethereum.org/EIPS/eip-823) | Token Exchange Standard | Kashish Khullar | Draft | Token Standards, Smart Contract Development|
+| [831](https://eips.ethereum.org/EIPS/eip-831) | URI Format for Ethereum | ligi | Draft | Transactions |
+| [858](https://eips.ethereum.org/EIPS/eip-858) | Reduce block reward and delay difficulty bomb | Carl  Larson | Draft | Transactions, Mining |
+| [867](https://eips.ethereum.org/EIPS/eip-867) | Standardized Ethereum Recovery Proposals | Dan Phifer, James Levy, Reuben Youngblom | Draft | Transactions |
 | [868](https://eips.ethereum.org/EIPS/eip-868) | Node Discovery v4 ENR Extension | Felix Lange | Draft | |
 | [875](https://eips.ethereum.org/EIPS/eip-875) | A better NFT standard | Weiwu Zhang, James Sangalli | Draft | |
 | [884](https://eips.ethereum.org/EIPS/eip-884) | DGCL Token | Dave Sag | Draft | |
