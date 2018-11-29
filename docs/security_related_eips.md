@@ -12,18 +12,18 @@
 
 | Number | Title | Author | Status | Subject/Keywords |
 | --- | --- | --- | --- | --- |
-| [4](https://eips.ethereum.org/EIPS/eip-4) | EIP Classification | Joseph Chow |Draft | Documentation |
+| [4](https://eips.ethereum.org/EIPS/eip-4) | EIP Classification | Joseph Chow |Draft | Documentation, Governance |
 | [86](https://eips.ethereum.org/EIPS/eip-86) | Abstraction of transaction origin and signature | Vitalik Buterin |Draft | Cryptography, Auth, Transactions |
 | [101](https://eips.ethereum.org/EIPS/eip-101) | Serenity Currency and Crypto Abstraction | Vitalik Buterin | Draft | EVM, Opcodes |
 | [107](https://eips.ethereum.org/EIPS/eip-107) | safe "eth_sendTransaction" authorization via html popup | Ronan Sandford | Draft | RPC, API, Auth |
-| [173](https://eips.ethereum.org/EIPS/eip-173) | ERC-173 Contract Ownership Standard | Nick Mudge, Dan Finlay | Draft | Auth, smart contracts development |
+| [173](https://eips.ethereum.org/EIPS/eip-173) | ERC-173 Contract Ownership Standard | Nick Mudge, Dan Finlay | Draft | Auth, Smart Contract Development |
 | [191](https://eips.ethereum.org/EIPS/eip-191) | Signed Data Standard | Martin Holst Swende, Nick Johnson | Draft | Auth, Smart Contract Development |
 | [205](https://eips.ethereum.org/EIPS/eip-205) | ENS support for contract ABIs | Nick Johnson | Draft | ABI, ENS |
 | [210](https://eips.ethereum.org/EIPS/eip-210) | Blockhash refactoring | Vitalik Buterin | Draft | EVM, Block Structure, Protocol |
 | [233](https://eips.ethereum.org/EIPS/eip-233) | Formal process of hard forks | Alex Beregszaszi | Draft | Governance |
 | [234](https://eips.ethereum.org/EIPS/eip-234) | Add `blockHash` to JSON-RPC filter options. | Micah Zoltu | Draft | RPC |
 | [615](https://eips.ethereum.org/EIPS/eip-615) | Subroutines and Static Jumps for the EVM | Greg Colvin, Paweł Bylica, Christian Reitwiessner | Draft | EVM, Opcodes |
-| [627](https://eips.ethereum.org/EIPS/eip-627) | Whisper Specification | Vlad Gluhovsky | Draft | Whisper |
+| [627](https://eips.ethereum.org/EIPS/eip-627) | Whisper Specification | Vlad Gluhovsky | Draft | Whisper, Networking |
 | [634](https://eips.ethereum.org/EIPS/eip-634) | Storage of text records in ENS | Richard Moore | Draft | ENS |
 | [665](https://eips.ethereum.org/EIPS/eip-665) | Add precompiled contract for Ed25519 signature verification | Tobias Oberstein | Draft | EVM, Auth, ENS, Cryptography |
 | [681](https://eips.ethereum.org/EIPS/eip-681) | URL Format for Transaction Requests | Daniel A. Nagy | Draft | Transactions |
