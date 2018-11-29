@@ -82,38 +82,37 @@
 | [1185](https://eips.ethereum.org/EIPS/eip-1185) | Storage of DNS Records in ENS | Jim McDonald | Draft | ENS |
 | [1186](https://eips.ethereum.org/EIPS/eip-1186) | RPC-Method to get Merkle Proofs - eth_getProof | Simon Jentzsch, Christoph Jentzsch | Draft | RPC, Cryptography |
 | [1191](https://eips.ethereum.org/EIPS/eip-1191) | Add chain id to mixed-case checksum address encoding | Juliano Rizzo | Draft | Cryptography |
-| [1193](https://eips.ethereum.org/EIPS/eip-1193) | Ethereum Provider JavaScript API | Ryan Ghods, Marc Garreau | Draft | |
-| [1202](https://eips.ethereum.org/EIPS/eip-1202) | Voting Standard | Zainan Victor Zhou, Evan, Yin Xu | Draft | |
-| [1203](https://eips.ethereum.org/EIPS/eip-1203) | ERC-1203 Multi-Class Token Standard (ERC-20 Extension) | Jeff Huang, Min Zu | Draft | |
-| [1207](https://eips.ethereum.org/EIPS/eip-1207) | DAuth Access Delegation Standard | Xiaoyu Wang, Bicong Wang | Draft | |
-| [1227](https://eips.ethereum.org/EIPS/eip-1227) | Defuse Difficulty Bomb and Reset Block Reward | SmeargleUsedFly | Draft | |
-| [1240](https://eips.ethereum.org/EIPS/eip-1240) | Remove Difficulty Bomb | Micah Zoltu | Draft | |
-| [1261](https://eips.ethereum.org/EIPS/eip-1261) | Membership Verification Token (MVT) | Chaitanya Potti, Partha Bhattacharya | Draft | |
-| [1271](https://eips.ethereum.org/EIPS/eip-1271) | Standard Signature Validation Method for Contracts | Francisco Giordano, Matt Condon, Philippe Castonguay | Draft | |
-| [1276](https://eips.ethereum.org/EIPS/eip-1276) | Eliminate Difficulty Bomb and Adjust Block Reward on Constantinople Shift | EOS Classic | Draft | |
-| [1285](https://eips.ethereum.org/EIPS/eip-1285) | Increase Gcallstipend gas in the CALL OPCODE | Ben Kaufman, Adam Levi | Draft | |
-| [1295](https://eips.ethereum.org/EIPS/eip-1295) | Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb | Brian Venturo | Draft | |
-| [1319](https://eips.ethereum.org/EIPS/eip-1319) | Smart Contract Package Registry Interface | Piper Merriam, Christopher Gewecke, g. nicholas d'andrea | Draft | |
-| [1328](https://eips.ethereum.org/EIPS/eip-1328) | WalletConnect Standard URI Format | ligi, Pedro Gomes | Draft | |
-| [1352](https://eips.ethereum.org/EIPS/eip-1352) | Specify restricted address range for precompiles/system contracts | Alex Beregszaszi | Draft | |
-| [1355](https://eips.ethereum.org/EIPS/eip-1355) | Ethash 1a | Paweł Bylica, Jean M. Cyr [@jean-m-cyr](https://github.com/jean-m-cyr) | Draft | |
-| [1380](https://eips.ethereum.org/EIPS/eip-1380) | Reduced gas cost for call to self | Alex Beregszaszi, Jacques Wagener | Draft | |
-| [1386](https://eips.ethereum.org/EIPS/eip-1386) | Attestation management contract | Weiwu Zhang, James Sangalli | Draft | |
-| [1387](https://eips.ethereum.org/EIPS/eip-1387) | Merkle Tree Attestations with Privacy enabled | Weiwu Zhang, James Sangalli | Draft | |
-| [1388](https://eips.ethereum.org/EIPS/eip-1388) | Attestation Issuers Management List | Weiwu Zhang, James Sangalli | Draft | |
-| [1417](https://eips.ethereum.org/EIPS/eip-1417) | Poll Standard | Chaitanya Potti, Partha Bhattacharya | Draft | |
-| [1438](https://eips.ethereum.org/EIPS/eip-1438) | dApp Components (avatar) & Universal Wallet | Jet Lim | Draft | |
-| [1444](https://eips.ethereum.org/EIPS/eip-1444) | Localized Messaging with Signal-to-Text | Brooklyn Zelenka, Jennifer Cooper | Draft | |
-| [1450](https://eips.ethereum.org/EIPS/eip-1450) | LDGRToken | John Shiple, Howard Marks, David Zhang | Draft | |
-| [1459](https://eips.ethereum.org/EIPS/eip-1459) | Node Discovery via DNS | Felix Lange, Péter Szilágyi | Draft | |
-| [1462](https://eips.ethereum.org/EIPS/eip-1462) | Base Security Token | Maxim Kupriianov, Julian Svirsky | Draft | |
-| [1470](https://eips.ethereum.org/EIPS/eip-1470) | Smart Contract Weakness Classification (SWC) | Gerhard Wagner | Draft | |
-| [1482](https://eips.ethereum.org/EIPS/eip-1482) | Define a maximum block timestamp drift | Maurelian | Draft | |
-| [1484](https://eips.ethereum.org/EIPS/eip-1484) | Digital Identity Aggregator | Anurag Angara, Andy Chorlian, Shane Hampton, Noah Zinsmeister | Draft | |
-| [1491](https://eips.ethereum.org/EIPS/eip-1491) | Human Cost Accounting Standard (Like Gas but for humans) | Iamnot Chris | Draft | |
-| [1577](https://eips.ethereum.org/EIPS/eip-1577) | contenthash field for ENS | Dean Eigenmann, Nick Johnson | Draft | |
-| [1588](https://eips.ethereum.org/EIPS/eip-1588) | Hardfork Meta: Golden Ethereum | Ikmyeong Na | Draft | |
-| [1592](https://eips.ethereum.org/EIPS/eip-1592) | Address and ERC20-compliant transfer rules | Cyril Lapinte, Laurent Aapro | Draft | |
+| [1193](https://eips.ethereum.org/EIPS/eip-1193) | Ethereum Provider JavaScript API | Ryan Ghods, Marc Garreau | Draft | API |
+| [1202](https://eips.ethereum.org/EIPS/eip-1202) | Voting Standard | Zainan Victor Zhou, Evan, Yin Xu | Draft | Smart Contract Development |
+| [1203](https://eips.ethereum.org/EIPS/eip-1203) | ERC-1203 Multi-Class Token Standard (ERC-20 Extension) | Jeff Huang, Min Zu | Draft | Token Standard |
+| [1207](https://eips.ethereum.org/EIPS/eip-1207) | DAuth Access Delegation Standard | Xiaoyu Wang, Bicong Wang | Draft | Auth, Smart Contract Development |
+| [1227](https://eips.ethereum.org/EIPS/eip-1227) | Defuse Difficulty Bomb and Reset Block Reward | SmeargleUsedFly | Draft | Mining, Consensus |
+| [1240](https://eips.ethereum.org/EIPS/eip-1240) | Remove Difficulty Bomb | Micah Zoltu | Draft | Mining, Consensus |
+| [1261](https://eips.ethereum.org/EIPS/eip-1261) | Membership Verification Token (MVT) | Chaitanya Potti, Partha Bhattacharya | Draft | Token Standard |
+| [1271](https://eips.ethereum.org/EIPS/eip-1271) | Standard Signature Validation Method for Contracts | Francisco Giordano, Matt Condon, Philippe Castonguay | Draft | Auth, Smart Contract Development, Security |
+| [1276](https://eips.ethereum.org/EIPS/eip-1276) | Eliminate Difficulty Bomb and Adjust Block Reward on Constantinople Shift | EOS Classic | Draft | Mining, Consensus |
+| [1285](https://eips.ethereum.org/EIPS/eip-1285) | Increase Gcallstipend gas in the CALL OPCODE | Ben Kaufman, Adam Levi | Draft | EVM, Opcodes, Transactions, Smart Contract Development |
+| [1295](https://eips.ethereum.org/EIPS/eip-1295) | Modify Ethereum PoW Incentive Structure and Delay Difficulty Bomb | Brian Venturo | Draft | Mining, Consensus |
+| [1319](https://eips.ethereum.org/EIPS/eip-1319) | Smart Contract Package Registry Interface | Piper Merriam, Christopher Gewecke, g. nicholas d'andrea | Draft | Smart Contract Development, API |
+| [1328](https://eips.ethereum.org/EIPS/eip-1328) | WalletConnect Standard URI Format | ligi, Pedro Gomes | Draft | API, Transactions |
+| [1352](https://eips.ethereum.org/EIPS/eip-1352) | Specify restricted address range for precompiles/system contracts | Alex Beregszaszi | Draft | Smart Contract Development |
+| [1355](https://eips.ethereum.org/EIPS/eip-1355) | Ethash 1a | Paweł Bylica, Jean M. Cyr [@jean-m-cyr](https://github.com/jean-m-cyr) | Draft | Mining, Consensus |
+| [1380](https://eips.ethereum.org/EIPS/eip-1380) | Reduced gas cost for call to self | Alex Beregszaszi, Jacques Wagener | Draft | EVM, Opcodes |
+| [1386](https://eips.ethereum.org/EIPS/eip-1386) | Attestation management contract | Weiwu Zhang, James Sangalli | Draft | Auth, Smart Contract Development |
+| [1387](https://eips.ethereum.org/EIPS/eip-1387) | Merkle Tree Attestations with Privacy enabled | Weiwu Zhang, James Sangalli | Draft | Auth, Smart Contract Development |
+| [1388](https://eips.ethereum.org/EIPS/eip-1388) | Attestation Issuers Management List | Weiwu Zhang, James Sangalli | Draft | Auth, Smart Contract Development |
+| [1417](https://eips.ethereum.org/EIPS/eip-1417) | Poll Standard | Chaitanya Potti, Partha Bhattacharya | Draft | Smart Contract Development |
+| [1438](https://eips.ethereum.org/EIPS/eip-1438) | dApp Components (avatar) & Universal Wallet | Jet Lim | Draft |Smart Contract Development |
+| [1444](https://eips.ethereum.org/EIPS/eip-1444) | Localized Messaging with Signal-to-Text | Brooklyn Zelenka, Jennifer Cooper | Draft | Smart Contract Development |
+| [1450](https://eips.ethereum.org/EIPS/eip-1450) | LDGRToken | John Shiple, Howard Marks, David Zhang | Draft | Token Standard |
+| [1459](https://eips.ethereum.org/EIPS/eip-1459) | Node Discovery via DNS | Felix Lange, Péter Szilágyi | Draft | Networking |
+| [1462](https://eips.ethereum.org/EIPS/eip-1462) | Base Security Token | Maxim Kupriianov, Julian Svirsky | Draft | Token Standards |
+| [1470](https://eips.ethereum.org/EIPS/eip-1470) | Smart Contract Weakness Classification (SWC) | Gerhard Wagner | Draft | Security, Smart Contract Development |
+| [1482](https://eips.ethereum.org/EIPS/eip-1482) | Define a maximum block timestamp drift | Maurelian | Draft | Mining, Consensus |
+| [1484](https://eips.ethereum.org/EIPS/eip-1484) | Digital Identity Aggregator | Anurag Angara, Andy Chorlian, Shane Hampton, Noah Zinsmeister | Draft | Smart Contract Development, Identity, Auth |
+| [1577](https://eips.ethereum.org/EIPS/eip-1577) | contenthash field for ENS | Dean Eigenmann, Nick Johnson | Draft | ENS, Cryptography |
+| [1588](https://eips.ethereum.org/EIPS/eip-1588) | Hardfork Meta: Golden Ethereum | Ikmyeong Na | Draft | Governance |
+| [1592](https://eips.ethereum.org/EIPS/eip-1592) | Address and ERC20-compliant transfer rules | Cyril Lapinte, Laurent Aapro | Draft | Smart Contract Development, Transactions |
 | [145](https://eips.ethereum.org/EIPS/eip-145) | Bitwise shifting instructions in EVM | Alex Beregszaszi, Paweł Bylica | Accepted | |
 | [1234](https://eips.ethereum.org/EIPS/eip-1234) | Constantinople Difficulty Bomb Delay and Block Reward Adjustment | Afri Schoedon | Accepted | |
 | [1283](https://eips.ethereum.org/EIPS/eip-1283) | Net gas metering for SSTORE without dirty maps | Wei Tang |Accepted | |
