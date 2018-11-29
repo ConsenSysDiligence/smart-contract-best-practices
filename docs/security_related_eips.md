@@ -57,32 +57,31 @@
 | [1013](https://eips.ethereum.org/EIPS/eip-1013) | Hardfork Meta: Constantinople | Nick Savers | Draft | Governance, EVM, Opcodes, Mining |
 | [1014](https://eips.ethereum.org/EIPS/eip-1014) | Skinny CREATE2 | Vitalik Buterin | Draft | EVM, Opcodes, Cryptography |
 | [1015](https://eips.ethereum.org/EIPS/eip-1015) | Configurable On Chain Issuance | Alex Van de Sande | Draft | Governance, Mining |
-| [1046](https://eips.ethereum.org/EIPS/eip-1046) | ERC20 Metadata Extension | Tommy Nicholas, Matt Russo, John Zettler, Matt Condon | Draft |  |
-| [1047](https://eips.ethereum.org/EIPS/eip-1047) | Token Metadata JSON Schema | Tommy Nicholas, Matt Russo, John Zettler | Draft | |
-| [1051](https://eips.ethereum.org/EIPS/eip-1051) | Overflow checking for the EVM | Nick Johnson | Draft | |
-| [1052](https://eips.ethereum.org/EIPS/eip-1052) | EXTCODEHASH opcode | Nick Johnson, Paweł Bylica | Draft | |
-| [1057](https://eips.ethereum.org/EIPS/eip-1057) | ProgPoW, a Programmatic Proof-of-Work | IfDefElse | Draft | |
-| [1062](https://eips.ethereum.org/EIPS/eip-1062) | Formalize IPFS hash into ENS(Ethereum Name Service) resolver | Phyrex Tsai, Portal Network Team | Draft | |
-| [1066](https://eips.ethereum.org/EIPS/eip-1066) | Status Codes | Brooklyn Zelenka, Tom Carchrae, Gleb Naumenko | Draft | |
-| [1077](https://eips.ethereum.org/EIPS/eip-1077) | Executable Signed Messages refunded by the contract | Alex Van de Sande, Ricardo Guilherme Schmidt | Draft | |
-| [1078](https://eips.ethereum.org/EIPS/eip-1078) | Universal login / signup using ENS subdomains | Alex Van de Sande | Draft | |
-| [1080](https://eips.ethereum.org/EIPS/eip-1080) | Recoverable Token | Bradley Leatherwood | Draft | |
-| [1087](https://eips.ethereum.org/EIPS/eip-1087) | Net gas metering for SSTORE operations | Nick Johnson | Draft | |
-| [1102](https://eips.ethereum.org/EIPS/eip-1102) | Opt-in account exposure | Paul Bouchon | Draft | |
-| [1108](https://eips.ethereum.org/EIPS/eip-1108) | Reduce alt_bn128 precompile gas costs | Antonio Salazar Cardozo | Draft | |
-| [1109](https://eips.ethereum.org/EIPS/eip-1109) | PRECOMPILEDCALL opcode (Remove CALL costs for precompiled contracts) | Jordi Baylina | Draft | |
-| [1123](https://eips.ethereum.org/EIPS/eip-1123) | Revised Ethereum Smart Contract Packaging Standard | g. nicholas d’andrea, Piper Merriam, Nick Gheorghita, Danny Ryan | Draft | |
-| [1129](https://eips.ethereum.org/EIPS/eip-1129) | Standardised DAPP announcements | Jan Turk | Draft | |
-| [1132](https://eips.ethereum.org/EIPS/eip-1132) | Extending ERC20 with token locking capability | nitika-goel | Draft | |
-| [1153](https://eips.ethereum.org/EIPS/eip-1153) | Transient storage opcodes | Alexey Akhunov | Draft | |
-| [1154](https://eips.ethereum.org/EIPS/eip-1154) | Oracle Interface | Alan Lu | Draft | |
-| [1155](https://eips.ethereum.org/EIPS/eip-1155) | Multi Token Standard | Witek Radomski, Andrew Cooke, Philippe Castonguay, James Therien, Eric Binet | Draft | |
-| [1175](https://eips.ethereum.org/EIPS/eip-1175) | Wallet & shop standard for all tokens (erc20) | Jet Lim | Draft | |
-| [1175](https://eips.ethereum.org/EIPS/eip-1175) | Wallet & shop standard for all tokens (erc20) | Jet Lim | Draft | |
-| [1178](https://eips.ethereum.org/EIPS/eip-1178) | Multi-class Token Standard | Albert Chon | Draft | |
-| [1185](https://eips.ethereum.org/EIPS/eip-1185) | Storage of DNS Records in ENS | Jim McDonald | Draft | |
-| [1186](https://eips.ethereum.org/EIPS/eip-1186) | RPC-Method to get Merkle Proofs - eth_getProof | Simon Jentzsch, Christoph Jentzsch | Draft | |
-| [1191](https://eips.ethereum.org/EIPS/eip-1191) | Add chain id to mixed-case checksum address encoding | Juliano Rizzo | Draft | |
+| [1046](https://eips.ethereum.org/EIPS/eip-1046) | ERC20 Metadata Extension | Tommy Nicholas, Matt Russo, John Zettler, Matt Condon | Draft | Token Standards |
+| [1047](https://eips.ethereum.org/EIPS/eip-1047) | Token Metadata JSON Schema | Tommy Nicholas, Matt Russo, John Zettler | Draft | Token Standards |
+| [1051](https://eips.ethereum.org/EIPS/eip-1051) | Overflow checking for the EVM | Nick Johnson | Draft | EVM, Opcodes, Security |
+| [1052](https://eips.ethereum.org/EIPS/eip-1052) | EXTCODEHASH opcode | Nick Johnson, Paweł Bylica | Draft | Opcodes, Cryptography |
+| [1057](https://eips.ethereum.org/EIPS/eip-1057) | ProgPoW, a Programmatic Proof-of-Work | IfDefElse | Draft | Consensus, Cryptography|
+| [1062](https://eips.ethereum.org/EIPS/eip-1062) | Formalize IPFS hash into ENS(Ethereum Name Service) resolver | Phyrex Tsai, Portal Network Team | Draft | ENS,Cryptography |
+| [1066](https://eips.ethereum.org/EIPS/eip-1066) | Status Codes | Brooklyn Zelenka, Tom Carchrae, Gleb Naumenko | Draft | Smart Contract Development, Transactions |
+| [1077](https://eips.ethereum.org/EIPS/eip-1077) | Executable Signed Messages refunded by the contract | Alex Van de Sande, Ricardo Guilherme Schmidt | Draft | Auth, Smart Contract Development |
+| [1078](https://eips.ethereum.org/EIPS/eip-1078) | Universal login / signup using ENS subdomains | Alex Van de Sande | Draft | Auth, ENS, Cryptography |
+| [1080](https://eips.ethereum.org/EIPS/eip-1080) | Recoverable Token | Bradley Leatherwood | Draft | Token Standards |
+| [1087](https://eips.ethereum.org/EIPS/eip-1087) | Net gas metering for SSTORE operations | Nick Johnson | Draft | EVM, Opcodes |
+| [1102](https://eips.ethereum.org/EIPS/eip-1102) | Opt-in account exposure | Paul Bouchon | Draft | RPC, API |
+| [1108](https://eips.ethereum.org/EIPS/eip-1108) | Reduce alt_bn128 precompile gas costs | Antonio Salazar Cardozo | Draft | Cryptography |
+| [1109](https://eips.ethereum.org/EIPS/eip-1109) | PRECOMPILEDCALL opcode (Remove CALL costs for precompiled contracts) | Jordi Baylina | Draft | EVM, Opcodes, Smart Contract Development |
+| [1123](https://eips.ethereum.org/EIPS/eip-1123) | Revised Ethereum Smart Contract Packaging Standard | g. nicholas d’andrea, Piper Merriam, Nick Gheorghita, Danny Ryan | Draft | Smart Contract Development |
+| [1129](https://eips.ethereum.org/EIPS/eip-1129) | Standardised DAPP announcements | Jan Turk | Draft | Smart Contract Development |
+| [1132](https://eips.ethereum.org/EIPS/eip-1132) | Extending ERC20 with token locking capability | nitika-goel | Draft | token Standards |
+| [1153](https://eips.ethereum.org/EIPS/eip-1153) | Transient storage opcodes | Alexey Akhunov | Draft | EVM, Opcodes |
+| [1154](https://eips.ethereum.org/EIPS/eip-1154) | Oracle Interface | Alan Lu | Draft |Smart Contract Development |
+| [1155](https://eips.ethereum.org/EIPS/eip-1155) | Multi Token Standard | Witek Radomski, Andrew Cooke, Philippe Castonguay, James Therien, Eric Binet | Draft | Token Standards, Smart Contract Development |
+| [1175](https://eips.ethereum.org/EIPS/eip-1175) | Wallet & shop standard for all tokens (erc20) | Jet Lim | Draft | Smart Contract Development, Token Standards |
+| [1178](https://eips.ethereum.org/EIPS/eip-1178) | Multi-class Token Standard | Albert Chon | Draft | Token Standards |
+| [1185](https://eips.ethereum.org/EIPS/eip-1185) | Storage of DNS Records in ENS | Jim McDonald | Draft | ENS |
+| [1186](https://eips.ethereum.org/EIPS/eip-1186) | RPC-Method to get Merkle Proofs - eth_getProof | Simon Jentzsch, Christoph Jentzsch | Draft | RPC, Cryptography |
+| [1191](https://eips.ethereum.org/EIPS/eip-1191) | Add chain id to mixed-case checksum address encoding | Juliano Rizzo | Draft | Cryptography |
 | [1193](https://eips.ethereum.org/EIPS/eip-1193) | Ethereum Provider JavaScript API | Ryan Ghods, Marc Garreau | Draft | |
 | [1202](https://eips.ethereum.org/EIPS/eip-1202) | Voting Standard | Zainan Victor Zhou, Evan, Yin Xu | Draft | |
 | [1203](https://eips.ethereum.org/EIPS/eip-1203) | ERC-1203 Multi-Class Token Standard (ERC-20 Extension) | Jeff Huang, Min Zu | Draft | |
