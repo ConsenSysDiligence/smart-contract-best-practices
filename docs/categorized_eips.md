@@ -1,5 +1,5 @@
 
-# Security Related EIP's
+# A Categorized List of EIPs
 
 ## EIP Status Terms
 
