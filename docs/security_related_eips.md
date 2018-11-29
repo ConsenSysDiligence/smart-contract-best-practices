@@ -113,44 +113,44 @@
 | [1577](https://eips.ethereum.org/EIPS/eip-1577) | contenthash field for ENS | Dean Eigenmann, Nick Johnson | Draft | ENS, Cryptography |
 | [1588](https://eips.ethereum.org/EIPS/eip-1588) | Hardfork Meta: Golden Ethereum | Ikmyeong Na | Draft | Governance |
 | [1592](https://eips.ethereum.org/EIPS/eip-1592) | Address and ERC20-compliant transfer rules | Cyril Lapinte, Laurent Aapro | Draft | Smart Contract Development, Transactions |
-| [145](https://eips.ethereum.org/EIPS/eip-145) | Bitwise shifting instructions in EVM | Alex Beregszaszi, Paweł Bylica | Accepted | |
-| [1234](https://eips.ethereum.org/EIPS/eip-1234) | Constantinople Difficulty Bomb Delay and Block Reward Adjustment | Afri Schoedon | Accepted | |
-| [1283](https://eips.ethereum.org/EIPS/eip-1283) | Net gas metering for SSTORE without dirty maps | Wei Tang |Accepted | |
-| [2](https://eips.ethereum.org/EIPS/eip-2) | Homestead Hard-fork Changes | Vitalik Buterin | Final | |
-| [6](https://eips.ethereum.org/EIPS/eip-6) | Renaming SUICIDE opcode | Hudson Jameson | Final | |
-| [7](https://eips.ethereum.org/EIPS/eip-7) | DELEGATECALL | Vitalik Buterin | Final | |
-| [8](https://eips.ethereum.org/EIPS/eip-8) | devp2p Forward Compatibility Requirements for Homestead | Felix Lange | Final | |
-| [20](https://eips.ethereum.org/EIPS/eip-20) | ERC-20 Token Standard | Fabian Vogelsteller, Vitalik Buterin | Final | |
-| [55](https://eips.ethereum.org/EIPS/eip-55) | Mixed-case checksum address encoding | Vitalik Buterin | Final | |
-| [100](https://eips.ethereum.org/EIPS/eip-100) | Change difficulty adjustment to target mean block time including uncles | Vitalik Buterin | Final | |
-| [137](https://eips.ethereum.org/EIPS/eip-137) | Ethereum Domain Name Service - Specification | Nick Johnson | Final | |
-| [140](https://eips.ethereum.org/EIPS/eip-140) | REVERT instruction | Alex Beregszaszi, Nikolai Mushegian | Final | |
-| [141](https://eips.ethereum.org/EIPS/eip-141) | Designated invalid EVM instruction | Alex Beregszaszi | Final | |
-| [150](https://eips.ethereum.org/EIPS/eip-150) | Gas cost changes for IO-heavy operations | Vitalik Buterin | Final | |
-| [155](https://eips.ethereum.org/EIPS/eip-155) | Simple replay attack protection | Vitalik Buterin | Final | |
-| [160](https://eips.ethereum.org/EIPS/eip-160) | EXP cost increase | Vitalik Buterin | Final | |
-| [161](https://eips.ethereum.org/EIPS/eip-161) | State trie clearing (invariant-preserving alternative) | Gavin Wood | Final | |
-| [162](https://eips.ethereum.org/EIPS/eip-162) | Initial ENS Hash Registrar | Maurelian, Nick Johnson, Alex Van de Sande | Final | |
-| [165](https://eips.ethereum.org/EIPS/eip-165) | ERC-165 Standard Interface Detection | Christian Reitwießner, Nick Johnson, Fabian Vogelsteller, Jordi Baylina, Konrad Feldmeier, William Entriken | Final | |
-| [170](https://eips.ethereum.org/EIPS/eip-170) | Contract code size limit | Vitalik Buterin | Final | |
-| [181](https://eips.ethereum.org/EIPS/eip-181) | ENS support for reverse resolution of Ethereum addresses | Nick Johnson | Final | |
-| [190](https://eips.ethereum.org/EIPS/eip-190) | Ethereum Smart Contract Packaging Standard | Piper Merriam, Tim Coulter, Denis Erfurt, RJ Catalano, Iuri Matias | Final | |
-| [196](https://eips.ethereum.org/EIPS/eip-196) | Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128 | Christian Reitwiessner | Final | |
-| [197](https://eips.ethereum.org/EIPS/eip-197) | Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128 | Vitalik Buterin, Christian Reitwiessner | Final | |
-| [198](https://eips.ethereum.org/EIPS/eip-198) | Big integer modular exponentiation | Vitalik Buterin | Final | |
-| [211](https://eips.ethereum.org/EIPS/eip-211) | New opcodes: RETURNDATASIZE and RETURNDATACOPY | Christian Reitwiessner | Final | |
-| [214](https://eips.ethereum.org/EIPS/eip-214) | New opcode STATICCALL | Vitalik Buterin, Christian Reitwiessner | Final | |
-| [606](https://eips.ethereum.org/EIPS/eip-606) | Hardfork Meta: Homestead | Alex Beregszaszi | Final | |
-| [607](https://eips.ethereum.org/EIPS/eip-607) | Hardfork Meta: Spurious Dragon | Alex Beregszaszi | Final | |
-| [608](https://eips.ethereum.org/EIPS/eip-608) | Hardfork Meta: Tangerine Whistle | Alex Beregszaszi | Final | |
-| [609](https://eips.ethereum.org/EIPS/eip-609) | Hardfork Meta: Byzantium | Alex Beregszaszi | Final | |
-| [649](https://eips.ethereum.org/EIPS/eip-649) | Metropolis Difficulty Bomb Delay and Block Reward Reduction | Afri Schoedon, Vitalik Buterin | Final | |
-| [658](https://eips.ethereum.org/EIPS/eip-658) | Embedding transaction status code in receipts | Nick Johnson | Final | |
-| [706](https://eips.ethereum.org/EIPS/eip-706) | DEVp2p snappy compression | Péter Szilágyi | Final | |
-| [721](https://eips.ethereum.org/EIPS/eip-721) | ERC-721 Non-Fungible Token Standard | William Entriken, Dieter Shirley, Jacob Evans, Nastassia Sachs | Final | |
-| [779](https://eips.ethereum.org/EIPS/eip-779) | Hardfork Meta: DAO Fork | Casey Detrio | Final | |
-| [1167](https://eips.ethereum.org/EIPS/eip-1167) | Minimal Proxy Contract | Peter Murray, Nate Welch, Joe Messerman | Final | |
-| [1](https://eips.ethereum.org/EIPS/eip-1) | EIP Purpose and Guidelines | Martin Becze, Hudson Jameson, and others https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1.md | Active | |
-| [3](https://eips.ethereum.org/EIPS/eip-3) | Addition of CALLDEPTH opcode | Martin Holst Swende | Deferred | |
-| [616](https://eips.ethereum.org/EIPS/eip-616) | SIMD Operations for the EVM | Greg Colvin |Deferred | |
-| [5](https://eips.ethereum.org/EIPS/eip-5)| Gas Usage for `RETURN` and `CALL*` | Christian Reitwiessner | Superseded | |
+| [145](https://eips.ethereum.org/EIPS/eip-145) | Bitwise shifting instructions in EVM | Alex Beregszaszi, Paweł Bylica | Accepted | EVM |
+| [1234](https://eips.ethereum.org/EIPS/eip-1234) | Constantinople Difficulty Bomb Delay and Block Reward Adjustment | Afri Schoedon | Accepted | Mining, Consensus |
+| [1283](https://eips.ethereum.org/EIPS/eip-1283) | Net gas metering for SSTORE without dirty maps | Wei Tang |Accepted | EVM |
+| [2](https://eips.ethereum.org/EIPS/eip-2) | Homestead Hard-fork Changes | Vitalik Buterin | Final | Governance, Transactions |
+| [6](https://eips.ethereum.org/EIPS/eip-6) | Renaming SUICIDE opcode | Hudson Jameson | Final | Opcodes |
+| [7](https://eips.ethereum.org/EIPS/eip-7) | DELEGATECALL | Vitalik Buterin | Final | Opcodes |
+| [8](https://eips.ethereum.org/EIPS/eip-8) | devp2p Forward Compatibility Requirements for Homestead | Felix Lange | Final | Networking |
+| [20](https://eips.ethereum.org/EIPS/eip-20) | ERC-20 Token Standard | Fabian Vogelsteller, Vitalik Buterin | Final | Token Standard |
+| [55](https://eips.ethereum.org/EIPS/eip-55) | Mixed-case checksum address encoding | Vitalik Buterin | Final | Cryptography |
+| [100](https://eips.ethereum.org/EIPS/eip-100) | Change difficulty adjustment to target mean block time including uncles | Vitalik Buterin | Final | Mining |
+| [137](https://eips.ethereum.org/EIPS/eip-137) | Ethereum Domain Name Service - Specification | Nick Johnson | Final | ENS |
+| [140](https://eips.ethereum.org/EIPS/eip-140) | REVERT instruction | Alex Beregszaszi, Nikolai Mushegian | Final | Opcodes, EVM |
+| [141](https://eips.ethereum.org/EIPS/eip-141) | Designated invalid EVM instruction | Alex Beregszaszi | Final | Opcodes |
+| [150](https://eips.ethereum.org/EIPS/eip-150) | Gas cost changes for IO-heavy operations | Vitalik Buterin | Final | EVM |
+| [155](https://eips.ethereum.org/EIPS/eip-155) | Simple replay attack protection | Vitalik Buterin | Final | Security, Cryptography |
+| [160](https://eips.ethereum.org/EIPS/eip-160) | EXP cost increase | Vitalik Buterin | Final | EVM |
+| [161](https://eips.ethereum.org/EIPS/eip-161) | State trie clearing (invariant-preserving alternative) | Gavin Wood | Final | EVM |
+| [162](https://eips.ethereum.org/EIPS/eip-162) | Initial ENS Hash Registrar | Maurelian, Nick Johnson, Alex Van de Sande | Final | ENS |
+| [165](https://eips.ethereum.org/EIPS/eip-165) | ERC-165 Standard Interface Detection | Christian Reitwießner, Nick Johnson, Fabian Vogelsteller, Jordi Baylina, Konrad Feldmeier, William Entriken | Final | Smart Contract Development |
+| [170](https://eips.ethereum.org/EIPS/eip-170) | Contract code size limit | Vitalik Buterin | Final | EVM |
+| [181](https://eips.ethereum.org/EIPS/eip-181) | ENS support for reverse resolution of Ethereum addresses | Nick Johnson | Final | ENS |
+| [190](https://eips.ethereum.org/EIPS/eip-190) | Ethereum Smart Contract Packaging Standard | Piper Merriam, Tim Coulter, Denis Erfurt, RJ Catalano, Iuri Matias | Final | Smart Contract Development |
+| [196](https://eips.ethereum.org/EIPS/eip-196) | Precompiled contracts for addition and scalar multiplication on the elliptic curve alt_bn128 | Christian Reitwiessner | Final | Cryptography |
+| [197](https://eips.ethereum.org/EIPS/eip-197) | Precompiled contracts for optimal ate pairing check on the elliptic curve alt_bn128 | Vitalik Buterin, Christian Reitwiessner | Final | Cryptography |
+| [198](https://eips.ethereum.org/EIPS/eip-198) | Big integer modular exponentiation | Vitalik Buterin | Final | EVM, Cryptography |
+| [211](https://eips.ethereum.org/EIPS/eip-211) | New opcodes: RETURNDATASIZE and RETURNDATACOPY | Christian Reitwiessner | Final | EVM, Opcodes |
+| [214](https://eips.ethereum.org/EIPS/eip-214) | New opcode STATICCALL | Vitalik Buterin, Christian Reitwiessner | Final | Opcodes, Security |
+| [606](https://eips.ethereum.org/EIPS/eip-606) | Hardfork Meta: Homestead | Alex Beregszaszi | Final | Governance, Opcodes, Networking |
+| [607](https://eips.ethereum.org/EIPS/eip-607) | Hardfork Meta: Spurious Dragon | Alex Beregszaszi | Final | Governance, EVM, Security |
+| [608](https://eips.ethereum.org/EIPS/eip-608) | Hardfork Meta: Tangerine Whistle | Alex Beregszaszi | Final | Governance, EVM |
+| [609](https://eips.ethereum.org/EIPS/eip-609) | Hardfork Meta: Byzantium | Alex Beregszaszi | Final | Governance, Opcodes, EVM, Transactions |
+| [649](https://eips.ethereum.org/EIPS/eip-649) | Metropolis Difficulty Bomb Delay and Block Reward Reduction | Afri Schoedon, Vitalik Buterin | Final | Mining, Consensus |
+| [658](https://eips.ethereum.org/EIPS/eip-658) | Embedding transaction status code in receipts | Nick Johnson | Final | Transactions |
+| [706](https://eips.ethereum.org/EIPS/eip-706) | DEVp2p snappy compression | Péter Szilágyi | Final | Networking, Compression, Security |
+| [721](https://eips.ethereum.org/EIPS/eip-721) | ERC-721 Non-Fungible Token Standard | William Entriken, Dieter Shirley, Jacob Evans, Nastassia Sachs | Final | Token Standards |
+| [779](https://eips.ethereum.org/EIPS/eip-779) | Hardfork Meta: DAO Fork | Casey Detrio | Final | Governance, Security |
+| [1167](https://eips.ethereum.org/EIPS/eip-1167) | Minimal Proxy Contract | Peter Murray, Nate Welch, Joe Messerman | Final | Opcodes, Smart Contract Development |
+| [1](https://eips.ethereum.org/EIPS/eip-1) | EIP Purpose and Guidelines | Martin Becze, Hudson Jameson, and others https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1.md | Active | Governance |
+| [3](https://eips.ethereum.org/EIPS/eip-3) | Addition of CALLDEPTH opcode | Martin Holst Swende | Deferred | EVM, Opcodes |
+| [616](https://eips.ethereum.org/EIPS/eip-616) | SIMD Operations for the EVM | Greg Colvin |Deferred | EVM |
+| [5](https://eips.ethereum.org/EIPS/eip-5)| Gas Usage for `RETURN` and `CALL*` | Christian Reitwiessner | Superseded | EVM, Opcodes |
