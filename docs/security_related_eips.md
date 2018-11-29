@@ -46,18 +46,18 @@
 | [900](https://eips.ethereum.org/EIPS/eip-900) | Simple Staking Interface | Dean Eigenmann, Jorge Izquierdo | Draft | Smart Contract Development |
 | [902](https://eips.ethereum.org/EIPS/eip-902) | Token Validation | Brooklyn Zelenka, Tom Carchrae, Gleb Naumenko | Draft | Auth, Token Standards, Smart Contract Development |
 | [908](https://eips.ethereum.org/EIPS/eip-908) | Reward clients for a sustainable network | James Ray, Micah Zoltu | Draft | Networking, Mining, Consensus |
-| [918](https://eips.ethereum.org/EIPS/eip-918) | Mineable Token Standard | Jay Logelin, Infernal_toast, Michael Seiler, Brandon Grill | Draft | |
-| [926](https://eips.ethereum.org/EIPS/eip-926) | Address metadata registry | Nick Johnson | Draft | |
-| [927](https://eips.ethereum.org/EIPS/eip-927) | Generalised authorisations | Nick Johnson | Draft | |
-| [969](https://eips.ethereum.org/EIPS/eip-969) | Modifications to ethash to invalidate existing dedicated hardware implementations | David Stanfill | Draft | |
-| [998](https://eips.ethereum.org/EIPS/eip-998) | ERC-998 Composable Non-Fungible Token Standard | Matt Lockyer, Nick Mudge, Jordan Schalm | Draft | |
-| [999](https://eips.ethereum.org/EIPS/eip-999) | Restore Contract Code at 0x863DF6BFa4469f3ead0bE8f9F2AAE51c91A907b4 | Afri Schoedon | Draft | |
-| [1010](https://eips.ethereum.org/EIPS/eip-1010) | Uniformity Between 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B and 0x15E55EF43efA8348dDaeAa455F16C43B64917e3c | Anderson Wesley | Draft | |
-| [1011](https://eips.ethereum.org/EIPS/eip-1011) | Hybrid Casper FFG | Danny Ryan, Chih-Cheng Liang | Draft | |
-| [1013](https://eips.ethereum.org/EIPS/eip-1013) | Hardfork Meta: Constantinople | Nick Savers | Draft | |
-| [1014](https://eips.ethereum.org/EIPS/eip-1014) | Skinny CREATE2 | Vitalik Buterin | Draft | |
-| [1015](https://eips.ethereum.org/EIPS/eip-1015) | Configurable On Chain Issuance | Alex Van de Sande | Draft | |
-| [1046](https://eips.ethereum.org/EIPS/eip-1046) | ERC20 Metadata Extension | Tommy Nicholas, Matt Russo, John Zettler, Matt Condon | Draft | |
+| [918](https://eips.ethereum.org/EIPS/eip-918) | Mineable Token Standard | Jay Logelin, Infernal_toast, Michael Seiler, Brandon Grill | Draft | Mining, Token Standards, Smart Contract Development |
+| [926](https://eips.ethereum.org/EIPS/eip-926) | Address metadata registry | Nick Johnson | Draft | Smart Contract Development |
+| [927](https://eips.ethereum.org/EIPS/eip-927) | Generalised authorisations | Nick Johnson | Draft | Auth, Smart Contract Development |
+| [969](https://eips.ethereum.org/EIPS/eip-969) | Modifications to ethash to invalidate existing dedicated hardware implementations | David Stanfill | Draft | Mining, Consensus |
+| [998](https://eips.ethereum.org/EIPS/eip-998) | ERC-998 Composable Non-Fungible Token Standard | Matt Lockyer, Nick Mudge, Jordan Schalm | Draft | Token Standards, Smart Contract Development |
+| [999](https://eips.ethereum.org/EIPS/eip-999) | Restore Contract Code at 0x863DF6BFa4469f3ead0bE8f9F2AAE51c91A907b4 | Afri Schoedon | Draft | Governance |
+| [1010](https://eips.ethereum.org/EIPS/eip-1010) | Uniformity Between 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B and 0x15E55EF43efA8348dDaeAa455F16C43B64917e3c | Anderson Wesley | Draft | Governance |
+| [1011](https://eips.ethereum.org/EIPS/eip-1011) | Hybrid Casper FFG | Danny Ryan, Chih-Cheng Liang | Draft | Governance, Consensus |
+| [1013](https://eips.ethereum.org/EIPS/eip-1013) | Hardfork Meta: Constantinople | Nick Savers | Draft | Governance, EVM, Opcodes, Mining |
+| [1014](https://eips.ethereum.org/EIPS/eip-1014) | Skinny CREATE2 | Vitalik Buterin | Draft | EVM, Opcodes, Cryptography |
+| [1015](https://eips.ethereum.org/EIPS/eip-1015) | Configurable On Chain Issuance | Alex Van de Sande | Draft | Governance, Mining |
+| [1046](https://eips.ethereum.org/EIPS/eip-1046) | ERC20 Metadata Extension | Tommy Nicholas, Matt Russo, John Zettler, Matt Condon | Draft |  |
 | [1047](https://eips.ethereum.org/EIPS/eip-1047) | Token Metadata JSON Schema | Tommy Nicholas, Matt Russo, John Zettler | Draft | |
 | [1051](https://eips.ethereum.org/EIPS/eip-1051) | Overflow checking for the EVM | Nick Johnson | Draft | |
 | [1052](https://eips.ethereum.org/EIPS/eip-1052) | EXTCODEHASH opcode | Nick Johnson, Paweł Bylica | Draft | |
