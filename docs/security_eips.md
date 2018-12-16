@@ -1,5 +1,9 @@
 ### Security Related EIPs
 
+The following EIPs are important to be aware of, either for understanding how the EVM works, or to inform proper best practices when developing a smart contract system. 
+
+Please do not assume this is an exhaustive list. 
+
 ### Final
 
 - [EIP 155](https://eips.ethereum.org/EIPS/eip-155) Simple replay attack protection - Provides a way to send transactions that work on Ethereum mainnet without working on other chains such as Ethereum Classic, various testnets or consortium chains.
