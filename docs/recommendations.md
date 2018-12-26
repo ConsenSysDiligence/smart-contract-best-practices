@@ -38,7 +38,7 @@ function makeUntrustedWithdrawal(uint amount) {
 
 Whether using *raw calls* (of the form `someAddress.call()`) or *contract calls* (of the form `ExternalContract.someMethod()`), assume that malicious code might execute. Even if `ExternalContract` is not malicious, malicious code can be executed by any contracts *it* calls. 
 
-One particular danger is malicious code may hijack the control flow, leading to race conditions. (See [Race Conditions](./known_attacks#race-conditions) for a fuller discussion of this problem).
+One particular danger is malicious code may hijack the control flow, leading to vulnerabilities due to reentrancy. (See [Reentrancy](./known_attacks#reentrancy) for a fuller discussion of this problem).
 
 If you are making a call to an untrusted external contract, *avoid state changes after the call*. This pattern is also sometimes known as the [checks-effects-interactions pattern](http://solidity.readthedocs.io/en/develop/security-considerations.html?highlight=check%20effects#use-the-checks-effects-interactions-pattern).
 

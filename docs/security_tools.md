@@ -7,14 +7,15 @@
 
 ### Static and Dynamic Analysis
 
-- [Mythril Classic](https://github.com/ConsenSys/mythril-classic) - Open-source security analyzer for Solidity code and on-chain smart contracts.
-- [Mythril Platform](https://mythril.ai/) - SaaS platform that allows anyone to build purpose-built security tools.
+- [Mythril Classic](https://github.com/ConsenSys/mythril-classic) - Swiss army knife for smart contract security.
+- [MythX](https://mythx.io) - Security tooling for the Ethereum smart contract SDLC.
 - [Slither](https://github.com/trailofbits/slither) - Static analysis framework with detectors for many common Solidity issues. It has taint and value tracking capabilities and is written in Python.
 - [Echidna](https://github.com/trailofbits/echidna) - The only available fuzzer for Ethereum software. Uses property testing to generate malicious inputs that break smart contracts.
 - [Manticore](https://github.com/trailofbits/manticore) - Dynamic binary analysis tool with [EVM support](https://asciinema.org/a/haJU2cl0R0Q3jB9wd733LVosL).
 - [Oyente](https://github.com/melonproject/oyente) - Analyze Ethereum code to find common vulnerabilities, based on this [paper](http://www.comp.nus.edu.sg/~loiluu/papers/oyente.pdf).
 - [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns. 
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
+- [Octopus](https://github.com/quoscient/octopus) - Security Analysis tool for Blockchain Smart Contracts with support of EVM and (e)WASM.
 
 ### Weakness OSSClassifcation & Test Cases
 - [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts. 

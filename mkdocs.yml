@@ -14,8 +14,8 @@ pages:
   - Token specific recommendations: tokens.md
   - Documentation and Procedures: documentation_procedures.md
   - Security Tools: security_tools.md
+  - Security EIPs: security_eips.md
   - Security Notifications: security_notifications.md
-  - Future improvements: future_improvements.md
   - Smart Contract Security Bibliography: bibliography.md
   - List of Smart Contract Bug Bounty Programs: bug_bounty_list.md
   - About:
