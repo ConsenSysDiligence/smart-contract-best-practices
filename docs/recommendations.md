@@ -456,9 +456,7 @@ Contract users (and auditors) should be aware of the full smart contract source 
 
 Never use `tx.origin` for authorization, another contract can have a method which will call your contract (where the user has some funds for instance) and your contract will authorize that transaction as your address is in `tx.origin`.
 
-```
-pragma solidity 0.4.18;
-
+```sol
 contract MyContract {
 
     address owner;
