@@ -378,7 +378,7 @@ An attacker can use this to censor transactions, causing them to fail by sending
 
 One way to address this is to implement logic requiring forwarders to provide enough gas to finish the subcall. If the miner tried to conduct the attack in this scenario, the `require` statement would fail and the inner call would revert. A user can specify a minimum gasLimit along with the other data (in this example, typically the `_gasLimit` value would be verified by a signature, but that is ommitted for simplicity in this case).
 
-```
+```sol
 // contract called by Relayer
 contract Executor {
     function execute(bytes _data, uint _gasLimit) {
