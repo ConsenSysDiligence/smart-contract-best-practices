@@ -247,7 +247,7 @@ contract UnderflowManipulation {
  
 In general, the variable `manipulateMe`'s location cannot be influenced without going through the `keccak256`, which is infeasible. However, since dynamic arrays are stored sequentially, if a malicious actor wanted to change `manipulateMe` all they would need to do is:
  
- * Call `popBonusCode` to underflow (Note: Solidity [lacks a built-in pop method](https://github.com/ethereum/solidity/pull/3743))
+ * Call `popBonusCode` to underflow (Note: `array.pop()` method [was added](https://github.com/ethereum/solidity/blob/v0.5.0/Changelog.md) in Solidity 0.5.0)
  * Compute the storage location of `manipulateMe`
  * Modify and update `manipulateMe`'s value using `modifyBonusCode`
 
