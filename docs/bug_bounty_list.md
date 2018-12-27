@@ -8,7 +8,7 @@ The following are ongoing bug bounty programs, either focused on, or including s
 * [BrickBlock](https://blog.brickblock.io/join-the-brickblock-bug-bounty-program-7b431f2bcc02): Launched September 2018, Max payout 100 ETH
 * [MelonPort](https://melonport.com/bug-bounty)
 * [Parity](https://www.parity.io/bug-bounty/): Includes client and contract code
-* [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope): Has a large scope, including clients, soldity and vyper, and more.
+* [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope): Has a large scope, including clients, Solidity and Vyper, and more.
 
 
 
