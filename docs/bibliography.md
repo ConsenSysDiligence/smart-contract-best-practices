@@ -35,3 +35,4 @@ Here are some of them.  Feel free to add more.
 - https://medium.com/zeppelin-blog/zeppelin-framework-proposal-and-development-roadmap-fdfa9a3a32ab
 - https://pdaian.com/blog/chasing-the-dao-attackers-wake
 - http://www.comp.nus.edu.sg/~loiluu/papers/oyente.pdf
+- https://paulrberg.com/post/2018/12/30/upgradeable-smart-contracts/
