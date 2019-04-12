@@ -18,6 +18,7 @@
 - [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns. 
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
 - [Octopus](https://github.com/quoscient/octopus) - Security Analysis tool for Blockchain Smart Contracts with support of EVM and (e)WASM.
+- [Bluepen](https://bluepen.io) - Online service that combines open-source scanners for security scanning of Solidity source code. Currently supporting Mythril Classic, Slither, SmartCheck & Oyente. 
 
 ### Weakness OSSClassifcation & Test Cases
 - [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts. 
