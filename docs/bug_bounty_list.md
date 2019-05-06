@@ -10,6 +10,7 @@ The following are ongoing bug bounty programs, either focused on, or including s
 * [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope): Has a large scope, including clients, Solidity and Vyper, and more.
 * [Etherscan.io](https://etherscan.io/bugbounty)
 * [Gitcoin Bounties](https://gitcoin.co/explorer): Bounty-based collaboration tool
+* [Kleros Multiple Arbitrable Transaction](https://github.com/kleros/kleros-interaction/issues/243) + [Kleros Realtio Integration](https://github.com/kleros/kleros-interaction/issues/244) up to 50 ETH *(expired on Gitcoin but [still ongoing](https://t.me/kleros/55188))*
 * [MelonPort](https://melonport.com/bug-bounty)
 * [Parity](https://www.parity.io/bug-bounty/): Includes client and contract code
 * [Raiden.network](https://raiden.network/bug-bounty.html)
