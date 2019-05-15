@@ -418,7 +418,7 @@ function transfer() external {}
 
 ### 竞态<sup><a href='#footnote-race-condition-terminology'>\*</a></sup>
 
-调用外部契约的主要危险之一是它们可以接管控制流，并对调用函数意料之外的数据进行更改。 这类bug有多种形式，导致DAO崩溃的两个主要错误都是这种错误。
+调用外部合约的主要危险之一是它们可以接管控制流，并对调用函数意料之外的数据进行更改。 这类bug有多种形式，导致DAO崩溃的两个主要错误都是这种错误。
 
 <a name="reentrancy"></a>
 
@@ -436,7 +436,7 @@ function withdrawBalance() public {
     userBalances[msg.sender] = 0;
 }
 ```
-（*译者注：使用msg.sender.call.value()()）传递给fallback函数可用的气是当前剩余的所有气，在这里，假如从你账户执行提现操作的恶意合约的fallback函数内递归调用你的withdrawBalance()便可以从你的账户转走更多的币。*）
+（*译者注：使用msg.sender.call.value()()）传递给fallback函数可用的gas是当前剩余的所有gas，在这里，假如从你账户执行提现操作的恶意合约的fallback函数内递归调用你的withdrawBalance()便可以从你的账户转走更多的币。*）
 
 可以看到当调msg.sender.call.value()()时，并没有将userBalances[msg.sender] 清零，于是在这之前可以成功递归调用很多次withdrawBalance()函数。 一个非常相像的bug便是出现在针对 DAO 的攻击。
 
