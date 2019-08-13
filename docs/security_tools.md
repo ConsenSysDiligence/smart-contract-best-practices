@@ -1,5 +1,6 @@
 ### Visualization
 
+- [Piet](https://github.com/slockit/piet) - Web application helping understand smart contract architectures. Offers graphical representation and inspection of smart contracts as well as a markdown documentation generator.
 - [Sūrya](https://github.com/ConsenSys/surya) - Utility tool for smart contract systems, offering a number of visual outputs and information about the contracts' structure. Also supports querying the function call graph.
 - [Solgraph](https://github.com/raineorshine/solgraph) - Generates a DOT graph that visualizes function control flow of a Solidity contract and highlights potential security vulnerabilities.
 - [EVM Lab](https://github.com/ethereum/evmlab) - Rich tool package to interact with the EVM. Includes a VM, Etherchain API, and a trace-viewer.
@@ -13,12 +14,12 @@
 - [Echidna](https://github.com/trailofbits/echidna) - The only available fuzzer for Ethereum software. Uses property testing to generate malicious inputs that break smart contracts.
 - [Manticore](https://github.com/trailofbits/manticore) - Dynamic binary analysis tool with [EVM support](https://asciinema.org/a/haJU2cl0R0Q3jB9wd733LVosL).
 - [Oyente](https://github.com/melonproject/oyente) - Analyze Ethereum code to find common vulnerabilities, based on this [paper](http://www.comp.nus.edu.sg/~loiluu/papers/oyente.pdf).
-- [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns. 
+- [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns.
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
 - [Octopus](https://github.com/quoscient/octopus) - Security Analysis tool for Blockchain Smart Contracts with support of EVM and (e)WASM.
 
 ### Weakness OSSClassifcation & Test Cases
-- [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts. 
+- [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts.
 - [SWC Pages](https://smartcontractsecurity.github.io/SWC-registry/) - The SWC-registry repo published on Github Pages
 
 ### Test Coverage
