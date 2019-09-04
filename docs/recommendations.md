@@ -47,7 +47,7 @@ If you are making a call to an untrusted external contract, *avoid state changes
 
 #### Avoid `transfer()` and `send()`.
 
-`.transfer()` and `.send()` forward exactly 2,300 gas to the recipient. The goal of this hardcoded gas stipend was to prevent [reentrancy vulnerabilities](./known_attacks#reentrancy), but this only makes sense under the assumption that gas costs are constant. Recently [EIP 1283](https://eips.ethereum.org/EIPS/eip-1283) (backed out of the Constantinople hard fork at the last mintue) and [EIP 1884](https://eips.ethereum.org/EIPS/eip-1884) (expected to arrive in the Istanbul hard fork) have shown this assumption to be invalid.
+`.transfer()` and `.send()` forward exactly 2,300 gas to the recipient. The goal of this hardcoded gas stipend was to prevent [reentrancy vulnerabilities](./known_attacks#reentrancy), but this only makes sense under the assumption that gas costs are constant. Recently [EIP 1283](https://eips.ethereum.org/EIPS/eip-1283) (backed out of the Constantinople hard fork at the last minute) and [EIP 1884](https://eips.ethereum.org/EIPS/eip-1884) (expected to arrive in the Istanbul hard fork) have shown this assumption to be invalid.
 
 To avoid things breaking when gas costs change in the future, it's best to use `.call.value(amount)("")` instead. Note that this does nothing to mitigate reentrancy attacks, so other precautions must be taken.
 
