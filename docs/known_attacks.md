@@ -14,7 +14,8 @@ mapping (address => uint) private userBalances;
 
 function withdrawBalance() public {
     uint amountToWithdraw = userBalances[msg.sender];
-    require(msg.sender.call.value(amountToWithdraw)()); // At this point, the caller's code is executed, and can call withdrawBalance again
+    (bool success, ) = msg.sender.call.value(amountToWithdraw)(""); // At this point, the caller's code is executed, and can call withdrawBalance again
+    require(success);
     userBalances[msg.sender] = 0;
 }
 ```
@@ -28,9 +29,7 @@ Since the user's balance is not set to 0 until the very end of the function, the
 
     Ethereum Foundation issued a critical update to rollback the hack. This resulted in Ethereum being forked into Ethereum Classic and Ethereum.
 
-In the example given, the best mitigation method is to [use `send()` instead of `call.value()()`](./recommendations#send-vs-call-value). This will limit any external code from being executed.
-
-However, if you can't remove the external call, the next simplest way to prevent this attack is to make sure you don't call an external function until you've done all the internal work you need to do:
+In the example given, the best way to prevent this attack is to make sure you don't call an external function until you've done all the internal work you need to do:
 
 ```sol
 mapping (address => uint) private userBalances;
@@ -38,7 +37,8 @@ mapping (address => uint) private userBalances;
 function withdrawBalance() public {
     uint amountToWithdraw = userBalances[msg.sender];
     userBalances[msg.sender] = 0;
-    require(msg.sender.call.value(amountToWithdraw)()); // The user's balance is already 0, so future invocations won't withdraw anything
+    (bool success, ) = msg.sender.call.value(amountToWithdraw)(""); // The user's balance is already 0, so future invocations won't withdraw anything
+    require(success);
 }
 ```
 
@@ -61,7 +61,8 @@ function transfer(address to, uint amount) {
 
 function withdrawBalance() public {
     uint amountToWithdraw = userBalances[msg.sender];
-    require(msg.sender.call.value(amountToWithdraw)()); // At this point, the caller's code is executed, and can call transfer()
+    (bool success, ) = msg.sender.call.value(amountToWithdraw)(""); // At this point, the caller's code is executed, and can call transfer()
+    require(success);
     userBalances[msg.sender] = 0;
 }
 ```
@@ -85,7 +86,8 @@ mapping (address => uint) private rewardsForA;
 function withdrawReward(address recipient) public {
     uint amountToWithdraw = rewardsForA[recipient];
     rewardsForA[recipient] = 0;
-    require(recipient.call.value(amountToWithdraw)());
+    (bool success, ) = recipient.call.value(amountToWithdraw)("");
+    require(success);
 }
 
 function getFirstWithdrawalBonus(address recipient) public {
@@ -107,7 +109,8 @@ mapping (address => uint) private rewardsForA;
 function untrustedWithdrawReward(address recipient) public {
     uint amountToWithdraw = rewardsForA[recipient];
     rewardsForA[recipient] = 0;
-    require(recipient.call.value(amountToWithdraw)());
+    (bool success, ) = recipient.call.value(amountToWithdraw)("");
+    require(success);
 }
 
 function untrustedGetFirstWithdrawalBonus(address recipient) public {
@@ -140,7 +143,9 @@ function withdraw(uint amount) payable public returns (bool) {
     require(!lockBalances && amount > 0 && balances[msg.sender] >= amount);
     lockBalances = true;
 
-    if (msg.sender.call(amount)()) { // Normally insecure, but the mutex saves it
+    (bool success, ) = msg.sender.call(amount)("");
+
+    if (success) { // Normally insecure, but the mutex saves it
       balances[msg.sender] -= amount;
     }
 

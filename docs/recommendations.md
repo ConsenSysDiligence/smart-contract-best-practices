@@ -45,28 +45,11 @@ If you are making a call to an untrusted external contract, *avoid state changes
 
 --------
 
-#### Be aware of the tradeoffs between `send()`, `transfer()`, and `call.value()()`
+#### Avoid `transfer()` and `send()`.
 
-When sending ether be aware of the relative tradeoffs between the use of
-`someAddress.send()`, `someAddress.transfer()`, and `someAddress.call.value()()`.
+`.transfer()` and `.send()` forward exactly 2,300 gas to the recipient. The goal of this hardcoded gas stipend was to prevent [reentrancy vulnerabilities](./known_attacks#reentrancy), but this only makes sense under the assumption that gas costs are constant. Recently [EIP 1283](https://eips.ethereum.org/EIPS/eip-1283) (backed out of the Constantinople hard fork at the last mintue) and [EIP 1884](https://eips.ethereum.org/EIPS/eip-1884) (expected to arrive in the Istanbul hard fork) have shown this assumption to be invalid.
 
-- `someAddress.send()`and `someAddress.transfer()` are considered *safe* against [reentrancy](./known_attacks#reentrancy).
-    While these methods still trigger code execution, the called contract is
-    only given a stipend of 2,300 gas which is currently only enough to log an
-    event.
-- `x.transfer(y)` is equivalent to `require(x.send(y));`, it will automatically revert if the send fails.
-- `someAddress.call.value(y)()` will send the provided ether and trigger code execution.  
-    The executed code is given all available gas for execution making this type of value transfer *unsafe* against reentrancy.
-
-Using `send()` or `transfer()` will prevent reentrancy but it does so at the cost of being incompatible with any contract whose fallback function requires more than 2,300 gas. It is also possible to use `someAddress.call.value(ethAmount).gas(gasAmount)()` to forward a custom amount of gas.
-
-One pattern that attempts to balance this trade-off is to implement both
-a [*push* and *pull*](#favor-pull-over-push-for-external-calls) mechanism, using `send()` or `transfer()`
-for the *push* component and `call.value()()` for the *pull* component.
-
-It is worth pointing out that exclusive use of `send()` or `transfer()` for value transfers
-does not itself make a contract safe against reentrancy but only makes those
-specific value transfers safe against reentrancy.
+To avoid things breaking when gas costs change in the future, it's best to use `.call.value(amount)("")` instead. Note that this does nothing to mitigate reentrancy attacks, so other precautions must be taken.
 
 --------
 
@@ -79,22 +62,23 @@ If you choose to use the low-level call methods, make sure to handle the possibi
 ```sol
 // bad
 someAddress.send(55);
-someAddress.call.value(55)(); // this is doubly dangerous, as it will forward all remaining gas and doesn't check for result
+someAddress.call.value(55)(""); // this is doubly dangerous, as it will forward all remaining gas and doesn't check for result
 someAddress.call.value(100)(bytes4(sha3("deposit()"))); // if deposit throws an exception, the raw call() will only return false and transaction will NOT be reverted
 
 // good
-if(!someAddress.send(55)) {
+(bool success, ) = someAddress.call.value(55)("");
+if(!success) {
     // handle failure code
 }
 
-ExternalContract(someAddress).deposit.value(100);
+ExternalContract(someAddress).deposit.value(100)();
 ```
 
 --------
 
 #### Favor *pull* over *push* for external calls
 
-External calls can fail accidentally or deliberately. To minimize the damage caused by such failures, it is often better to isolate each external call into its own transaction that can be initiated by the recipient of the call. This is especially relevant for payments, where it is better to let users withdraw funds rather than push funds to them automatically. (This also reduces the chance of [problems with the gas limit](./known_attacks#dos-with-block-gas-limit).)  Avoid combining multiple `transfer()` calls in a single transaction.
+External calls can fail accidentally or deliberately. To minimize the damage caused by such failures, it is often better to isolate each external call into its own transaction that can be initiated by the recipient of the call. This is especially relevant for payments, where it is better to let users withdraw funds rather than push funds to them automatically. (This also reduces the chance of [problems with the gas limit](./known_attacks#dos-with-block-gas-limit).)  Avoid combining multiple ether transfers in a single transaction.
 
 ```sol
 // bad
@@ -106,7 +90,8 @@ contract auction {
         require(msg.value >= highestBid);
 
         if (highestBidder != address(0)) {
-            highestBidder.transfer(highestBid); // if this call consistently fails, no one else can bid
+            (bool success, ) = highestBidder.call.value(highestBid)("");
+            require(success); // if this call consistently fails, no one else can bid
         }
 
        highestBidder = msg.sender;
@@ -134,7 +119,8 @@ contract auction {
     function withdrawRefund() external {
         uint refund = refunds[msg.sender];
         refunds[msg.sender] = 0;
-        msg.sender.transfer(refund);
+        (bool success, ) = msg.sender.call.value(refund)("");
+        require(success);
     }
 }
 ```
@@ -276,10 +262,10 @@ contract Sharer {
     function sendHalf(address payable addr) public payable returns (uint balance) {
         require(msg.value % 2 == 0, "Even value required."); //Require() can have an optional message string
         uint balanceBeforeTransfer = address(this).balance;
-        addr.transfer(msg.value / 2);
-        // Since transfer throws an exception on failure and
-        // cannot call back here, there should be no way for us to
-        // still have half of the money.
+        (bool success, ) = addr.call.value(msg.value / 2)("");
+        require(success);
+        // Since we reverted if the transfer failed, there should be
+        // no way for us to still have half of the money.
         assert(address(this).balance == balanceBeforeTransfer - msg.value / 2); // used for internal error checking
         return address(this).balance;
     }
@@ -388,8 +374,6 @@ function() payable { require(msg.data.length == 0); emit LogDepositReceived(msg.
 
 ### Explicitly mark payable functions and state variables
 Starting from Solidity `0.4.0`, every function that is receiving ether must use `payable` modifier, otherwise if the transaction has `msg.value > 0` will revert ([except when forced](./recommendations/#remember-that-ether-can-be-forcibly-sent-to-an-account)).
-
-Declare variables and especially function arguments as `address payable`, if you want to call `transfer` on them. You can use `.transfer(..)` and `.send(..)` on `address payable`, but not on `address`. You can use a low-level `.call(..)` on both `address` and `address payable`, even if you attach value to it. This is not recommended.<sup><a href='https://ethereum.stackexchange.com/questions/64108/whats-the-difference-between-address-and-address-payable'>\*</a></sup>
 
 !!! Note
 
@@ -542,7 +526,8 @@ contract MyContract {
 
     function sendTo(address receiver, uint amount) public {
         require(tx.origin == owner);
-        receiver.transfer(amount);
+        (bool success, ) = receiver.call.value(amount)("");
+        require(success);
     }
 
 }
