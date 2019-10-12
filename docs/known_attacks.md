@@ -465,6 +465,28 @@ On January 16th, 2019, Constantinople protocol upgrade was delayed due to a secu
 
 This change led to possibility of a new reentrancy vector making previously known secure withdrawal patterns (`.send()` and `.transfer()`) unsafe in specific situations<sup><a href='https://medium.com/chainsecurity/constantinople-enables-new-reentrancy-attack-ace4088297d9'>\*</a></sup>, where the attacker could hijack the control flow and use the remaining gas enabled by EIP 1283, leading to vulnerabilities due to reentrancy.
 
+### Overflow and Underflow Attacks
+
+## Overflow Error
+An overflow occurs when a number gets incremented above its maximum value. Suppose we declare an uint8 variable, which is an unsigned variable and can take up to 8 bits. This means that it can have decimal numbers between 0 and 2^8-1 = 255.
+Now in your code if you have,
+
+uint8 a = 255;
+a++;
+
+This will lead to an overflow because a’s maximum value is 255.
+Solidity can handle up to 256-bit numbers. Incrementing by 1 would to an overflow situation:
+This will lead to an overflow, because a’s maximum value is 255.
+
+## Underflow Error
+
+Now, we reach the other end of the spectrum, the Underflow error. This works in the exact opposite direction. Remember how uint8 can take values only between 0 and 255? Consider the following code.
+
+unint8 a = 0;
+a–;
+
+We just caused an underflow which will cause a to have the maximum possible value which is 255.
+As you can see, it can lead to serious data misrepresentation.
 
 ## Other Vulnerabilities
 
