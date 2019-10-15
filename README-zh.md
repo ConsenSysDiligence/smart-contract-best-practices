@@ -408,7 +408,7 @@ function transfer() external {}
 
 ### 使用Solidity更新的构造器
 
-更合适的构造器/别名，如`selfdestruct`（旧版本为'suicide`）和`keccak256`（旧版本为`sha3`）。 像`require(msg.sender.send(1 ether))``的模式也可以简化为使用`transfer()`，如`msg.sender.transfer(1 ether)`。
+更合适的构造器/别名，如`selfdestruct`（旧版本为`suicide`）和`keccak256`（旧版本为`sha3`）。 像`require(msg.sender.send(1 ether))`的模式也可以简化为使用`transfer()`，如`msg.sender.transfer(1 ether)`。
 
 <a name="known-attacks"></a>
 
