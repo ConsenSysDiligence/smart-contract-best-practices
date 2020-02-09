@@ -9,6 +9,7 @@ The following are ongoing bug bounty programs, either focused on, or including s
 * [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope): Has a large scope, including clients, Solidity and Vyper, and more.
 * [Etherscan.io](https://etherscan.io/bugbounty)
 * [Gitcoin Bounties](https://gitcoin.co/explorer): Bounty-based collaboration tool
+* [ImmutableSoft](https://immutablesoft.github.io/ImmutableEcosystem/)
 * [MelonPort](https://melonprotocol.com/docs/protocol-security/)
 * [0xProject](https://0x.org/docs/guides/bug-bounty-program#rewards)
 * [Parity](https://www.parity.io/bug-bounty/): Includes client and contract code
