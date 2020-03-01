@@ -231,7 +231,7 @@ This attack is commonly performed by increasing the `gasPrice` higher than netwo
 
 For this type of attack, it is **important** to the adversary that the original function call runs after her transaction. In an insertion attack, after Mallory runs her function, the state of the contract is changed and she needs Alice’s original function to run on this modified state. For example, if Alice places a purchase order on a blockchain asset at a higher price than the best offer, Mallory will insert two transactions: she will purchase at the best offer price and then offer the same asset for sale at Alice’s slightly higher purchase price. If Alice’s transaction is then run after, Mallory will profit on the price difference without having to hold the asset.
 
-As with displacement attacks, this is usually done by outbidding Alic's transction in the gas price auctions.
+As with displacement attacks, this is usually done by outbidding Alice's transction in the gas price auction.
 
 !!! info "Transaction Order Dependence"
     Transaction Order Dependence is equivalent to race condition in smart contracts. An example, if one function sets the reward percentage, and the withdraw function uses that percentage; then then withdraw transaction can be front-run by a change reward function call, which impacts the amount that will be withdrew eventually.
