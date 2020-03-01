@@ -190,7 +190,7 @@ Above were examples of reentrancy involving the attacker executing malicious cod
 
 ##  Front-Running 
 
-Since a transaction is in the mempool for a short while, one can know what actions will occur before it is included in a block. This can be troublesome for things like decentralized markets, where a transaction to buy some tokens can be seen, and a market order implemented before the other transaction gets included. Protecting against this is difficult, as it would come down to the specific contract itself. 
+Since all transactions are visible in the mempool for a short while before being executed, observers of the network can see and react to an action before it is included in a block. An example of how this can be exploited is with a decentralized exchange where a buy order transsaction can be seen, and second order can be broadcast and executed before the first transaction is included. Protecting against this is difficult, as it would come down to the specific contract itself. 
 
 
 Front-running, coined originally for traditional financial markets, is the race to order the chaos to the winners benefit. In financial markets, the flow of information gave birth to intermediaries that could simply profit by being the first to know and react to some information. These attacks mostly had been within stock market deals and early domain registries, such as whois gateways.  
@@ -206,29 +206,32 @@ Front-running, coined originally for traditional financial markets, is the race 
 
 
 
-
-
 ### Taxonomy
 
 By defining a [taxonomy](https://arxiv.org/abs/1902.05164) and differentiating each group from another, we can make it easier to discuss the problem and find solutions for each group. 
 
-We categories the type of front-running attacks on blockchain as following:
+We define the following categories of front-running attacks:
 
- * **Displacement**
- * **Insertion**
- * **Suppression**
+ 1. Displacement
+ 2. Insertion
+ 3. Suppression
 
 
 #### Displacement
-In the first type of attack, *a displacement attack*, it is **not important** for Alice’s (User) function call to run after Mallory (Adversary) runs her function. Alice’s can be orphaned or run with no meaningful effect. Examples of displacement include: Alice trying to register a domain name and Mallory registering it first; Alice trying to submit a bug to receive a bounty and Mallory stealing it and submitting it first; and Alice trying to submit a bid in an auction and Mallory copying it. It does not matter what happens after the domain is registered under the attackers name. 
 
-Commonly this attack is performed by increasing the gasPrice higher than network average, often by 10+ multiplier. 
+In the first type of attack, *a displacement attack*, it is **not important** for Alice’s (User) function call to run after Mallory (Adversary) runs her function. Alice’s can be orphaned or run with no meaningful effect. Examples of displacement include: 
+* Alice trying to register a domain name and Mallory registering it first; 
+* Alice trying to submit a bug to receive a bounty and Mallory stealing it and submitting it first; 
+* Alice trying to submit a bid in an auction and Mallory copying it. 
+
+This attack is commonly performed by increasing the `gasPrice` higher than network average, often by a multiplier of 10 or more. 
 
 
 #### Insertion
-It is **important** to the adversary for the original function call to run after her transaction. In an insertion attack, after Mallory runs her function, the state of the contract is changed and she needs Alice’s original function to run on this modified state. For example, if Alice places a purchase order on a blockchain asset at a higher price than the best offer, Mallory will insert two transactions: she will purchase at the best offer price and then offer the same asset for sale at Alice’s slightly higher purchase price. If Alice’s transaction is then run after, Mallory will profit on the price difference without having to hold the asset.
 
-This is usually done using pure gas auctions, simply gasPrice manipulations. 
+For this type of attack, it is **important** to the adversary that the original function call runs after her transaction. In an insertion attack, after Mallory runs her function, the state of the contract is changed and she needs Alice’s original function to run on this modified state. For example, if Alice places a purchase order on a blockchain asset at a higher price than the best offer, Mallory will insert two transactions: she will purchase at the best offer price and then offer the same asset for sale at Alice’s slightly higher purchase price. If Alice’s transaction is then run after, Mallory will profit on the price difference without having to hold the asset.
+
+As with displacement attacks, this is usually done by outbidding Alic's transction in the gas price auctions.
 
 !!! info "Transaction Order Dependence"
     Transaction Order Dependence is equivalent to race condition in smart contracts. An example, if one function sets the reward percentage, and the withdraw function uses that percentage; then then withdraw transaction can be front-run by a change reward function call, which impacts the amount that will be withdrew eventually.
@@ -241,7 +244,7 @@ This is usually done using pure gas auctions, simply gasPrice manipulations.
 #### Suppression
 In a suppression attack, a.k.a *Block Stuffing* attacks, after Mallory runs her function, she tries to delay Alice from running her function.
 
-This has been seen in Fomo3d first winner hack, and some other on-chain hacks. The attacker sent high gasPrice transactions to custom smart contracts that assert (or with other means) to use up all the gas and fill up the block's gasLimit. 
+This was the case with the first winner of the "Fomo3d" game, and some other on-chain hacks. The attacker sent multiple transactions with a high `gasPrice` and `gasLimit`  to custom smart contracts that assert (or use other means) to consume all the gas and fill up the block's `gasLimit`. 
 
 
 !!! note "Variants"
@@ -253,13 +256,13 @@ This has been seen in Fomo3d first winner hack, and some other on-chain hacks. T
 ### Mitigations
 Front-running is pervasive issue on public blockchains such as Ethereum. 
 
-The best remediation is to **remove benefit from front-running in your application**, mainly by removing the importance of transaction ordering or time. For example, in markets, it would be better to implement batch auctions (this also protects against high frequency trading concerns). Another is way to use a pre-commit scheme (“I’m going to submit the details later”).
+The best remediation is to **remove the benefit of front-running in your application**, mainly by removing the importance of transaction ordering or time. For example, in markets, it would be better to implement batch auctions (this also protects against high frequency trading concerns). Another is way to use a pre-commit scheme (“I’m going to submit the details later”). A third option is to mitigate the cost of front-running by specifying a maximum or minimum acceptable price range on a trade, thereby limiting price slippage. 
 
-**Transaction Ordering:** Go-Ethereum (Geth) nodes, order the transactions based on their gasPrice and address Nonce. This, however, results in a gas auction between participants in the network to get included in the block currently being mined. 
+**Transaction Ordering:** Go-Ethereum (Geth) nodes, order the transactions based on their `gasPrice` and address nonce. This, however, results in a gas auction between participants in the network to get included in the block currently being mined. 
 
-**Confidentiality:**  Another approach is to limit the visibility of the transactions, this can be done using commit and reveal scheme.
+**Confidentiality:**  Another approach is to limit the visibility of the transactions, this can be done using a "commit and reveal" scheme.
 <!-- cite and properly define commit and reveal -->
-One easily implementation is to queue the keccak hash of the data, and in the second transaction reveal the data and verify with the hash. However note that the transaction itself, leaks the intention and possibly the value of the collateralization. There are enhanced commit and reveal schemes that are more secure, however require more transactions to function, e.g. [submarine sends](https://libsubmarine.org/). 
+A simple implementation is to store the keccak256 hash of the data in the first transaction, then reveal the data and verify it against the hash in the second transaction. However note that the transaction itself, leaks the intention and possibly the value of the collateralization. There are enhanced commit and reveal schemes that are more secure, however require more transactions to function, e.g. [submarine sends](https://libsubmarine.org/). 
 
 
 
