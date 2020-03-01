@@ -210,7 +210,7 @@ Front-running, coined originally for traditional financial markets, is the race 
 
 ### Taxonomy
 
-By defining a taxonomy and differentiating each group from another, we can make it easier to discuss the problem and find solutions for each group. 
+By defining a [taxonomy](https://arxiv.org/abs/1902.05164) and differentiating each group from another, we can make it easier to discuss the problem and find solutions for each group. 
 
 We categories the type of front-running attacks on blockchain as following:
 
