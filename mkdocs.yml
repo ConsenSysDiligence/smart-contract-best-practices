@@ -8,7 +8,7 @@ repo_url: https://github.com/ConsenSys/smart-contract-best-practices
 pages:
   - Home: index.md
   - General Philosophy: general_philosophy.md
-  - Solidity Recommendations: recommendations.md
+  - Secure Development Recommendations: recommendations.md
   - Known Attacks: known_attacks.md
   - Software Engineering Techniques: software_engineering.md
   - Token specific recommendations: tokens.md

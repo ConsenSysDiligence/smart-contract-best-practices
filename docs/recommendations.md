@@ -1,4 +1,4 @@
-This page demonstrates a number of solidity patterns which should generally be followed when writing smart contracts.
+This page demonstrates a number of patterns which should generally be followed when writing smart contracts.
 
 ## Protocol specific recommendations
 
@@ -47,11 +47,33 @@ See [SWC-107](https://swcregistry.io/docs/SWC-107)
 
 --------
 
-#### Avoid `transfer()` and `send()`.
+#### Don't use `transfer()` or `send()`.
 
-`.transfer()` and `.send()` forward exactly 2,300 gas to the recipient. The goal of this hardcoded gas stipend was to prevent [reentrancy vulnerabilities](./known_attacks#reentrancy), but this only makes sense under the assumption that gas costs are constant. Recently [EIP 1283](https://eips.ethereum.org/EIPS/eip-1283) (backed out of the Constantinople hard fork at the last minute) and [EIP 1884](https://eips.ethereum.org/EIPS/eip-1884) (expected to arrive in the Istanbul hard fork) have shown this assumption to be invalid.
+`.transfer()` and `.send()` forward exactly 2,300 gas to the recipient. The goal of this hardcoded gas stipend was to prevent [reentrancy vulnerabilities](./known_attacks#reentrancy), but this only makes sense under the assumption that gas costs are constant. Recently [EIP 1884](https://eips.ethereum.org/EIPS/eip-1884) was included in the Istanbul hard fork. One of the changes included in EIP 1884 is an increase to the gas cost of the `SLOAD` operation, causing a contract's fallback function to cost more than 2300 gas.
 
-To avoid things breaking when gas costs change in the future, it's best to use `.call.value(amount)("")` instead. Note that this does nothing to mitigate reentrancy attacks, so other precautions must be taken.
+It's recommended to stop using `.transfer()` and `.send()` and instead use `.call()`. 
+
+```
+// bad
+contract Vulnerable {
+    function withdraw(uint256 amount) external {
+        // This forwards 2300 gas, which may not be enough if the recipient
+        // is a contract and gas costs change.
+        msg.sender.transfer(amount);
+    }
+}
+
+// good
+contract Fixed {
+    function withdraw(uint256 amount) external {
+        // This forwards all available gas. Be sure to check the return value!
+        (bool success, ) = msg.sender.call.value(amount)("");
+        require(success, "Transfer failed.");
+    }
+}
+```
+
+Note that `.call()` does nothing to mitigate reentrancy attacks, so other precautions must be taken. To prevent reentrancy attacks, it is recommended that you use the [checks-effects-interactions pattern](https://solidity.readthedocs.io/en/develop/security-considerations.html?highlight=check%20effects#use-the-checks-effects-interactions-pattern).
 
 --------
 
