@@ -20,8 +20,10 @@
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
 - [Octopus](https://github.com/quoscient/octopus) - Security Analysis tool for Blockchain Smart Contracts with support of EVM and (e)WASM.
 - [sFuzz](https://sfuzz.github.io/) - Efficient fuzzer inspired from AFL to find common vulnerabilities.
+- [Vertigo](https://github.com/JoranHonig/vertigo) - Mutation Testing for Ethereum Smart Contracts.
 
 ### Weakness OSSClassifcation & Test Cases
+
 - [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/) - SWC definitions and a large repository of crafted and real-world samples of vulnerable smart contracts.
 - [SWC Pages](https://smartcontractsecurity.github.io/SWC-registry/) - The SWC-registry repo published on Github Pages
 
