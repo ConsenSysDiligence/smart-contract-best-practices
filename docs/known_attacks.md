@@ -190,7 +190,7 @@ Above were examples of reentrancy involving the attacker executing malicious cod
 
 ##  Front-Running 
 
-Since all transactions are visible in the mempool for a short while before being executed, observers of the network can see and react to an action before it is included in a block. An example of how this can be exploited is with a decentralized exchange where a buy order transsaction can be seen, and second order can be broadcast and executed before the first transaction is included. Protecting against this is difficult, as it would come down to the specific contract itself. 
+Since all transactions are visible in the mempool for a short while before being executed, observers of the network can see and react to an action before it is included in a block. An example of how this can be exploited is with a decentralized exchange where a buy order transaction can be seen, and second order can be broadcast and executed before the first transaction is included. Protecting against this is difficult, as it would come down to the specific contract itself.
 
 
 Front-running, coined originally for traditional financial markets, is the race to order the chaos to the winners benefit. In financial markets, the flow of information gave birth to intermediaries that could simply profit by being the first to know and react to some information. These attacks mostly had been within stock market deals and early domain registries, such as whois gateways.  
@@ -231,7 +231,7 @@ This attack is commonly performed by increasing the `gasPrice` higher than netwo
 
 For this type of attack, it is **important** to the adversary that the original function call runs after her transaction. In an insertion attack, after Mallory runs her function, the state of the contract is changed and she needs Alice’s original function to run on this modified state. For example, if Alice places a purchase order on a blockchain asset at a higher price than the best offer, Mallory will insert two transactions: she will purchase at the best offer price and then offer the same asset for sale at Alice’s slightly higher purchase price. If Alice’s transaction is then run after, Mallory will profit on the price difference without having to hold the asset.
 
-As with displacement attacks, this is usually done by outbidding Alice's transction in the gas price auction.
+As with displacement attacks, this is usually done by outbidding Alice's transaction in the gas price auction.
 
 !!! info "Transaction Order Dependence"
     Transaction Order Dependence is equivalent to race condition in smart contracts. An example, if one function sets the reward percentage, and the withdraw function uses that percentage; then then withdraw transaction can be front-run by a change reward function call, which impacts the amount that will be withdrew eventually.
