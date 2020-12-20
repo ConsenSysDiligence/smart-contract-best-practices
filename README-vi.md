@@ -1492,7 +1492,7 @@ Khi triển khai một hợp đồng, điều quan trọng là phải bao gồm 
 * [Echidna](https://github.com/trailofbits/echidna)  - Trong môi trường testing,  tạo đầu vào độc hại nhằm phá vỡ hợp đồng thông minh.
 * [Manticore](https://github.com/trailofbits/manticore)  - Công cụ phân tích mã nhị phân với sự hỗ trợ EVM.
 * [Oyente](https://github.com/melonproject/oyente)  - Phân tích mã Ethereum để tìm các lỗ hổng phổ biến.
-* [Securify](https://securify.chainsecurity.com/)  -phân tích trực tuyến một cách hoàn toàn tự động cho các hợp đồng thông minh, cung cấp các báo cáo bảo mật dựa trên các lỗ hổng đã biết.
+* [Securify](https://github.com/eth-sri/securify2)  -phân tích trực tuyến một cách hoàn toàn tự động cho các hợp đồng thông minh, cung cấp các báo cáo bảo mật dựa trên các lỗ hổng đã biết.
 * [SmartCheck](https://tool.smartdec.net/)  - Phân tích tĩnh mã nguồn Solidity với các lỗ hổng bảo mật.
 * [Octopus](https://github.com/quoscient/octopus)  - Công cụ phân tích bảo mật cho hợp đồng thông minh Blockchain với sự hỗ trợ của EVM và (e) WASM.
 

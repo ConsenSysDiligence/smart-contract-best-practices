@@ -16,7 +16,7 @@
 - [Echidna](https://github.com/trailofbits/echidna) - The only available fuzzer for Ethereum software. Uses property testing to generate malicious inputs that break smart contracts.
 - [Manticore](https://github.com/trailofbits/manticore) - Dynamic binary analysis tool with [EVM support](https://asciinema.org/a/haJU2cl0R0Q3jB9wd733LVosL).
 - [Oyente](https://github.com/melonproject/oyente) - Analyze Ethereum code to find common vulnerabilities, based on this [paper](http://www.comp.nus.edu.sg/~loiluu/papers/oyente.pdf).
-- [Securify](https://securify.chainsecurity.com/) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns.
+- [Securify](https://github.com/eth-sri/securify2) - Fully automated online static analyzer for smart contracts, providing a security report based on vulnerability patterns.
 - [SmartCheck](https://tool.smartdec.net) - Static analysis of Solidity source code for security vulnerabilities and best practices.
 - [Octopus](https://github.com/quoscient/octopus) - Security Analysis tool for Blockchain Smart Contracts with support of EVM and (e)WASM.
 - [sFuzz](https://sfuzz.github.io/) - Efficient fuzzer inspired from AFL to find common vulnerabilities.
