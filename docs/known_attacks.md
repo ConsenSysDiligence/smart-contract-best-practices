@@ -187,6 +187,21 @@ See [SWC-107](https://swcregistry.io/docs/SWC-107)
 
 Above were examples of reentrancy involving the attacker executing malicious code *within a single transaction*. The following are a different type of attack inherent to Blockchains: the fact that *the order of transactions themselves* (e.g. within a block) is easily subject to manipulation.
 
+##  Oracle Manipulation
+
+Protocols that rely on external data as inputs (from what's known as an [oracle](https://medium.com/better-programming/what-is-a-blockchain-oracle-f5ccab8dbd72?source=friends_link&sk=d921a38466df8a9176ed8dd767d8c77d)) automatically execute even if the data is incorrect, due to the nature of smart contracts. If a protocol relies on an oracle that is hacked, depreciated, or has malicious intent, all processes that depend on the oracle can now operate with disasterous affects. 
+
+For example:
+
+1. Protocol gets price from single Oracle A
+2. Oracle A starts responding with a price more than 100x what it should be
+3. Protocol operates as if that were the actual price
+
+We've seen examples where this will liquidate positions, allow insane arbirage, ruin DEX positions and more. 
+
+### Oracle Manipulation Solutions
+
+The easiest way to solve this is to use decentralized oracles. [Chainlink](https://chain.link/) is the leading decentralized oracle provider, and the Chainlink network can be leveraged to bring decentralized data on-chain.
 
 ##  Front-Running 
 
