@@ -14,6 +14,7 @@ pages:
   - Token specific recommendations: tokens.md
   - Documentation and Procedures: documentation_procedures.md
   - Security Tools: security_tools.md
+  - Token Implementation Best Practice: tokens.md
   - Bug Bounty Programs: bug_bounty_list.md
   - About:
     - Reviewers: about/reviewers.md
