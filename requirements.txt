@@ -3,7 +3,7 @@ Jinja2>=2.9.6
 livereload>=2.5.1
 Markdown==2.6.10
 MarkupSafe>=1.0
-mkdocs==0.17.5
+mkdocs==1.2.3
 mkdocs-material==2.2.5
 Pygments>=2.2.0
 pygments-lexer-solidity>=0.0.2
