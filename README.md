@@ -10,6 +10,7 @@ Visit the documentation site: https://consensys.github.io/smart-contract-best-pr
 
 Read the docs in Chinese: https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-zh.md
 Read the docs in Vietnamese: https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-vi.md
+Read the docs in French : https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-fr.md
 
 ## Contributions are welcome!
 
