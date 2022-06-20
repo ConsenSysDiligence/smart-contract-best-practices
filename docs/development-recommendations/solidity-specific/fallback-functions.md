@@ -32,9 +32,9 @@ function() payable { emit LogDepositReceived(msg.sender); }
 // good
 function() payable { require(msg.data.length == 0); emit LogDepositReceived(msg.sender); }
 ```
-Solidity now supports a [recieve fallback](https://docs.soliditylang.org/en/v0.8.14/contracts.html#receive-ether-function) 
+Solidity now supports a [receive fallback](https://docs.soliditylang.org/en/v0.8.14/contracts.html#receive-ether-function) 
 function, which when declared in your code you wouldn't need to worry about making your main fallback function payable.
-Recieve fallback function will be triggered when Ether is forcefully sent to the contract.<br/>
+Receive fallback function will be triggered when Ether is forcefully sent to the contract.<br/>
 It can be declared by:
 ```
 receive() external payable { ... }
