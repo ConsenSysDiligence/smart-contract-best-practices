@@ -2,66 +2,166 @@
 site_name: Ethereum Smart Contract Best Practices
 site_url: https://consensys.github.io/smart-contract-best-practices/
 site_description: Ethereum Smart Contract Security Best Practices
-site_author: ConsenSys
+site_author: ConsenSys Diligence
 repo_url: https://github.com/ConsenSys/smart-contract-best-practices
+repo_name: Github
+remote_branch: gh-pages
+remote_name: origin
+strict: true
 
-pages:
+nav:
   - Home: index.md
-  - General Philosophy: general_philosophy.md
-  - Secure Development Recommendations: recommendations.md
-  - Known Attacks: known_attacks.md
-  - Software Engineering Techniques: software_engineering.md
-  - Token specific recommendations: tokens.md
-  - Documentation and Procedures: documentation_procedures.md
-  - Security Tools: security_tools.md
-  - Bug Bounty Programs: bug_bounty_list.md
+  - General Philosophy:
+    - general-philosophy/index.md
+    - Prepare for Failure: general-philosophy/prepare-for-failure.md
+    - Stay up to Date: general-philosophy/stay-up-to-date.md
+    - Keep it Simple: general-philosophy/simplicity.md
+    - Rolling out: general-philosophy/rollout.md
+    - Blockchain Properties: general-philosophy/blockchain-properties.md
+    - Simplicity vs. Complexity: general-philosophy/simplicity-vs-complexity.md
+  - Development Recommendations:
+    - development-recommendations/index.md
+    - General:
+      - External Calls: development-recommendations/general/external-calls.md
+      - Force-feeding Ether: development-recommendations/general/force-feeding.md
+      - Public on-chain Data: development-recommendations/general/public-data.md
+      - Unreliable Participants: development-recommendations/general/participants.md
+      - Negation of Signed Integers: development-recommendations/general/negative-int.md
+    - Precautions:
+      - General: development-recommendations/precautions/general.md
+      - Upgradeability: development-recommendations/precautions/upgradeability.md
+      - Circuit Breakers: development-recommendations/precautions/circuit-breakers.md
+      - Speed Bumps: development-recommendations/precautions/speed-bumps.md
+      - Rate Limiting: development-recommendations/precautions/rate-limiting.md
+      - Deployment: development-recommendations/precautions/deployment.md
+      - Safe Haven: development-recommendations/precautions/safe-haven.md
+    - Solidity-specific:
+      - Assert, Require, Revert: development-recommendations/solidity-specific/assert-require-revert.md
+      - Modifiers as Guards: development-recommendations/solidity-specific/modifiers-as-guards.md
+      - Integer Division: development-recommendations/solidity-specific/integer-division.md
+      - Abstract vs Interfaces: development-recommendations/solidity-specific/abstract-vs-interfaces.md
+      - Fallback Functions: development-recommendations/solidity-specific/fallback-functions.md
+      - Payability: development-recommendations/solidity-specific/payability.md
+      - Visibility: development-recommendations/solidity-specific/visibility.md
+      - Locking Pragmas: development-recommendations/solidity-specific/locking-pragmas.md
+      - Event Monitoring: development-recommendations/solidity-specific/event-monitoring.md
+      - Shadowing: development-recommendations/solidity-specific/shadowing.md
+      - tx.origin: development-recommendations/solidity-specific/tx-origin.md
+      - Timestamp Dependence: development-recommendations/solidity-specific/timestamp-dependence.md
+      - Complex Inheritance: development-recommendations/solidity-specific/complex-inheritance.md
+      - Interface Types: development-recommendations/solidity-specific/interface-types.md
+      - EXTCODESIZE Checks: development-recommendations/solidity-specific/extcodesize-checks.md
+    - Token-specific:
+      - Standardization: development-recommendations/token-specific/standardization.md
+      - Frontrunning: development-recommendations/token-specific/frontrunning.md
+      - Zero Address: development-recommendations/token-specific/zero-address.md
+      - Contract Address: development-recommendations/token-specific/contract-address.md
+    - Documentation:
+      - General: development-recommendations/documentation/general.md
+      - Specification: development-recommendations/documentation/specification.md
+      - Status: development-recommendations/documentation/status.md
+      - Procedures: development-recommendations/documentation/procedures.md
+      - Known Issues: development-recommendations/documentation/known-issues.md
+      - History: development-recommendations/documentation/history.md
+      - Contact: development-recommendations/documentation/contact.md
+    - Deprecated:
+      - Division by Zero: development-recommendations/deprecated/division-by-zero.md
+      - Functions and Events: development-recommendations/deprecated/functions-and-events.md
+      - Constructor Naming: development-recommendations/deprecated/constructor-naming.md
+  - Attacks:
+    - attacks/index.md
+    - Reentrancy: attacks/reentrancy.md
+    - Oracle Manipulation: attacks/oracle-manipulation.md
+    - Frontrunning: attacks/frontrunning.md
+    - Timestamp Dependence: attacks/timestamp-dependence.md
+    - Insecure Arithmetic: attacks/insecure-arithmetic.md
+    - Denial of Service: attacks/denial-of-service.md
+    - Griefing: attacks/griefing.md
+    - Force Feeding: attacks/force-feeding.md
+    - Deprecated/Historical: attacks/deprecated.md
+    - More: attacks/more.md
+  - Security Tools:
+    - security-tools/index.md
+    - Visualization: security-tools/visualization.md
+    - Static and Dynamic Analysis: security-tools/static-and-dynamic-analysis.md
+    - Classification: security-tools/classification.md
+    - Testing: security-tools/testing.md
+    - Linters and Formatters: security-tools/linters-and-formatters.md
+  - Bug Bounty Programs: bug-bounty-programs.md
   - About:
-    - Reviewers: about/reviewers.md
+    - about/index.md
     - License: about/license.md
-    - Contributing: about/contributing.md
 
 theme:
   name: 'material'
-  custom_dir: 'theme'
+  custom_dir: 'custom'
   logo: 'assets/images/CDili.png'
   favicon: 'assets/images/CDili_black.png'
   language: en
+  features:
+    - toc.integrate
+    - navigation.instant
+    - header.autohide
+    # - navigation.sections
+    - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+  palette: 
+    - scheme: default
+      primary: black
+      accent: deep-purple
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+    - scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
 
 extra_css:
   - 'stylesheets/extra.css'
 
 extra:
   social:
-    - icon: material/github-box
+    - icon: fontawesome/solid/shield-alt
+      link: https://consensys.net/diligence/blog/
+    - icon: fontawesome/brands/github
       link: https://github.com/ConsenSys/
-    - icon: material/twitter-box
+    - icon: fontawesome/brands/twitter
       link: https://twitter.com/ConsenSysAudits
-    - icon: material/medium
+    - icon: fontawesome/brands/medium
       link: https://medium.com/consensys-diligence
-    - icon: material/youtube
+    - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/channel/UCkoGLA5DUdXO4Qfo_9RDjIA/playlists
-
-google_analytics:
-  - UA-64552723-12
-  - auto
+  analytics:
+    provider: google
+    property: UA-64552723-12
 
 markdown_extensions:
-  - markdown.extensions.admonition
-  - markdown.extensions.def_list
-  - markdown.extensions.footnotes
-  - markdown.extensions.meta
-  - markdown.extensions.toc(permalink=true)
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
+  - def_list
+  - footnotes
+  - meta
   - pymdownx.highlight
   - pymdownx.inlinehilite
-  - pymdownx.arithmatex
-  - pymdownx.betterem(smart_enable=all)
   - pymdownx.caret
-  - pymdownx.critic
   - pymdownx.details
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
-  - pymdownx.tasklist(custom_checkbox=true)
   - pymdownx.tilde
   - markdown_include.include

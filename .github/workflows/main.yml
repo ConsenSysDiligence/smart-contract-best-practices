@@ -1,0 +1,26 @@
+name: Lint, build, and deploy
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test and deploy
+    runs-on: ubuntu-latest
+    env:
+      SHOULD_DEPLOY: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v2
+      - name: Install Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      - name: Build the site with mkdocs
+        run: mkdocs build
+      # Disabled as Github IPs trigger a 403 on Etherscan.
+      # - name: Check dead links
+      #   run: linkcheckMarkdown -r --sync docs
+      - name: Deploy to Github Pages
+        if: fromJSON(env.SHOULD_DEPLOY)
+        run: mkdocs gh-deploy --force

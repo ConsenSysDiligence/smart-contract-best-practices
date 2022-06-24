@@ -1,22 +1,24 @@
 .md-header {
     background-color: #1F507A;
 }
+
 .md-footer-diligence {
     float: right;
-    color: hsla(0,0%,100%,.3);
+    color: hsla(0, 0%, 100%, .3);
     margin-right: 1.3rem;
     font-size: 1.28rem;
     padding: 0.8rem 0;
 }
+
 .md-footer-diligence a img {
     height: auto;
     width: 22px;
     vertical-align: text-bottom;
 }
 
-
 .md-footer-social svg {
-    -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
-            filter: invert(100%);
+    -webkit-filter: invert(100%);
+    /* safari 6.0 - 9.0 */
+    filter: invert(100%);
     margin-right: 1rem;
-  }
+}
