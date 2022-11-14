@@ -1,0 +1,3 @@
+- Who to contact with issues
+- Names of programmers and/or other important parties
+- Chat room where questions can be asked

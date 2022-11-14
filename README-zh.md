@@ -1,12 +1,10 @@
 # 以太坊智能合约 —— 最佳安全开发指南
 
-
 **Notice: this translation was generously provided by a contributor. The maintainers are not able to verify the content. Any issues or PRs to help improve it are welcome.**
 
-*本文翻译自：https://github.com/ConsenSys/smart-contract-best-practices
+\*本文翻译自：https://github.com/ConsenSys/smart-contract-best-practices
 
-为了使语句表达更加贴切，个别地方未按照原文逐字逐句翻译，如有出入请以原文为准。*
-
+为了使语句表达更加贴切，个别地方未按照原文逐字逐句翻译，如有出入请以原文为准。\*
 
 **主要章节如下**:
 
@@ -16,7 +14,7 @@
     - [***可重入***](#reentrancy)
     - [***交易顺序依赖***](#transaction-ordering-dependence)
   - [***针对Gas的攻击***](#dos-with-block-gas-limit)
-  -  [***整数上溢/整数下溢***](#integer-overflow-and-underflow)
+  - [***整数上溢/整数下溢***](#integer-overflow-and-underflow)
 - [**软件工程开发技巧**](#eng-techniques)
 - [**参考文献**](#bibliography)
 
@@ -25,11 +23,14 @@
 我们邀请社区对该文档提出修改或增补建议，欢迎各种合并请求(Pull Request)。若有相关的文章或者博客的发表，也清将其加入到[参考文献](#bibliography)中，具体详情请参见我们的[社区贡献指南](CONTRIBUTING.md)。
 
 #### 更多期待内容
+
 我们欢迎并期待社区开发者贡献以下几个方面的内容：
- -  Solidity代码测试（包括代码结构，程序框架 以及 常见软件工程测试）
- -  智能合约开发经验总结，以及更广泛的基于区块链的开发技巧分享
+
+- Solidity代码测试（包括代码结构，程序框架 以及 常见软件工程测试）
+- 智能合约开发经验总结，以及更广泛的基于区块链的开发技巧分享
 
 ## 基本理念
+
 <a name="general-philosophy"></a>
 
 以太坊和其他复杂的区块链项目都处于早期阶段并且有很强的实验性质。因此，随着新的bug和安全漏洞被发现，新的功能不断被开发出来，其面临的安全威胁也是不断变化的。这篇文章对于开发人员编写安全的智能合约来说只是个开始。
@@ -37,16 +38,19 @@
 开发智能合约需要一个全新的工程思维，它不同于我们以往项目的开发。因为它犯错的代价是巨大的，并且很难像传统软件那样轻易的打上补丁。就像直接给硬件编程或金融服务类软件开发，相比于web开发和移动开发都有更大的挑战。因此，仅仅防范已知的漏洞是不够的，你还需要学习新的开发理念：
 
 - **对可能的错误有所准备**。任何有意义的智能合约或多或少都存在错误。因此你的代码必须能够正确的处理出现的bug和漏洞。始终保证以下规则：
+
   - 当智能合约出现错误时，停止合约，（“断路开关”）
   - 管理账户的资金风险（限制（转账）速率、最大（转账）额度）
   - 有效的途径来进行bug修复和功能提升
 
 - [**谨慎发布智能合约**](#contract-rollout)。 尽量在正式发布智能合约之前发现并修复可能的bug。
+
   - 对智能合约进行彻底的测试，并在任何新的攻击手法被发现后及时的测试(包括已经发布的合约)
-  - 从alpha版本在测试网（testnet）上发布开始便提供[bug赏金计划](#bounties) 
+  - 从alpha版本在测试网（testnet）上发布开始便提供[bug赏金计划](#bounties)
   - 阶段性发布，每个阶段都提供足够的测试
 
 - **保持智能合约的简洁**。复杂会增加出错的风险。
+
   - 确保智能合约逻辑简洁
   - 确保合约和函数模块化
   - 使用已经被广泛使用的合约或工具（比如，不要自己写一个随机数生成器）
@@ -54,16 +58,19 @@
   - 只在你系统的去中心化部分使用区块链
 
 - **保持更新**。通过下一章节所列出的资源来确保获取到最新的安全进展。
+
   - 在任何新的漏洞被发现时检查你的智能合约
   - 尽可能快的将使用到的库或者工具更新到最新
   - 使用最新的安全技术
 
 - **清楚区块链的特性**。尽管你先前所拥有的编程经验同样适用于以太坊开发，但这里仍然有些陷阱你需要留意：
+
   - 特别小心针对外部合约的调用，因为你可能执行的是一段恶意代码然后更改控制流程
   - 清楚你的public function是公开的，意味着可以被恶意调用。（在以太坊上）你的private data也是对他人可见的
   - 清楚gas的花费和区块的gas limit
 
 ### 基本权衡：简单性与复杂性
+
 <a name="fundamental-tradeoffs"></a>
 
 在评估一个智能合约的架构和安全性时有很多需要权衡的地方。对任何智能合约的建议是在各个权衡点中找到一个平衡点。
@@ -98,7 +105,7 @@
 
 以下这些地方通常会通报在Ethereum或Solidity中新发现的漏洞。安全通告的官方来源是Ethereum Blog，但是一般漏洞都会在其他地方先被披露和讨论。
 
-- [Ethereum Blog](https://blog.ethereum.org/): The official Ethereum blog 
+- [Ethereum Blog](https://blog.ethereum.org/): The official Ethereum blog
   - [Ethereum Blog - Security only](https://blog.ethereum.org/category/security/): 所有相关博客都带有**Security**标签
 - [Ethereum Gitter](https://gitter.im/orgs/ethereum/rooms) 聊天室
   - [Solidity](https://gitter.im/ethereum/solidity)
@@ -125,6 +132,7 @@
 ### 外部调用
 
 #### 尽量避免外部调用
+
 <a name="avoid-external-calls"></a>
 
 调用不受信任的外部合约可能会引发一系列意外的风险和错误。外部调用可能在其合约和它所依赖的其他合约内执行恶意代码。因此，每一个外部调用都会有潜在的安全威胁，尽可能的从你的智能合约内移除外部调用。当无法完全去除外部调用时，可以使用这一章节其他部分提供的建议来尽量减少风险。
@@ -135,14 +143,14 @@
 
 当转账Ether时，需要仔细权衡“someAddress.send()”、“someAddress.transfer()”、和“someAddress.call.value()()”之间的差别。
 
--  `x.transfer(y)`和`if (!x.send(y)) throw;`是等价的。send是transfer的底层实现，建议尽可能直接使用transfer。
+- `x.transfer(y)`和`if (!x.send(y)) throw;`是等价的。send是transfer的底层实现，建议尽可能直接使用transfer。
 - `someAddress.send()`和`someAddress.transfer()` 能保证[可重入](#reentrancy) **安全** 。
-    尽管这些外部智能合约的函数可以被触发执行，但补贴给外部智能合约的2,300 gas，意味着仅仅只够记录一个event到日志中。
+  尽管这些外部智能合约的函数可以被触发执行，但补贴给外部智能合约的2,300 gas，意味着仅仅只够记录一个event到日志中。
 - `someAddress.call.value()()` 将会发送指定数量的Ether并且触发对应代码的执行。被调用的外部智能合约代码将享有所有剩余的gas，通过这种方式转账是很容易有可重入漏洞的，非常 **不安全**。
 
 使用`send()` 或`transfer()` 可以通过制定gas值来预防可重入， 但是这样做可能会导致在和合约调用fallback函数时出现问题，由于gas可能不足，而合约的fallback函数执行至少需要2,300 gas消耗。
 
-一种被称为[*push* 和*pull*](#favor-pull-over-push-payments)的 机制试图来平衡两者， 在 *push* 部分使用`send()` 或`transfer()`，在*pull* 部分使用`call.value()()`。（*译者注：在需要对外未知地址转账Ether时使用`send()` 或`transfer()`，已知明确内部无恶意代码的地址转账Ether使用`call.value()()`）
+一种被称为[*push* 和*pull*](#favor-pull-over-push-payments)的 机制试图来平衡两者， 在 *push* 部分使用`send()` 或`transfer()`，在*pull* 部分使用`call.value()()`。（\*译者注：在需要对外未知地址转账Ether时使用`send()` 或`transfer()`，已知明确内部无恶意代码的地址转账Ether使用`call.value()()`）
 
 需要注意的是使用`send()` 或`transfer()` 进行转账并不能保证该智能合约本身重入安全，它仅仅只保证了这次转账操作时重入安全的。
 
@@ -167,6 +175,7 @@ if(!someAddress.send(55)) {
 
 ExternalContract(someAddress).deposit.value(100);
 ```
+
 <a name="expect-control-flow-loss"></a>
 
 #### 不要假设你知道外部调用的控制流程
@@ -225,6 +234,7 @@ contract auction {
     }
 }
 ```
+
 <a name="mark-untrusted-contracts"></a>
 
 #### 标记不受信任的合约
@@ -266,9 +276,10 @@ contract Token {
     }
 }
 ```
+
 注意断言保护 **不是** 严格意义的余额检测， 因为智能合约可以不通过`deposit()` 函数被 [强制发送Ether](#ether-forcibly-sent)！
 
-### 正确使用`assert()`和`require()` 
+### 正确使用`assert()`和`require()`
 
 在Solidity 0.4.10 中`assert()`和`require()`被加入。`require(condition)`被用来验证用户的输入，如果条件不满足便会抛出异常，应当使用它验证所有用户的输入。 `assert(condition)` 在条件不满足也会抛出异常，但是最好只用于固定变量：内部错误或你的智能合约陷入无效的状态。遵循这些范例，使用分析工具来验证永远不会执行这些无效操作码：意味着代码中不存在任何不变量，并且代码已经正式验证。
 
@@ -312,10 +323,10 @@ uint denominator = 2;
 
 例如：
 
-* 在游戏石头剪刀布中，需要参与游戏的双方提交他们“行动计划”的hash值，然后需要双方随后提交他们的行动计划；如果双方的“行动计划”和先前提交的hash值对不上则抛出异常。
-* 在拍卖中，要求玩家在初始阶段提交其所出价格的hash值（以及超过其出价的保证金），然后在第二阶段提交他们所出价格的资金。
-* 当开发一个依赖随机数生成器的应用时，正确的顺序应当是（1）玩家提交行动计划，（2）生成随机数，（3）玩家支付。产生随机数是一个值得研究的领域；当前最优的解决方案包括比特币区块头（通过http://btcrelay.org验证），hash-commit-reveal方案（比如，一方产生number后，将其散列值提交作为对这个number的“提交”，然后在随后再暴露这个number本身）和 [RANDAO](http://github.com/randao/randao)。
-* 如果你正在实现频繁的批量拍卖，那么hash-commit机制也是个不错的选择。
+- 在游戏石头剪刀布中，需要参与游戏的双方提交他们“行动计划”的hash值，然后需要双方随后提交他们的行动计划；如果双方的“行动计划”和先前提交的hash值对不上则抛出异常。
+- 在拍卖中，要求玩家在初始阶段提交其所出价格的hash值（以及超过其出价的保证金），然后在第二阶段提交他们所出价格的资金。
+- 当开发一个依赖随机数生成器的应用时，正确的顺序应当是（1）玩家提交行动计划，（2）生成随机数，（3）玩家支付。产生随机数是一个值得研究的领域；当前最优的解决方案包括比特币区块头（通过http://btcrelay.org验证），hash-commit-reveal方案（比如，一方产生number后，将其散列值提交作为对这个number的“提交”，然后在随后再暴露这个number本身）和 [RANDAO](http://github.com/randao/randao)。
+- 如果你正在实现频繁的批量拍卖，那么hash-commit机制也是个不错的选择。
 
 ### 权衡Abstract合约和Interfaces
 
@@ -383,11 +394,12 @@ pragma solidity ^0.4.4;
 // good
 pragma solidity 0.4.4;
 ```
+
 <a name="beware-division-by-zero"></a>
 
 （*译者注：这当然也会付出兼容性的代价*）
 
-### 小心分母为零 (Solidity < 0.4)
+### 小心分母为零 (Solidity \< 0.4)
 
 早于0.4版本, 当一个数尝试除以零时，Solidity [返回zero](https://github.com/ethereum/solidity/issues/670) 并没有 `throw` 一个异常。确保你使用的Solidity版本至少为 0.4。
 
@@ -439,9 +451,10 @@ function withdrawBalance() public {
     userBalances[msg.sender] = 0;
 }
 ```
+
 （*译者注：使用msg.sender.call.value()()）传递给fallback函数可用的gas是当前剩余的所有gas，在这里，假如从你账户执行提现操作的恶意合约的fallback函数内递归调用你的withdrawBalance()便可以从你的账户转走更多的币。*）
 
-可以看到当调msg.sender.call.value()()时，并没有将userBalances[msg.sender] 清零，于是在这之前可以成功递归调用很多次withdrawBalance()函数。 一个非常相像的bug便是出现在针对 DAO 的攻击。
+可以看到当调msg.sender.call.value()()时，并没有将userBalances\[msg.sender\] 清零，于是在这之前可以成功递归调用很多次withdrawBalance()函数。 一个非常相像的bug便是出现在针对 DAO 的攻击。
 
 在给出来的例子中，最好的方法是 [ 使用 `send()` 而不是`call.value()()`](https://github.com/ConsenSys/smart-contract-best-practices#send-vs-call-value)。这将避免多余的代码被执行。
 
@@ -480,6 +493,7 @@ function withdrawBalance() public {
     userBalances[msg.sender] = 0;
 }
 ```
+
 着这个例子中，攻击者在他们外部调用`withdrawBalance`函数时调用`transfer()`，如果这个时候`withdrawBalance`还没有执行到`userBalances[msg.sender] = 0;`这里，那么他们的余额就没有被清零，那么他们就能够调用`transfer()`转走代币尽管他们其实已经收到了代币。这个弱点也可以被用到对DAO的攻击。
 
 同样的解决办法也会管用，在执行转账操作之前先清零。也要注意在这个例子中所有函数都是在同一个合约内。然而，如果这些合约共享了状态，同样的bug也可以发生在跨合约调用中。
@@ -535,7 +549,7 @@ function untrustedGetFirstWithdrawalBonus(address recipient) public {
 
 除了修复bug让重入不可能成功，[不受信任的函数也已经被标记出来](https://github.com/ConsenSys/smart-contract-best-practices#mark-untrusted-contracts) 。同样的情景： `untrustedGetFirstWithdrawalBonus()` 调用`untrustedWithdraw()`, 而后者调用了外部合约，因此在这里`untrustedGetFirstWithdrawalBonus()` 是不安全的。
 
-另一个经常被提及的解决办法是（*译者注：像传统多线程编程中一样*）使用[mutex](https://en.wikipedia.org/wiki/Mutual_exclusion)。它会"lock" 当前状态，只有锁的当前拥有者能够更改当前状态。一个简单的例子如下： 
+另一个经常被提及的解决办法是（*译者注：像传统多线程编程中一样*）使用[mutex](https://en.wikipedia.org/wiki/Mutual_exclusion)。它会"lock" 当前状态，只有锁的当前拥有者能够更改当前状态。一个简单的例子如下：
 
 ```sh
 // Note: This is a rudimentary example, and mutexes are particularly useful where there is substantial logic and/or shared state
@@ -685,6 +699,7 @@ contract Auction {
     }
 }
 ```
+
 当有更高竞价时，它将试图退款给曾经最高竞价人，如果退款失败则会抛出异常。这意味着，恶意投标人可以成为当前最高竞价人，同时确保对其地址的任何退款**始终**失败。这样就可以阻止任何人调用“bid()”函数，使自己永远保持领先。建议向之前所说的那样建立[基于pull的支付系统](https://github.com/ConsenSys/smart-contract-best-practices/#favor-pull-over-push-payments) 。
 
 另一个例子是合约可能通过数组迭代来向用户支付（例如，众筹合约中的支持者）时。 通常要确保每次付款都成功。 如果没有，应该抛出异常。 问题是，如果其中一个支付失败，您将恢复整个支付系统，这意味着该循环将永远不会完成。 因为一个地址没有转账成功导致其他人都没得到报酬。
@@ -966,7 +981,6 @@ function withdraw() public {
 
 在早期阶段，你可以限制任何用户（或整个合约）的Ether数量 - 以降低风险。
 
-
 <a name="bounties"> </a>
 
 ### Bug赏金计划
@@ -976,9 +990,9 @@ function withdraw() public {
 - 决定赏金以哪一种代币分配（BTC和/或ETH）
 - 决定赏金奖励的预算总额
 - 从预算来看，确定三级奖励：
-   - 你愿意发放的最小奖励
-   - 通常可发放的最高奖励 
-   - 设置额外的限额以避免非常严重的漏洞被发现
+  - 你愿意发放的最小奖励
+  - 通常可发放的最高奖励
+  - 设置额外的限额以避免非常严重的漏洞被发现
 - 确定赏金发放给谁（3是一个典型）
 - 核心开发人员应该是赏金评委之一
 - 当收到错误报告时，核心开发人员应该评估bug的严重性
@@ -990,7 +1004,7 @@ function withdraw() public {
 - 赏金评委根据bug的*可能性*和*影响*来确定奖励的大小
 - 在整个过程中保持赏金猎人参与讨论，并确保赏金发放不会延迟
 
- 有关三级奖励的例子，参见 [Ethereum's Bounty Program](https://bounty.ethereum.org)：
+有关三级奖励的例子，参见 [Ethereum's Bounty Program](https://bounty.ethereum.org)：
 
 > 奖励的价值将根据影响的严重程度而变化。 奖励轻微的“无害”错误从0.05 BTC开始。 主要错误，例如导致协商一致的问题，将获得最多5个BTC的奖励。 在非常严重的漏洞的情况下，更高的奖励是可能的（高达25 BTC）。
 
@@ -1051,6 +1065,7 @@ Linters通过约束代码风格和排版来提高代码质量，使代码更容�
 - [Solcheck](https://github.com/federicobond/solcheck) - 用JS写的Solidity linter，（实现上）深受eslint的影响。
 
 ## 将来的改进
+
 - **编辑器安全警告**：编辑器将很快能够实现醒常见的安全错误，而不仅仅是编译错误。 Solidity浏览器即将推出这些功能。
 - **新的能够被编译成EVM字节码的函数式编程语言**： 像Solidity这种函数式编程语言相比面向过程编程语言能够保证功能的不变性和编译时间检查。通过确定性行为来减少出现错误的风险。（更多相关信息请参阅 [这里](https://plus.google.com/u/0/events/cmqejp6d43n5cqkdl3iu0582f4k), Curry-Howard 一致性和线性逻辑）
 
@@ -1095,10 +1110,7 @@ Linters通过约束代码风格和排版来提高代码质量，使代码更容�
 
 ## Reviewers
 
-The following people have reviewed this document (date and commit they reviewed in parentheses):
-Bill Gleim (07/29/2016 3495fb5)
-Bill Gleim (03/15/2017 0244f4e)
--
+## The following people have reviewed this document (date and commit they reviewed in parentheses): Bill Gleim (07/29/2016 3495fb5) Bill Gleim (03/15/2017 0244f4e)
 
 ## License
 

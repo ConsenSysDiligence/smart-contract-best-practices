@@ -1,0 +1,2 @@
+- Testing (including usage stats, discovered bugs, length of testing)
+- People who have reviewed code (and their key feedback)
