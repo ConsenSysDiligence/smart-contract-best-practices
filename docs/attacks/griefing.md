@@ -1,4 +1,4 @@
-This attack may be possible on a contract which accepts generic data and uses it to make a call
+This attack may be possible on a contract which accepts generic data and uses it to make a call to 
 another contract (a 'sub-call') via the low level `address.call()` function, as is often the case
 with multisignature and transaction relayer contracts.
 
