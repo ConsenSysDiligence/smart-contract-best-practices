@@ -3,6 +3,6 @@ indirect uses of the timestamp should be considered.
 
 !!! Note
     See the [Recommendations](../development-recommendations/solidity-specific/timestamp-dependence.md) section for design
-    considerations related to Timestamp Dependence.
+    considerations related to the Timestamp Dependence.
 
     See [SWC-116](https://swcregistry.io/docs/SWC-116)

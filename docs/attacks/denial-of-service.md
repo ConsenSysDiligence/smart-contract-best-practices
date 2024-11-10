@@ -19,7 +19,7 @@ contract Auction {
 }
 ```
 
-If attacker bids using a smart contract which has a fallback function that reverts any payment, the
+If an attacker bids using a smart contract which has a fallback function that reverts any payment, the
 attacker can win any auction. When it tries to refund the old leader, it reverts if the refund
 fails. This means that a malicious bidder can become the leader while making sure that any refunds
 to their address will *always* fail. In this way, they can prevent anyone else from calling the
@@ -53,7 +53,7 @@ See [SWC-113](https://swcregistry.io/docs/SWC-113)
 ## DoS with Block Gas Limit
 
 Each block has an upper bound on the amount of gas that can be spent, and thus the amount
-computation that can be done. This is the Block Gas Limit. If the gas spent exceeds this limit, the
+computations that can be done. This is the Block Gas Limit. If the gas spent exceeds this limit, the
 transaction will fail. This leads to a couple of possible Denial of Service vectors:
 
 ### Gas Limit DoS on a Contract via Unbounded Operations

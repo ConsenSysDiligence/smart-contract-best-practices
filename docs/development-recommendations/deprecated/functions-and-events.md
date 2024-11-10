@@ -6,9 +6,9 @@
 
 Favor capitalization and a prefix in front of events (we suggest *Log*), to prevent the risk of
 confusion between functions and events. For functions, always start with a lowercase letter, except
-for the constructor.
+for the a constructor.
 
-```sol
+```solidity
 // bad
 event Transfer() {}
 function transfer() {}
