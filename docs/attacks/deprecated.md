@@ -15,7 +15,7 @@ On January 16th, 2019, Constantinople protocol upgrade was delayed due to a secu
 enabled by [EIP 1283](https://eips.ethereum.org/EIPS/eip-1283). _EIP 1283: Net gas metering for
 SSTORE without dirty maps_ proposes changes to reduce excessive gas costs on dirty storage writes.
 
-This change led to possibility of a new reentrancy vector making previously known secure withdrawal
+This change led to the possibility of a new reentrancy vector making previously known secure withdrawal
 patterns (`.send()` and `.transfer()`) unsafe in specific
 situations<sup><a href='https://medium.com/chainsecurity/constantinople-enables-new-reentrancy-attack-ace4088297d9'>\*</a></sup>,
 where the attacker could hijack the control flow and use the remaining gas enabled by EIP 1283,
