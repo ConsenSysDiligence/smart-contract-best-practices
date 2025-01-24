@@ -15,5 +15,5 @@ writing smart contracts.
 | [Denial of Service](./denial-of-service.md)       | Denial of service attacks through unexpected reverts and the block gas limit.                                        |
 | [Griefing](./griefing.md)                         | Attacks relating to bad faith players around a smart contract system.                                                |
 | [Force Feeding](./force-feeding.md)               | Forcing Ether to be sent to smart contracts to manipulate balance checks.                                            |
-| [Deprecated/Historical](./deprecated.md)          | Attacks that are part of Ethereum's history and vulnerabilities that have been fixes on a (Solidity) compiler level. |
+| [Deprecated/Historical](./deprecated.md)          | Attacks that are part of Ethereum's history and vulnerabilities that have been fixed on a (Solidity) compiler level. |
 | [More](./more.md)                                 | Where to find more information about vulnerabilities and weaknesses.                                                 |
