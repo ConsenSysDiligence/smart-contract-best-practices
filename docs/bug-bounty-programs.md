@@ -8,7 +8,7 @@ hide:
     Looking for comprehensive information on setting up, managing, and operating a bug bounty program? Please refer to the [Smart Contract Security Field Guide's](https://scsfg.io/developers/bug-bounty/) bug bounty guide. This resource provides in-depth, up-to-date knowledge and strategies that are paramount for running a successful bug bounty program.
 
 
-Over the course of time Ethereum security has evolved to include different flavours of bug bounty programs which will be detailed below:
+Over the course of time Ethereum security has evolved to include different flavors of bug bounty programs which will be detailed below:
 
 ### Bug Bounty Platforms
 
