@@ -119,10 +119,10 @@
 
 另外, 这里列出了以太坊参与安全模块相关的核心开发成员, 浏览 [bibliography](https://github.com/ConsenSys/smart-contract-best-practices#smart-contract-security-bibliography) 获取更多信息。
 
-- **Vitalik Buterin**: [Twitter](https://twitter.com/vitalikbuterin), [Github](https://github.com/vbuterin), [Reddit](https://www.reddit.com/user/vbuterin), [Ethereum Blog](https://blog.ethereum.org/author/vitalik-buterin/)
-- **Dr. Christian Reitwiessner**: [Twitter](https://twitter.com/ethchris), [Github](https://github.com/chriseth), [Ethereum Blog](https://blog.ethereum.org/author/christian_r/)
-- **Dr. Gavin Wood**: [Twitter](https://twitter.com/gavofyork), [Blog](http://gavwood.com/), [Github](https://github.com/gavofyork)
-- **Vlad Zamfir**: [Twitter](https://twitter.com/vladzamfir), [Github](https://github.com/vladzamfir), [Ethereum Blog](https://blog.ethereum.org/author/vlad/)
+- **Vitalik Buterin**: [Twitter](https://x.com/vitalikbuterin), [Github](https://github.com/vbuterin), [Reddit](https://www.reddit.com/user/vbuterin), [Ethereum Blog](https://blog.ethereum.org/author/vitalik-buterin/)
+- **Dr. Christian Reitwiessner**: [Twitter](https://x.com/ethchris), [Github](https://github.com/chriseth), [Ethereum Blog](https://blog.ethereum.org/author/christian_r/)
+- **Dr. Gavin Wood**: [Twitter](https://x.com/gavofyork), [Blog](http://gavwood.com/), [Github](https://github.com/gavofyork)
+- **Vlad Zamfir**: [Twitter](https://x.com/vladzamfir), [Github](https://github.com/vladzamfir), [Ethereum Blog](https://blog.ethereum.org/author/vlad/)
 
 除了关注核心开发成员，参与到各个区块链安全社区也很重要，因为安全漏洞的披露或研究将通过各方进行。
 <a name="solidity-tips"></a>
