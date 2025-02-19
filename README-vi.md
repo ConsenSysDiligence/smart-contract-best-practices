@@ -162,7 +162,7 @@ Nếu `worker.doWork()` được gọi với tham số là địa chỉ của h�
 
 Kẻ tấn công có thể gửi ether đến bất kỳ tài khoản nào và điều này không thể ngăn chặn được (ngay cả với fallback function với câu lệnh revert).
 
-Kẻ tấn công có thể làm điều này bằng cách tạo ra một hợp đồng, gửi cho nó 1 wei và hàm `selfdestruct(victimAddress`), ở đây `victimAddress` là địa chỉ hợp đồng cần gửi ether vào.
+Kẻ tấn công có thể làm điều này bằng cách tạo ra một hợp đồng, gửi cho nó 1 wei và hàm `selfdestruct(victimAddress)`, ở đây `victimAddress` là địa chỉ hợp đồng cần gửi ether vào.
 
 ### Hãy nhớ rằng Ethereum là mạng public blockchain, mọi dữ liệu trên các block đều được công khai
 
@@ -200,8 +200,6 @@ contract Negation {
     int16 public b = negate16(-128); // 128
     int16 public c = negate16(-32768); // -32768
 }
-}
-
 ```
 
 Một cách để xử lý điều này là kiểm tra giá trị của biến trước khi đảo dấu và ném ra ngoại lệ nếu nó bằng `MIN_INT`. Một tùy chọn khác là đảm bảo rằng số âm nhất bé nhất sẽ không bao giờ đạt được bằng cách sử kiểu biến có khoảng giá trị lớn (ví dụ: int32 thay vì int16).
@@ -313,7 +311,7 @@ function() payable { require(msg.data.length == 0); emit LogDepositReceived(msg.
 
 ### Kiểm tra độ dài dữ liệu trong fallback function
 
-Fallback function không chỉ được dùng để nhận ether gửi vào hợp đồng (không có dữ liệu trong message) mà còn dùng kh gọi hàm không có trong hợp đồng hoặc tham số không đúng. Do đó, kiểm tra độ dài data trước khi thực thi các mã trong fallback function nhằm tránh việc bị thực thi mã độc.
+Fallback function không chỉ được dùng để nhận ether gửi vào hợp đồng (không có dữ liệu trong message) mà còn dùng khi gọi hàm không có trong hợp đồng hoặc tham số không đúng. Do đó, kiểm tra độ dài data trước khi thực thi các mã trong fallback function nhằm tránh việc bị thực thi mã độc.
 
 ```javascript
 // bad
