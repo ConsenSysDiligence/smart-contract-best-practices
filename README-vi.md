@@ -1498,7 +1498,7 @@ Khi triển khai một hợp đồng, điều quan trọng là phải bao gồm 
 - [SmartCheck](https://tool.smartdec.net/)  - Phân tích tĩnh mã nguồn Solidity với các lỗ hổng bảo mật.
 - [Octopus](https://github.com/quoscient/octopus)  - Công cụ phân tích bảo mật cho hợp đồng thông minh Blockchain với sự hỗ trợ của EVM và (e) WASM.
 
-## Weakness OSSClassifcation & Test Cases
+## Weakness OSSClassification & Test Cases
 
 - [SWC-registry](https://github.com/SmartContractSecurity/SWC-registry/)  - Các định nghĩa SWC và một repo lớn các mẫu hợp đồng thông minh dễ bị tấn công.
 - [SWC Pages](https://smartcontractsecurity.github.io/SWC-registry/)  - Repo đăng ký SWC được xuất bản trên Github Pages.
