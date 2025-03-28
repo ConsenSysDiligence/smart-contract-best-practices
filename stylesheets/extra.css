@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'Graphik';
+    src: url('./fonts/Graphik-Bold-Web.woff2') format('woff2'),
+        url('./fonts/Graphik-Bold-Web.woff') format('woff');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Semibold-Web.woff2') format('woff2'),
+        url('fonts/Graphik-Semibold-Web.woff') format('woff');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Graphik';
+    src: url('fonts/Graphik-Regular-Web.woff2') format('woff2'),
+        url('fonts/Graphik-Regular-Web.woff') format('woff');
+    font-weight: 400;
+}
+
+.md-header {
+    background-color: #1F507A;
+}
+
+.md-footer-diligence {
+    float: right;
+    color: hsla(0, 0%, 100%, .3);
+    margin-right: 1.3rem;
+    font-size: 1.28rem;
+    padding: 0.8rem 0;
+}
+
+.md-footer-diligence a img {
+    height: auto;
+    width: 22px;
+    vertical-align: text-bottom;
+}
+
+.md-footer-social svg {
+    -webkit-filter: invert(100%);
+    /* safari 6.0 - 9.0 */
+    filter: invert(100%);
+    margin-right: 1rem;
+}
+
+.security-tools-wrapper .inner-wrapper {
+    font-family: 'Graphik';
+    color: #FFF;
+    padding: 37px 22px 28px 31px;
+    background-image: url("../img/bg-security-tools.png");
+    gap: 40px;
+    display: flex;
+    border-radius: 8px;
+    max-width: 786px;
+}
+
+@media only screen and (max-width: 767px) { 
+    .security-tools-wrapper .inner-wrapper {
+        flex-direction: column-reverse;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .security-tools-wrapper .inner-wrapper {
+        max-width: 864.8px;
+    }
+}
+
+.security-tools-wrapper .inner-wrapper .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.security-tools-wrapper .inner-wrapper .left .title {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 120%;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: -0.53px;
+}
+
+.security-tools-wrapper .inner-wrapper .left .sub-title {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.2px;
+    color: #BDBDBD;
+    margin-top: 12px;
+    margin-bottom: 30px;
+}
+
+.security-tools-wrapper .inner-wrapper .left a {
+    text-transform: uppercase;
+    max-width: 159px;
+    color: #FFF;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 600;
+    padding: 11.47px 27.5px;
+    background-color: #2C56DD;
+    border-radius: 2.7px;
+    transition: opacity 0.3s ease;
+}
+
+.security-tools-wrapper .inner-wrapper .left a:hover {
+    opacity: 0.8;
+}
+
+.security-tools-wrapper .inner-wrapper .right {
+    align-self: center;
+}

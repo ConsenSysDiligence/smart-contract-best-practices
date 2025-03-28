@@ -1,0 +1,10 @@
+.md-typeset__table {
+    width: 818px;
+    max-width: 100%;
+}
+
+@media only screen and (min-width: 1600px) {
+    .md-typeset__table {
+        width: 900px;
+    }
+}
