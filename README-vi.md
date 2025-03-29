@@ -2,7 +2,7 @@
 
 **Notice: this translation was generously provided by a contributor. The maintainers are not able to verify the content. Any issues or PRs to help improve it are welcome.**
 
-Bài viết này được dịch nguyên văn từ https://consensys.github.io/smart-contract-best-practices. Để phù hợp với các diễn đạt văn phong tiếng việt, chúng tôi cố gắng diễn đạt tư tưởng của tài liệu chứ không dịch theo từng chữ một.
+Bài viết này được dịch nguyên văn từ https://consensys.github.io/smart-contract-best-practices. Để phù hợp với các diễn đạt văn phong tiếng Việt, chúng tôi cố gắng diễn đạt tư tưởng của tài liệu chứ không dịch theo từng chữ một.
 
 - [**Những lời khuyến nghị cho việc phát triển hợp đồng thông minh bằng Solidity**](#solidity-tips)
 - [**Hiểu biết về các phương thức tấn công phổ biến**](#known-attacks)
@@ -25,7 +25,7 @@ Các message gọi đến những hợp đồng không đáng tin cậy có th�
 
 #### Đánh dấu các hợp đồng không đáng tin cậy
 
-Khi tương tác với các lời gọi ngoài, tên các biến, phương thức và các interface nên được đặt sao cho nó thể hiện được việc tương tác với các lời gọi từ bên ngoài có an toàn hay là không ? Điều này áp dụng cho các hàm mà nó có thể được gọi từ các hợp đồng bên ngoài.
+Khi tương tác với các lời gọi ngoài, tên các biến, phương thức và các interface nên được đặt sao cho nó thể hiện được việc tương tác với các lời gọi từ bên ngoài có an toàn hay là không? Điều này áp dụng cho các hàm mà nó có thể được gọi từ các hợp đồng bên ngoài.
 
 ```javascript
 // bad
@@ -178,7 +178,7 @@ Ví dụ:
 
 ### Cảnh giác với khả năng một số người tham gia có thể "drop offline" và không quay lại
 
-Ví dụ, trong trò chơi oản tù tì, một ván đấu được tiếp tục cho đến khi cả hai người chơi gửi lựa chọn của họ. Tuy nhiên, một người chơi có thể không bao giờ gửi lựa chọn của họ - thực tế, nếu một người chơi thấy động thái được tiết lộ từ người chơi khác và xác định rằng họ đã thua, họ không có lý do gì để tự gửi kết quả. Khi gặp các tình huống như vậy thì , (1) cung cấp một cách để tránh những người chơi không tham gia, có thể giới hạn thời gian và (2) xem xét thêm lợi ích bổ sung cho những người tham gia khi gửi kết quả trong tất cả các tình huống.
+Ví dụ, trong trò chơi oản tù tì, một ván đấu được tiếp tục cho đến khi cả hai người chơi gửi lựa chọn của họ. Tuy nhiên, một người chơi có thể không bao giờ gửi lựa chọn của họ - thực tế, nếu một người chơi thấy động thái được tiết lộ từ người chơi khác và xác định rằng họ đã thua, họ không có lý do gì để tự gửi kết quả. Khi gặp các tình huống như vậy thì, (1) cung cấp một cách để tránh những người chơi không tham gia, có thể giới hạn thời gian và (2) xem xét thêm lợi ích bổ sung cho những người tham gia khi gửi kết quả trong tất cả các tình huống.
 
 ### Trường hợp đổi dấu số âm bé nhất
 
@@ -717,7 +717,7 @@ Vì số dư tài khoản của người dùng không gắn bằng 0 cho đến 
 
 Trong ví dụ trên, cách giảm thiểu tối đa rủi ro là sử dụng  hàm `send()` thay vì hàm `call.value ()`. Điều này sẽ hạn chế bất kỳ mã bên ngoài nào được thực thi.
 
-Tuy nhiên, nếu bạn không thể tránh các lời gọi ngoài, thì cách đơn giản để ngăn chặn cuộc tấn công này là đảm bảo bạn không gọi thực hiện lời gọingoài trước khi các đoạn mã internal được thực hiện xong.
+Tuy nhiên, nếu bạn không thể tránh các lời gọi ngoài, thì cách đơn giản để ngăn chặn cuộc tấn công này là đảm bảo bạn không gọi thực hiện lời gọi ngoài trước khi các đoạn mã internal được thực hiện xong.
 
 ```javascript
 mapping (address => uint) private userBalances;
@@ -964,9 +964,9 @@ contract Auction {
 }
 ```
 
-Nếu kẻ tấn công sử dụng một hợp đồng thông minh với hàm fallback có chức năng revert mọi giao dịch đến, kẻ tấn công có thể giành chiến thắng trong bất kỳ cuộc đấu giá nào. Có nghĩa là hacker sẽ gửi số tiền cao hơn số tiền hiện tại vào hàm `bid()` và trở thành leader, sau đó hắn đảm bảo rằng khi ai đó gửi số tiền lớn hơn, thì khi xảy ra giao dịch hoàn lại tiền cho hacker, nó đều sẽ không thành công.. Bằng cách này, chúng có thể ngăn bất kỳ ai khác gọi hàm `bid()` và chúng sẽ là leader mãi mãi. Lời khuyên ở đây là chúng ta sẽ chia thành 2 hàm gửi tiền và rút tiền, người dùng khi không là leader nữa thì sẽ gọi hàm rút tiền để thu lại số tiền đã gửi vào hàm gửi tiền.
+Nếu kẻ tấn công sử dụng một hợp đồng thông minh với hàm fallback có chức năng revert mọi giao dịch đến, kẻ tấn công có thể giành chiến thắng trong bất kỳ cuộc đấu giá nào. Có nghĩa là hacker sẽ gửi số tiền cao hơn số tiền hiện tại vào hàm ```bid()``` và trở thành leader, sau đó hắn đảm bảo rằng khi ai đó gửi số tiền lớn hơn, thì khi xảy ra giao dịch hoàn lại tiền cho hacker, nó đều sẽ không thành công. Bằng cách này, chúng có thể ngăn bất kỳ ai khác gọi hàm ```bid()``` và chúng sẽ là leader mãi mãi. Lời khuyên ở đây là chúng ta sẽ chia thành 2 hàm gửi tiền và rút tiền, người dùng khi không là leader nữa thì sẽ gọi hàm rút tiền để thu lại số tiền đã gửi vào hàm gửi tiền.
 
-Một ví dụ khác là khi  hợp đồng sử dụng vòng lặp để duyệt qua mảng nhằm trả tiền cho các người dùng (ví dụ: những người ủng hộ trong hợp đồng gây quỹ cộng đồng). Điều thông thường là muốn đảm bảo rằng mỗi khoản thanh toán thành công. Nếu không, giao dịch sẽ bị revert. Vấn đề là nếu giao dịch thất bại, bạn đang revert toàn bộ hệ thống thanh toán, nghĩa là vòng lặp sẽ không bao giờ được hoàn thành. Không ai được trả tiền vì một địa chỉ giao dịch bị lỗi.
+Một ví dụ khác là khi hợp đồng sử dụng vòng lặp để duyệt qua mảng nhằm trả tiền cho các người dùng (ví dụ: những người ủng hộ trong hợp đồng gây quỹ cộng đồng). Điều thông thường là muốn đảm bảo rằng mỗi khoản thanh toán thành công. Nếu không, giao dịch sẽ bị revert. Vấn đề là nếu giao dịch thất bại, bạn đang revert toàn bộ hệ thống thanh toán, nghĩa là vòng lặp sẽ không bao giờ được hoàn thành. Không ai được trả tiền vì một địa chỉ giao dịch bị lỗi.
 
 ```javascript
 address[] private refundAddresses;
@@ -1088,7 +1088,7 @@ contract Vulnerable {
 
 Logic hợp đồng dường như không cho phép gửi ether vào hợp đồng. Tuy nhiên, một vài phương thức tồn tại để buộc hợp đồng nhận ether và làm cho số dư của nó lớn hơn 0.
 
-Phương thức `sefldestruct`  cho phép chỉ định tài khoản nhận ether và không có cách gì để ngăn cản điều đó. `sefldestruct` không kích hoạt fallback function của hợp đồng.
+Phương thức ```sefldestruct``` cho phép chỉ định tài khoản nhận ether và không có cách gì để ngăn cản điều đó. ```sefldestruct``` không kích hoạt fallback function của hợp đồng.
 
 ## Các vụ hack lịch sử
 
@@ -1415,7 +1415,7 @@ Một ví dụ về việc thực hiện cả hai khuyến nghị trên sẽ vi�
     }
 ```
 
-Modifier  được áp dụng cho các phương thức "transfer" và "transferFrom":
+Modifier được áp dụng cho các phương thức "transfer" và "transferFrom":
 
 ```javascript
  function transfer(address _to, uint _value)
@@ -1453,10 +1453,10 @@ Khi triển khai một hợp đồng, điều quan trọng là phải bao gồm 
 
 ## Nắm bắt được các vấn đề
 
-- Ước lượng rủi ro chính với hợp đồng
-- ví dụ: Bạn có thể mất tất cả tiền của mình, hacker có thể thực hiện một số hành đồng trái phép
-- Nắm được tất cả các lỗi/giới hạn
-- Các cuộc tấn công và giảm nhẹ thiệt hại
+* Ước lượng rủi ro chính với hợp đồng
+* Ví dụ: Bạn có thể mất tất cả tiền của mình, hacker có thể thực hiện một số hành đồng trái phép
+* Nắm được tất cả các lỗi/giới hạn
+* Các cuộc tấn công và giảm nhẹ thiệt hại
 
 ## Lịch sử
 
@@ -1603,20 +1603,20 @@ Và cuối cùng, chúng ta có the tham khảo các danh sách các bài viết
 
 # Các chương trình thưởng cho những người tìm ra lỗi
 
-Sau đây là các chương trình tiền thưởng cho lỗi đang diễn ra, tập trung vào việc tìm lỗi cuar các hợp đồng thông minh.
+Sau đây là các chương trình tiền thưởng cho lỗi đang diễn ra, tập trung vào việc tìm lỗi của các hợp đồng thông minh. 
 
-- [0xProject](https://0xproject.com/wiki#Bug-Bounty)
-- [Airswap](https://medium.com/fluidity/smart-contracts-and-bug-bounty-ad75733eb53f)
-- [Augur](https://www.augur.net/bounty/)
-- [Aragon](https://wiki.aragon.org/dev/bug_bounty/)
-- [BrickBlock](https://blog.brickblock.io/join-the-brickblock-bug-bounty-program-7b431f2bcc02)
-- [Colony.io](https://blog.colony.io/announcing-the-colony-network-bug-bounty-f44cabaca9a3/)
-- [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope)
-- [Etherscan.io](https://etherscan.io/bugbounty)
-- [Gitcoin Bounties](https://gitcoin.co/explorer)
-- [MelonPort](https://melonport.com/bug-bounty)
-- [Parity](https://www.parity.io/bug-bounty/)
-- [Raiden.network](https://raiden.network/bug-bounty.html)
+-   [0xProject](https://0xproject.com/wiki#Bug-Bounty)
+-   [Airswap](https://medium.com/fluidity/smart-contracts-and-bug-bounty-ad75733eb53f)
+-   [Augur](https://www.augur.net/bounty/)
+-   [Aragon](https://wiki.aragon.org/dev/bug_bounty/)
+-   [BrickBlock](https://blog.brickblock.io/join-the-brickblock-bug-bounty-program-7b431f2bcc02)
+-   [Colony.io](https://blog.colony.io/announcing-the-colony-network-bug-bounty-f44cabaca9a3/)
+-   [Ethereum Foundation](https://bounty.ethereum.org/#bounty-scope)
+-   [Etherscan.io](https://etherscan.io/bugbounty)
+-   [Gitcoin Bounties](https://gitcoin.co/explorer)
+-   [MelonPort](https://melonport.com/bug-bounty)
+-   [Parity](https://www.parity.io/bug-bounty/)
+-   [Raiden.network](https://raiden.network/bug-bounty.html)
 
 ## Reviewers
 
