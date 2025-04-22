@@ -1559,10 +1559,10 @@ Chúng tôi khuyên bạn nên thường xuyên đọc các nguồn này, vì c�
 
 Ngoài ra, đây là danh sách các nhà phát triển của Ethereum:
 
-- **Vitalik Buterin**:  [Twitter](https://twitter.com/vitalikbuterin),  [Github](https://github.com/vbuterin),  [Reddit](https://www.reddit.com/user/vbuterin),  [Ethereum Blog](https://blog.ethereum.org/author/vitalik-buterin/)
-- **Dr. Christian Reitwiessner**:  [Twitter](https://twitter.com/ethchris),  [Github](https://github.com/chriseth),  [Ethereum Blog](https://blog.ethereum.org/author/christian_r/)
-- **Dr. Gavin Wood**:  [Twitter](https://twitter.com/gavofyork),  [Blog](http://gavwood.com/),  [Github](https://github.com/gavofyork)
-- **Vlad Zamfir**:  [Twitter](https://twitter.com/vladzamfir),  [Github](https://github.com/vladzamfir),  [Ethereum Blog](https://blog.ethereum.org/author/vlad/)
+- **Vitalik Buterin**:  [Twitter](https://x.com/vitalikbuterin),  [Github](https://github.com/vbuterin),  [Reddit](https://www.reddit.com/user/vbuterin),  [Ethereum Blog](https://blog.ethereum.org/author/vitalik-buterin/)
+- **Dr. Christian Reitwiessner**:  [Twitter](https://x.com/ethchris),  [Github](https://github.com/chriseth),  [Ethereum Blog](https://blog.ethereum.org/author/christian_r/)
+- **Dr. Gavin Wood**:  [Twitter](https://x.com/gavofyork),  [Blog](http://gavwood.com/),  [Github](https://github.com/gavofyork)
+- **Vlad Zamfir**:  [Twitter](https://x.com/vladzamfir),  [Github](https://github.com/vladzamfir),  [Ethereum Blog](https://blog.ethereum.org/author/vlad/)
 
 Và cuối cùng, chúng ta có the tham khảo các danh sách các bài viết về bảo mật trong Ethereum được viết từ các nhà phát triển Ethereum đến những người khác trong cộng động.
 
