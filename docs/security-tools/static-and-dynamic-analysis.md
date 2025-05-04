@@ -31,3 +31,4 @@
   vulnerabilities.
 - [Vertigo](https://github.com/JoranHonig/vertigo) - Mutation Testing for Ethereum Smart Contracts.
 - [SolidityScan](https://solidityscan.com/) - Vulnerability Scanner for Solidity Smart Contracts with over 200+ exploit and CVEs, misconfigurations, and gas optimization modules.
+- [L3X](https://github.com/VulnPlanet/l3x) - AI-driven Static Analyzer supports Solidity and Rust.
