@@ -25,7 +25,7 @@ Các message gọi đến những hợp đồng không đáng tin cậy có th�
 
 #### Đánh dấu các hợp đồng không đáng tin cậy
 
-Khi tương tác với các lời gọi ngoài, tên các biến, phương thức và các interface nên được đặt sao cho nó thể hiện được việc tương tác với các lời gọi từ bên ngoài có an toàn hay là không ? Điều này áp dụng cho các hàm mà nó có thể được gọi từ các hợp đồng bên ngoài.
+Khi tương tác với các lời gọi ngoài, tên các biến, phương thức và các interface nên được đặt sao cho nó thể hiện được việc tương tác với các lời gọi từ bên ngoài có an toàn hay là không? Điều này áp dụng cho các hàm mà nó có thể được gọi từ các hợp đồng bên ngoài.
 
 ```javascript
 // bad
@@ -56,7 +56,7 @@ Khi thực hiện một giao dịch từ hợp đồng thông minh, cần phân 
 
 - `someAddress.send()` và `someAddress.transfer()` được coi là an toàn để chống lại reentrancy. Chúng giới hạn 2.300 gas, chỉ đủ để ghi lại một sự kiện thay vì chạy một đoạn mã khai thác.
 
-- x.transfer(y) tương đương với lệnh x.send (y), nó sẽ tự động revert nếu giao dịch thất bại.
+- x.transfer(y) tương đương với lệnh x.send(y), nó sẽ tự động revert nếu giao dịch thất bại.
 
 - Khác với `someAddress.send()` và `someAddress.transfer()`, `someAddress.call.value(y) `không giới hạn gas cho lời gọi và do đó hacker có thể thực thi lời gọi đến một đoạn mã độc nhằm mục đích xấu. Do đó, nó không an toàn để chống lại reentrancy.
 
@@ -785,7 +785,7 @@ function getFirstWithdrawalBonus(address recipient) public {
 }
 ```
 
-Mặc dù hàm `getFirstWithdrawalBonus()` không gọi thực hiện lời gọi ngoài, nhưng đoạn mã `withdrawReward(recipient)` gọi đến hàm `withdrawReward()` đã tạo ra lỗ hổng mà kẻ xấu có thể khai thác. Do đó, phải xem lời gọi đến hàm `withdrawReward()` trong hàm `getFirtWithdrawBonus()` là không đáng tin cậy và nên để nó được thực thi ở sau cùng trong hàm `getFirtWithdrawBonus()`.
+Mặc dù hàm `getFirstWithdrawalBonus()` không gọi thực hiện lời gọi ngoài, nhưng đoạn mã `withdrawReward(recipient)` gọi đến hàm `withdrawReward()` đã tạo ra lỗ hổng mà kẻ xấu có thể khai thác. Do đó, phải xem lời gọi đến hàm `withdrawReward()` trong hàm `getFirstWithdrawBonus()` là không đáng tin cậy và nên để nó được thực thi ở sau cùng trong hàm `getFirstWithdrawBonus()`.
 
 ```javascript
 mapping (address => uint) private userBalances;
@@ -941,7 +941,7 @@ Nhìn vào đoạn mã trên, thật khó để có thể gây tràn số dướ
 
 - Gọi `popBonusCode` để underflow (Lưu ý: phương thức `Array.pop()` đã được thêm vào trong phiên bản Solidity 0.5.0)
 - Tính toán vị trí lưu trữ của biến  `manipulateMe`
-- Sửa đổi và cập nhật giá trị của mảng bằng cách sử dụng `notifyBonusCode`
+- Sửa đổi và cập nhật giá trị của mảng bằng cách sử dụng `modifyBonusCode`
 
 ### Tấn công từ chối dịch vụ với revert
 
@@ -1055,7 +1055,7 @@ Nếu chỉ được cung cấp đủ lượng gas, Relayer sẽ hoàn thành vi
 
 Kẻ tấn công có thể sử dụng điều này để kiểm duyệt các giao dịch, khiến chúng thất bại bằng cách gửi chúng đi với một lượng gas thấp. Cuộc tấn công này không trực tiếp mang lại lợi ích cho kẻ tấn công, nhưng gây ra thiệt hại cho nạn nhân. Kẻ tấn công, sẵn sàng tiêu tốn một lượng khí nhỏ về mặt lý thuyết có thể kiểm duyệt tất cả các giao dịch theo cách này, nếu chúng là người đầu tiên gửi chúng cho Relayer.
 
-Một cách để giải quyết vấn đề này là triển khai logic mã nguồn yêu cầu các hợp đồng cung cấp đủ gas để hoàn thành subcall. Nếu một thợ đào đã cố gắng tiến hành cuộc tấn công theo kịch bản này, câu lệnh `require` sẽ thất bại và giao dịch sẽ bị revert. Người dùng có thể chỉ định gasLimit tối thiểu cùng với dữ liệu khác (trong ví dụ này, thông thường, giá trị \_gasLimit sẽ được xác minh bằng chữ ký, nhưng điều đó được khuyến nghị vì đơn giản trong trường hợp này).
+Một cách để giải quyết vấn đề này là triển khai logic mã nguồn yêu cầu các hợp đồng cung cấp đủ gas để hoàn thành subcall. Nếu một thợ đào đã cố gắng tiến hành cuộc tấn công theo kịch bản này, câu lệnh `require` sẽ thất bại và giao dịch sẽ bị revert. Người dùng có thể chỉ định gasLimit tối thiểu cùng với dữ liệu khác (trong ví dụ này, thông thường, giá trị _gasLimit sẽ được xác minh bằng chữ ký, nhưng điều đó được khuyến nghị vì đơn giản trong trường hợp này).
 
 ```javascript
 // contract called by Relayer
