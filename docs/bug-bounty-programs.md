@@ -33,6 +33,8 @@ Bounty collaboration platforms:
 In response to the high demand and low supply for professional smart contract security review firms, a few crowd sourced solutions have emerged to solve the issue. They all employ a bug bounty-esque model hence inclusion on this list. They call them "audit contests" with freelance security researchers scrambling to find and report vulnerabilities within a set time period i.e two weeks with payouts only being issued for successful findings. Examples are listed below:
 
 - [Code4rena](https://code4rena.com/)
+- [Sherlock](https://www.sherlock.xyz/)
+- [CodeHawks](https://www.codehawks.com/)
 
 ### Project Managed Bounties
 
