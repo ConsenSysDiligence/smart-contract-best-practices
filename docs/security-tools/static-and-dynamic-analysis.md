@@ -30,4 +30,4 @@
 - [sFuzz](https://sfuzz.github.io/) - Efficient fuzzer inspired from AFL to find common
   vulnerabilities.
 - [Vertigo](https://github.com/JoranHonig/vertigo) - Mutation Testing for Ethereum Smart Contracts.
-- [SolidityScan](https://solidityscan.com/) - Vulnerability Scanner for Solidity Smart Contracts with over 200+ exploit and CVEs, misconfigurations, and gas optimization modules.
+- [SolidityScan](https://solidityscan.com/) - Vulnerability Scanner for Solidity Smart Contracts with over 200+ exploits and CVEs, misconfigurations, and gas optimization modules.

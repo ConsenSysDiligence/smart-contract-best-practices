@@ -19,7 +19,7 @@ contract Auction {
 }
 ```
 
-If attacker bids using a smart contract which has a fallback function that reverts any payment, the
+If the attacker bids using a smart contract which has a fallback function that reverts any payment, the
 attacker can win any auction. When it tries to refund the old leader, it reverts if the refund
 fails. This means that a malicious bidder can become the leader while making sure that any refunds
 to their address will *always* fail. In this way, they can prevent anyone else from calling the
