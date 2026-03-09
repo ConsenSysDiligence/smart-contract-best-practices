@@ -8,8 +8,9 @@
 
 Visit the documentation site: https://consensysdiligence.github.io/smart-contract-best-practices/
 
-Read the docs in Chinese: https://github.com/ConsenSysDiligence/smart-contract-best-practices/blob/master/README-zh.md
-Read the docs in Vietnamese: https://github.com/ConsenSysDiligence/smart-contract-best-practices/blob/master/README-vi.md
+Read the docs in Chinese: https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-zh.md
+Read the docs in Vietnamese: https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-vi.md
+Read the docs in Turkish: https://github.com/ConsenSys/smart-contract-best-practices/blob/master/README-tr.md
 
 ## Contributions are welcome!
 
