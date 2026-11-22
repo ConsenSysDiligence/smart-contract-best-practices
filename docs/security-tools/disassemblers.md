@@ -14,3 +14,4 @@ As above but translated into more readable Solidity-like code.
 - [JEB Ethereum Smart Contract Decompiler](https://www.pnfsoftware.com/blog/ethereum-smart-contract-decompiler/) - JEB decompiler plugin for Ethereum Smart Contracts
 - [Online Solidity Decompiler](https://ethervm.io/decompile) - Online tool that decompiles Ethereum contract bytecode into more readable Solidity-like code, allowing for better understanding of opaque/unverified contracts.
 - [Dedaub Decompiler](https://library.dedaub.com/decompile) - EVM bytecode decompiler and disassembler hybrid with 3 address code view deployed on a website.
+- [EVMole Decompiler](https://evmole.com/) - Online EVM bytecode decompiler that tests its output with differential fuzzing. Built on the open-source [EVMole](https://github.com/cdump/evmole) library.
